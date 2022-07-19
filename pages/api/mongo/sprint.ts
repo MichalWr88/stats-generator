@@ -19,13 +19,16 @@ router.get(async (req, res: NextApiResponse<ResponsSprint[]>) => {
     });
 });
 router.put(async (req, res: NextApiResponse<Sprint>) => {
-  const body = JSON.parse(req.body);
+  console.log(req.body);
+  const body = typeof req.body === "string" ? JSON.parse(req.body) : req.body;
   await mongoSprint
     .addOne(body)
     .then((resp) => {
+      console.log(resp);
       res.status(200).json(resp);
     })
     .catch((err) => {
+      console.log(err);
       res.status(500).json(err);
     });
 });
