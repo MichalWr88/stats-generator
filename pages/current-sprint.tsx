@@ -3,7 +3,7 @@ import React from "react";
 
 type Props = {};
 
-const currentSprintPage = () => {
+const CurrentSprintPage = () => {
   return (
     <>
       <SprintForm />
@@ -53,4 +53,4 @@ const currentSprintPage = () => {
   );
 };
 
-export default currentSprintPage;
+export default CurrentSprintPage;
