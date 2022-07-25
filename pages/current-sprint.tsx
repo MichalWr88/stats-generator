@@ -1,11 +1,12 @@
 import SprintForm from "@/components/SprintForm";
+import WithNavBar from "layouts/WithNavBar";
 import React from "react";
 
 type Props = {};
 
 const CurrentSprintPage = () => {
   return (
-    <>
+    <WithNavBar>
       <SprintForm />
       <div className="grid grid-cols-10 p-6  gap-4 items-end justify-center grid-rows-10">
         <div className=" relative  col-start-1 row-span-1">
@@ -40,7 +41,7 @@ const CurrentSprintPage = () => {
           </label>
         </div>
       </div>
-    </>
+    </WithNavBar>
   );
 };
 

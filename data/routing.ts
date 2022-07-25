@@ -2,12 +2,14 @@ import { IconType } from "react-icons/lib";
 import { ImHome } from "react-icons/im";
 import { AiOutlineAreaChart } from "react-icons/ai";
 import { HiOutlinePresentationChartBar } from "react-icons/hi";
-import { MdOutlineBackupTable } from "react-icons/md";
+import { MdOutlineBackupTable,MdLibraryAdd } from "react-icons/md";
 import { GoSettings } from "react-icons/go";
 
+import { NavLinkData } from "@/models/Routing";
 
 
-export const navBarData: Array<NavLink> = [
+
+export const navBarData: Array<NavLinkData> = [
   {
     label: "Główna",
     id: 1,
@@ -33,8 +35,14 @@ export const navBarData: Array<NavLink> = [
     icon: MdOutlineBackupTable,
   },
   {
-    label: "config",
+    label: "dodaj sprint",
     id: 5,
+    path: "/current-sprint",
+    icon: MdLibraryAdd,
+  },
+  {
+    label: "config",
+    id: 6,
     path: "/works",
     icon: GoSettings,
   },

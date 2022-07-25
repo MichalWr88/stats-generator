@@ -8,7 +8,7 @@ type Props = {
 
 const WithNavBar = ({ children }: Props) => {
   return (
-    <div className="flex flex-col  max-h-screen min-w-full justify-center items-center">
+    <div className="flex flex-col  min-h-screen min-w-full  items-center">
       <NavBar />
       <main className="bg-gray-300 container mx-auto flex-grow flex flex-col">
         {children}
@@ -19,4 +19,3 @@ const WithNavBar = ({ children }: Props) => {
 };
 
 export default WithNavBar;
-
