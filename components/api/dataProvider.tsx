@@ -1,15 +1,10 @@
 import { Sprint } from "@/models/Sprint";
 import axios, { AxiosError, AxiosRequestConfig } from "axios";
 
-const instance = axios.create({
-  baseURL: "./",
-  timeout: 1000,
-  //   headers: { "X-Custom-Header": "foobar" },
-});
 
 const config: AxiosRequestConfig = {
   baseURL: "./",
-  timeout: 1000,
+  timeout: 60000,
   //   headers: { "X-Custom-Header": "foobar" },
 };
 const axiosInstance = axios.create(config);
