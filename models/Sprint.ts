@@ -28,6 +28,11 @@ export interface Sprint {
   request: RequestStatSprint;
   bug: BugStatSprint;
 }
+export interface SprintWithStats extends Sprint {
+  speedThree: string;
+  predictability: string;
+  predictabilityThree: string;
+}
 
 export interface ResponsSprint extends Sprint, ResponsMongo {}
 
