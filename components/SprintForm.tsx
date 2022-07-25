@@ -32,6 +32,7 @@ const SprintForm = (props: Props) => {
           name={"delivered"}
           className={"col-span-2"}
           type="number"
+          
         />
         <InputField
           label={"start sprintu"}

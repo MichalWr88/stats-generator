@@ -16,6 +16,7 @@ const InputField = ({ label, type = "text", name, className }: Props) => {
         {label}
         <input
           {...register(name)}
+          step=".01"
           type={type}
           className="rounded-lg
           border-transparent
