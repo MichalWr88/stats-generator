@@ -2,6 +2,7 @@ import { getAllSprints } from "@/components/api/dataProvider";
 import ChartSprintCircle from "@/components/ChartSprintCircle";
 import ChartSprintsBar from "@/components/ChartSprintsBar";
 import { Sprint, SprintWithStats } from "@/models/Sprint";
+import WithNavBar from "layouts/WithNavBar";
 import React, { useMemo, useEffect, useState, useDebugValue } from "react";
 import { useTable } from "react-table";
 import sprint from "./api/mongo/sprint";
@@ -158,7 +159,7 @@ const SprintListPage = () => {
     tableInstance;
   return (
     // apply the table props
-    <>
+    <WithNavBar>
       <table
         {...getTableProps()}
         className="m-2 border-emerald-500 border-2 table-auto"
@@ -253,8 +254,8 @@ const SprintListPage = () => {
           </div>
         </div>
       )}
-      <ChartSprintsBar sprints={data}/>
-    </>
+      <ChartSprintsBar sprints={data} />
+    </WithNavBar>
   );
 };
 
