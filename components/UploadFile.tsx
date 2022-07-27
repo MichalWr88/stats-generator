@@ -1,4 +1,5 @@
-import { Issue } from "@/models/Sprint";
+import { EpicGroup, Issue } from "@/models/Sprint";
+import { Group } from "next/dist/shared/lib/router/utils/route-regex";
 import { useRef } from "react";
 
 interface Props {
@@ -10,7 +11,11 @@ enum ReaderType {
   TEXT = "text",
 }
 type AcceptType = ".txt" | ".csv" | ".xls" | ".xlsx" | ".html";
-
+interface ConfigMapperGroup {
+  name: EpicGroup;
+  epics: Array<string>;
+  texts: Array<string>;
+}
 const accept: Array<AcceptType> = [".txt", ".csv", ".xls", ".xlsx", ".html"];
 const readerType: ReaderType = ReaderType.BUFFER;
 
@@ -77,7 +82,7 @@ const parseHTML = (csv: string): Array<Issue> => {
       Username: "",
       WorkDescription: "",
       ParentKey: "",
-      Typeofwork: "",
+      Typeofwork: null,
       EpicGroup: null,
     };
     header.forEach((h, i) => {
@@ -107,10 +112,55 @@ const imoMappedIssue = (obj: Issue): Issue => {
   }
   return mappedIssue;
 };
+class Mapper {
+  constructor(public issue: Issue) {
+    this.issue = issue;
+  }
+
+  public imoMappedIssue(): Mapper {
+    const ORGTasks = ["CSS-1812", "CSS-1811"];
+    if (ORGTasks.includes(this.issue.IssueKey)) {
+      this.issue.Typeofwork = "Organization";
+    }
+    if (this.issue.IssueType === "Bug") {
+      this.issue.Typeofwork = "Bugs";
+    }
+    return this;
+  }
+  public groupEpicMappedIssue(): Mapper {
+    const configArr: Array<ConfigMapperGroup> = [
+      {
+        name: "CIC",
+        epics: ["CSS-1169"],
+        texts: ["cic", "ssi"],
+      },
+      {
+        name: "NLW",
+        epics: ["CSS-3371"],
+        texts: ["NLW"],
+      },
+    ];
+    configArr.forEach((config) => {
+      if (
+        [...config.texts, ...config.epics].some(
+          (text) =>
+            this.issue.Issuesummary.toLocaleLowerCase().includes(text.toLocaleLowerCase()) ||
+            this.issue.EpicLink.toLocaleLowerCase().includes(text.toLocaleLowerCase()) ||
+            this.issue.WorkDescription.toLocaleLowerCase().includes(text.toLocaleLowerCase())
+        )
+      ) {
+        this.issue.EpicGroup = config.name;
+      }
+    });
+
+    return this;
+  }
+}
 
 const mappedValidateIsuue = (obj: Issue): Issue => {
   const mappedIssue = { ...obj };
-  return imoMappedIssue(mappedIssue);
+  const mapper = new Mapper(mappedIssue);
+  return mapper.imoMappedIssue().groupEpicMappedIssue().issue;
 };
 
 const checkIsCorrectHeader = (header: keyof Issue) => {

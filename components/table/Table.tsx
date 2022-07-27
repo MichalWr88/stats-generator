@@ -68,14 +68,16 @@ const Table = <T,>({ data, selectSprint, columns }: Props<T>) => {
                     ? "bg-green-600"
                     : ""
                 }
+                ${row.original.Typeofwork === "Bugs" ? "bg-red-600" : ""}
                 ${
-                  row.original.Typeofwork === "Bugs"
-                    ? "bg-red-600"
+                  row.original.Typeofwork === "Maintenance"
+                    ? "bg-orange-400"
                     : ""
                 }
+                ${row.original.Typeofwork === "Innovation" ? "bg-blue-400" : ""}
                 
                 hover:bg-slate-400 transition-colors cursor-pointer`}
-                onClick={() => selectSprint(row.original)}
+                onClick={() => selectSprint && selectSprint(row.original)}
               >
                 {
                   // Loop over the rows cells

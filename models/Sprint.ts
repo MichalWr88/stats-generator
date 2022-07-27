@@ -26,7 +26,7 @@ export interface Issue {
   Username: string;
   WorkDescription: string;
   ParentKey: string;
-  Typeofwork: TypeofworkList;
+  Typeofwork: TypeofworkList | null;
   EpicGroup: EpicGroup | null;
 }
 export interface BugStatSprint {

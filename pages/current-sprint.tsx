@@ -19,6 +19,12 @@ const CurrentSprintPage = () => {
         // className: "p-2 flex bg-gray-900 text-white w-200",
       },
       {
+        Header: "EpicGroup",
+        accessor: "EpicGroup",
+
+        // className: "p-2 flex bg-gray-900 text-white w-200",
+      },
+      {
         Header: "Typeofwork",
         accessor: "Typeofwork",
 
