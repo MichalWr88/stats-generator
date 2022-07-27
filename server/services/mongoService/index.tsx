@@ -19,7 +19,7 @@ export const initConnectMongo = (): Promise<boolean> => {
         pass: process.env.MONGO_PASSWORD,
       };
       connect(
-        `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_CLUSTER}/homepage?retryWrites=true&w=majority`,
+        `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_CLUSTER}/trans?retryWrites=true&w=majority`,
         mongodbOptions
       );
       connection.once("open", () => {
@@ -32,7 +32,7 @@ export const initConnectMongo = (): Promise<boolean> => {
         if (!checkMongoConnected()) {
           console.log(`❌ Error on DB Connection:${error.message}`);
           // connect(
-          //   `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_CLUSTER}/homepage?retryWrites=true&w=majority`,
+          //   `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_CLUSTER}/trans?retryWrites=true&w=majority`,
           //   mongodbOptions
           // );
         }
