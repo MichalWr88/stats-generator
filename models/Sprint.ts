@@ -1,6 +1,34 @@
 import { Model, Schema } from "mongoose";
 import { ResponsMongo } from "./Mongo";
 
+export type TypeofworkList =
+  | "Organization"
+  | "Innovation"
+  | "Bugs"
+  | "Maintenance";
+export type EpicGroup =
+  | "NLW"
+  | "CIC"
+  | "CBL"
+  | "RCP"
+  | "COC"
+  | "API Facade"
+  | "Company Monitor"
+  | "CRM"
+  | "Sherlock"
+  | "Company Verification";
+export interface Issue {
+  IssueKey: string;
+  Issuesummary: string;
+  Hours: string;
+  IssueType: string;
+  EpicLink: string;
+  Username: string;
+  WorkDescription: string;
+  ParentKey: string;
+  Typeofwork: TypeofworkList;
+  EpicGroup: EpicGroup | null;
+}
 export interface BugStatSprint {
   closed: number;
   review: number;
