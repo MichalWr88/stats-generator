@@ -55,6 +55,7 @@ export interface Sprint {
   delivered: number;
   request: RequestStatSprint;
   bug: BugStatSprint;
+  issues: Array<Issue>;
 }
 export interface SprintWithStats extends Sprint {
   speedThree: string;
@@ -70,6 +71,38 @@ export interface SprintCollection {
   name: typeof SprintCollectName;
   model: Sprint;
 }
+export const IssueStatScheme = new Schema<Issue, Model<Issue>>({
+  IssueKey: {
+    type: String,
+  },
+  Issuesummary: {
+    type: String,
+  },
+  Hours: {
+    type: String,
+  },
+  IssueType: {
+    type: String,
+  },
+  EpicLink: {
+    type: String,
+  },
+  Username: {
+    type: String,
+  },
+  WorkDescription: {
+    type: String,
+  },
+  ParentKey: {
+    type: String,
+  },
+  Typeofwork: {
+    type: String,
+  },
+  EpicGroup: {
+    type: String,
+  },
+});
 export const BugStatScheme = new Schema<BugStatSprint, Model<BugStatSprint>>({
   closed: {
     type: Number,
@@ -142,6 +175,9 @@ export const SprintScheme = new Schema<Sprint>(
     },
     bug: {
       type: BugStatScheme,
+    },
+    issues: {
+      type: [IssueStatScheme],
     },
   },
   {

@@ -16,7 +16,7 @@ interface ConfigMapperGroup {
   epics: Array<string>;
   texts: Array<string>;
 }
-const accept: Array<AcceptType> = [".txt", ".csv", ".xls", ".xlsx", ".html"];
+const accept: Array<AcceptType> = [".html"];
 const readerType: ReaderType = ReaderType.BUFFER;
 
 const parseCsv = (csv: string): Array<Issue> => {
