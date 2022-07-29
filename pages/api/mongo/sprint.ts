@@ -1,10 +1,11 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 // import { initConnectMongo, mongoUser } from "@/server/services/mongooseService";
 import { checkMongoConnected } from "@/helpers/mongoHelpers";
-import { ResponsSprint, Sprint } from "@/models/Sprint";
+import { ResponsSprint, Sprint, sprintSchemaAdd } from "@/models/Sprint";
 import { initConnectMongo, mongoSprint } from "@/server/services/mongoService";
 import type { NextApiRequest, NextApiResponse } from "next";
-import { createRouter } from "next-connect";
+import connect, { createRouter } from "next-connect";
+import { withValidation } from "next-validations";
 
 const router = createRouter<NextApiRequest, NextApiResponse>();
 
@@ -18,9 +19,13 @@ router.get(async (req, res: NextApiResponse<ResponsSprint[]>) => {
       res.status(500).json(err);
     });
 });
-router.put(async (req, res: NextApiResponse<Sprint>) => {
-  console.log(req.body);
+router.put(async (req, res: NextApiResponse<unknown>) => {
+  await sprintSchemaAdd.validate(req.body);
+
   const body = typeof req.body === "string" ? JSON.parse(req.body) : req.body;
+
+  res.status(200).json({ resp: "ok" });
+
   await mongoSprint
     .addOne(body)
     .then((resp) => {

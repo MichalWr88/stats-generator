@@ -1,9 +1,10 @@
+import { SprintScheme } from "@/models/mongo/SprintSchema";
 import {
   ResponsSprint,
   Sprint,
   SprintCollection,
   SprintCollectName,
-  SprintScheme,
+
 } from "@/models/Sprint";
 import Mongodb from "./mongoClass";
 class MonogSprint extends Mongodb<SprintCollection> {

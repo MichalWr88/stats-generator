@@ -1,5 +1,54 @@
-import { Model, Schema } from "mongoose";
+
 import { ResponsMongo } from "./Mongo";
+import * as yup from "yup";
+
+export const RequestSchemaAdd: yup.ObjectSchema<RequestStatSprint> = yup
+  .object()
+  .shape({
+    new: yup.number().min(0).required(),
+    review: yup.number().min(0).required(),
+    inProgress: yup.number().min(0).required(),
+    inTesting: yup.number().min(0).required(),
+    rfd: yup.number().min(0).required(),
+    done: yup.number().min(0).required(),
+  });
+export const BugSchemaAdd: yup.ObjectSchema<BugStatSprint> = yup
+  .object()
+  .shape({
+    closed: yup.number().min(0).required(),
+    review: yup.number().min(0).required(),
+    accepted: yup.number().min(0).required(),
+    inProgress: yup.number().min(0).required(),
+    inTesting: yup.number().min(0).required(),
+    rfd: yup.number().min(0).required(),
+    onHold: yup.number().min(0).required(),
+  });
+
+export const IssueSchemaAdd: yup.ObjectSchema<Issue> = yup.object().shape({
+  IssueKey: yup.string().required(),
+  Issuesummary: yup.string().required(),
+  Hours: yup.string().required(),
+  IssueType: yup.string().required(),
+  EpicLink: yup.string().required(),
+  Username: yup.string().required(),
+  WorkDescription: yup.string().required(),
+  ParentKey: yup.string().required(),
+  Typeofwork: yup.string<TypeofworkList>().required().default(null),
+  EpicGroup: yup.string<EpicGroup>().required().default(null),
+});
+
+export const sprintSchemaAdd: yup.ObjectSchema<Sprint> = yup.object().shape({
+  nr: yup.number().min(0).defined().required(),
+  start: yup.date().required(),
+  end: yup.date().required(),
+  plan: yup.number().min(1).required(),
+  delivered: yup.number().min(0).required(),
+  request: RequestSchemaAdd.required(),
+  bug: BugSchemaAdd.required(),
+  issues: yup.array(IssueSchemaAdd).required(),
+});
+
+// type SprintForm = yup.InferType<typeof IssueSchemaAdd>;
 
 export type TypeofworkList =
   | "Organization"
@@ -71,117 +120,3 @@ export interface SprintCollection {
   name: typeof SprintCollectName;
   model: Sprint;
 }
-export const IssueStatScheme = new Schema<Issue, Model<Issue>>({
-  IssueKey: {
-    type: String,
-  },
-  Issuesummary: {
-    type: String,
-  },
-  Hours: {
-    type: String,
-  },
-  IssueType: {
-    type: String,
-  },
-  EpicLink: {
-    type: String,
-  },
-  Username: {
-    type: String,
-  },
-  WorkDescription: {
-    type: String,
-  },
-  ParentKey: {
-    type: String,
-  },
-  Typeofwork: {
-    type: String,
-  },
-  EpicGroup: {
-    type: String,
-  },
-});
-export const BugStatScheme = new Schema<BugStatSprint, Model<BugStatSprint>>({
-  closed: {
-    type: Number,
-  },
-  review: {
-    type: Number,
-  },
-  accepted: {
-    type: Number,
-  },
-  inProgress: {
-    type: Number,
-  },
-  inTesting: {
-    type: Number,
-  },
-  rfd: {
-    type: Number,
-  },
-  onHold: {
-    type: Number,
-  },
-});
-export const RequestStatScheme = new Schema<
-  RequestStatSprint,
-  Model<RequestStatSprint>
->({
-  new: {
-    type: Number,
-  },
-  review: {
-    type: Number,
-  },
-  inProgress: {
-    type: Number,
-  },
-  inTesting: {
-    type: Number,
-  },
-  rfd: {
-    type: Number,
-  },
-  done: {
-    type: Number,
-  },
-});
-
-export const SprintScheme = new Schema<Sprint>(
-  {
-    nr: {
-      type: Number,
-      unique: true,
-    },
-    start: {
-      type: Date,
-      unique: true,
-    },
-    end: {
-      type: Date,
-      unique: true,
-    },
-    plan: {
-      type: Number,
-    },
-    delivered: {
-      type: Number,
-    },
-    request: {
-      type: RequestStatScheme,
-    },
-    bug: {
-      type: BugStatScheme,
-    },
-    issues: {
-      type: [IssueStatScheme],
-    },
-  },
-  {
-    versionKey: false,
-    timestamps: true,
-  }
-);

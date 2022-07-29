@@ -15,12 +15,14 @@
     "mongoose": "^6.4.4",
     "next": "12.2.2",
     "next-connect": "1.0.0-next.2",
+    "next-validations": "^0.2.1",
     "react": "18.2.0",
     "react-chartjs-2": "^4.3.1",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.33.1",
     "react-icons": "^4.4.0",
-    "react-table": "^7.8.0"
+    "react-table": "^7.8.0",
+    "yup": "^1.0.0-beta.4"
   },
   "devDependencies": {
     "@types/node": "18.0.5",
