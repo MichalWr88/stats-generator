@@ -3,9 +3,13 @@ import type { AppProps } from "next/app";
 
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "@/components/api/queryClient";
+import Loader from "@/components/Loader";
+import Toast from "@/components/Toast";
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
+      <Toast/>
+      <Loader />
       <Component {...pageProps} />
     </QueryClientProvider>
   );
