@@ -25,7 +25,7 @@ export const navBarData: Array<NavLinkData> = [
   {
     label: "Najnowszy sprint",
     id: 3,
-    path: "/latest-sprint",
+    path: "/current-sprint",
     icon: HiOutlinePresentationChartBar,
   },
   {
@@ -37,7 +37,7 @@ export const navBarData: Array<NavLinkData> = [
   {
     label: "dodaj sprint",
     id: 5,
-    path: "/current-sprint",
+    path: "/add-sprint",
     icon: MdLibraryAdd,
   },
   {
