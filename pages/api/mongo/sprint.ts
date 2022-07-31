@@ -1,11 +1,10 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-// import { initConnectMongo, mongoUser } from "@/server/services/mongooseService";
-import { checkMongoConnected } from "@/helpers/mongoHelpers";
-import { ResponsSprint, Sprint, sprintSchemaAdd } from "@/models/Sprint";
-import { initConnectMongo, mongoSprint } from "@/server/services/mongoService";
+
+import { ResponsSprint, sprintSchemaAdd } from "@/models/Sprint";
+import { mongoSprint } from "@/server/services/mongoService";
 import type { NextApiRequest, NextApiResponse } from "next";
-import connect, { createRouter } from "next-connect";
-import { withValidation } from "next-validations";
+import { createRouter } from "next-connect";
+import { ValidationError } from "yup";
 
 const router = createRouter<NextApiRequest, NextApiResponse>();
 
@@ -20,22 +19,24 @@ router.get(async (req, res: NextApiResponse<ResponsSprint[]>) => {
     });
 });
 router.put(async (req, res: NextApiResponse<unknown>) => {
-  await sprintSchemaAdd.validate(req.body);
+  try {
+    await sprintSchemaAdd.validate(req.body);
 
-  const body = typeof req.body === "string" ? JSON.parse(req.body) : req.body;
+    const body = typeof req.body === "string" ? JSON.parse(req.body) : req.body;
 
-  res.status(200).json({ resp: "ok" });
+   
 
-  await mongoSprint
-    .addOne(body)
-    .then((resp) => {
+    await mongoSprint.addOne(body).then((resp) => {
       console.log(resp);
       res.status(200).json(resp);
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json(err);
     });
+  } catch (error) {
+    if (error instanceof ValidationError) {
+      res.status(400).json(error.errors.join("\n"));
+    } else {
+      res.status(500).json(error);
+    }
+  }
 });
 
 router.all((req, res) => {

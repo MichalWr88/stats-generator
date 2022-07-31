@@ -8,7 +8,7 @@ import React, { useState } from "react";
 
 
 
-const CurrentSprintPage = () => {
+const AddSprintPage = () => {
   const [data, setData] = useState<Array<Issue>>([]);
   const columns = React.useMemo(
     () => [
@@ -76,4 +76,4 @@ const CurrentSprintPage = () => {
   );
 };
 
-export default CurrentSprintPage;
+export default AddSprintPage;

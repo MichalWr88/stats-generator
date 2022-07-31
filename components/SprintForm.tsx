@@ -1,43 +1,38 @@
-import { Sprint } from "@/models/Sprint";
+import { Issue, Sprint } from "@/models/Sprint";
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { sendSprintData } from "./api/dataProvider";
 import useSendSprint from "./api/hooks/useSendSprint";
 import ReactFormProvider from "./FormProvider";
 import InputField from "./InputField";
-type Props = {};
+type Props = {
+  issues?: Array<Issue>;
+};
 
-const SprintForm = (props: Props) => {
+const SprintForm = ({ issues = [] }: Props) => {
   const addSprint = useSendSprint();
 
   const onSubmit = (data: Sprint) => {
     console.log(data);
-    addSprint(data);
-    // sendSprintData(data)
-    //   .then((resp) => {
-    //     console.log(resp);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
+    addSprint({ ...data, issues });
   };
   return (
     <ReactFormProvider<Sprint> onSubmit={onSubmit}>
       <div className="grid grid-cols-10 p-6  gap-4 items-end justify-center grid-rows-10 border-b-2  border-cyan-600">
-
-       
         <InputField label={"Numer sprintu"} name={"nr"} type="number" />
         <InputField
           label={"Zaplanowane"}
           name={"plan"}
           className={"col-span-2"}
           type="number"
+          step=".5"
         />
         <InputField
           label={"Dowiezione"}
           name={"delivered"}
           className={"col-span-2"}
           type="number"
+          step=".5"
         />
         <InputField
           label={"start sprintu"}

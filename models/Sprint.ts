@@ -1,4 +1,3 @@
-
 import { ResponsMongo } from "./Mongo";
 import * as yup from "yup";
 
@@ -29,12 +28,12 @@ export const IssueSchemaAdd: yup.ObjectSchema<Issue> = yup.object().shape({
   Issuesummary: yup.string().required(),
   Hours: yup.string().required(),
   IssueType: yup.string().required(),
-  EpicLink: yup.string().required(),
+  EpicLink: yup.string().nullable(),
   Username: yup.string().required(),
   WorkDescription: yup.string().required(),
-  ParentKey: yup.string().required(),
+  ParentKey: yup.string().nullable(),
   Typeofwork: yup.string<TypeofworkList>().required().default(null),
-  EpicGroup: yup.string<EpicGroup>().required().default(null),
+  EpicGroup: yup.string<EpicGroup>().nullable(),
 });
 
 export const sprintSchemaAdd: yup.ObjectSchema<Sprint> = yup.object().shape({
@@ -45,7 +44,13 @@ export const sprintSchemaAdd: yup.ObjectSchema<Sprint> = yup.object().shape({
   delivered: yup.number().min(0).required(),
   request: RequestSchemaAdd.required(),
   bug: BugSchemaAdd.required(),
-  issues: yup.array(IssueSchemaAdd).required(),
+  issues: yup
+    .array(IssueSchemaAdd)
+    .test({
+      message: "issues don't be empty",
+      test: (arr) => arr?.length !== 0,
+    }).defined()
+    .required(),
 });
 
 // type SprintForm = yup.InferType<typeof IssueSchemaAdd>;
@@ -71,12 +76,12 @@ export interface Issue {
   Issuesummary: string;
   Hours: string;
   IssueType: string;
-  EpicLink: string;
+  EpicLink: string | null |undefined;
   Username: string;
   WorkDescription: string;
-  ParentKey: string;
+  ParentKey: string | null |undefined;
   Typeofwork: TypeofworkList | null;
-  EpicGroup: EpicGroup | null;
+  EpicGroup: EpicGroup | null |undefined;
 }
 export interface BugStatSprint {
   closed: number;
