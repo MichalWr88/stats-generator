@@ -5,7 +5,7 @@ import { Issue } from "@/models/Sprint";
 import WithNavBar from "layouts/WithNavBar";
 import React, { useState } from "react";
 
-type Props = {};
+
 
 
 const CurrentSprintPage = () => {

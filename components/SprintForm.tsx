@@ -2,24 +2,30 @@ import { Sprint } from "@/models/Sprint";
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { sendSprintData } from "./api/dataProvider";
+import useSendSprint from "./api/hooks/useSendSprint";
 import ReactFormProvider from "./FormProvider";
 import InputField from "./InputField";
+import Toast from "./Toast";
 type Props = {};
 
 const SprintForm = (props: Props) => {
+  const addSprint = useSendSprint();
+
   const onSubmit = (data: Sprint) => {
     console.log(data);
-    sendSprintData(data)
-      .then((resp) => {
-        console.log(resp);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    addSprint(data);
+    // sendSprintData(data)
+    //   .then((resp) => {
+    //     console.log(resp);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
   };
   return (
     <ReactFormProvider<Sprint> onSubmit={onSubmit}>
       <div className="grid grid-cols-10 p-6  gap-4 items-end justify-center grid-rows-10 border-b-2  border-cyan-600">
+        <Toast type="error"/>
         <InputField label={"Numer sprintu"} name={"nr"} type="number" />
         <InputField
           label={"Zaplanowane"}
@@ -32,7 +38,6 @@ const SprintForm = (props: Props) => {
           name={"delivered"}
           className={"col-span-2"}
           type="number"
-          
         />
         <InputField
           label={"start sprintu"}
