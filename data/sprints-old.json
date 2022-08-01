@@ -1,0 +1,1418 @@
+[
+  {
+    "nr": 7,
+    "start": "2020.4.13",
+    "end": "2020.4.24",
+    "plan": 21,
+    "delivered": 16,
+    "request": {
+      "new": 0,
+      "review": 1,
+      "inProgress": 0,
+      "inTesting": 0,
+      "rfd": 0,
+      "done": 7
+    },
+    "bug": {
+      "inProgress": 2,
+      "closed": 21,
+      "review": 0,
+      "rfd": 1,
+      "accepted": 4,
+      "inTesting": 0,
+      "onHold": 0
+    }
+  },
+  {
+    "nr": 8,
+    "start": "2020.4.27",
+    "end": "2020.5.8",
+    "plan": 28,
+    "delivered": 21,
+    "request": {
+      "new": 0,
+      "review": 0,
+      "inProgress": 0,
+      "inTesting": 0,
+      "rfd": 0,
+      "done": 7
+    },
+    "bug": {
+      "inProgress": 0,
+      "closed": 6,
+      "review": 0,
+      "rfd": 6,
+      "accepted": 3,
+      "inTesting": 2,
+      "onHold": 0
+    }
+  },
+  {
+    "nr": 9,
+    "start": "2020.5.11",
+    "end": "2020.5.22",
+    "plan": 24,
+    "delivered": 19,
+    "request": {
+      "new": 0,
+      "review": 0,
+      "inProgress": 0,
+      "inTesting": 0,
+      "rfd": 0,
+      "done": 0
+    },
+    "bug": {
+      "inProgress": 0,
+      "closed": 7,
+      "review": 0,
+      "rfd": 8,
+      "accepted": 1,
+      "inTesting": 2,
+      "onHold": 3
+    }
+  },
+  {
+    "nr": 10,
+    "start": "2020.5.25",
+    "end": "2020.6.5",
+    "plan": 21,
+    "delivered": 4,
+    "request": {
+      "new": 0,
+      "review": 2,
+      "inProgress": 0,
+      "inTesting": 0,
+      "rfd": 0,
+      "done": 3
+    },
+    "bug": {
+      "inProgress": 2,
+      "closed": 2,
+      "review": 1,
+      "rfd": 8,
+      "accepted": 0,
+      "inTesting": 2,
+      "onHold": 0
+    }
+  },
+  {
+    "nr": 11,
+    "start": "2020.6.8",
+    "end": "2020.6.19",
+    "plan": 17,
+    "delivered": 12,
+    "request": {
+      "new": 0,
+      "review": 0,
+      "inProgress": 0,
+      "inTesting": 0,
+      "rfd": 3,
+      "done": 2
+    },
+    "bug": {
+      "inProgress": 0,
+      "closed": 2,
+      "review": 0,
+      "rfd": 9,
+      "accepted": 0,
+      "inTesting": 4,
+      "onHold": 0
+    }
+  },
+  {
+    "nr": 12,
+    "start": "2020.6.22",
+    "end": "2020.7.3",
+    "plan": 21,
+    "delivered": 23,
+    "request": {
+      "new": 0,
+      "review": 0,
+      "inProgress": 0,
+      "inTesting": 0,
+      "rfd": 0,
+      "done": 4
+    },
+    "bug": {
+      "inProgress": 1,
+      "closed": 12,
+      "review": 0,
+      "rfd": 2,
+      "accepted": 0,
+      "inTesting": 2,
+      "onHold": 0
+    }
+  },
+  {
+    "nr": 13,
+    "start": "2020.7.6",
+    "end": "2020.7.17",
+    "plan": 21.5,
+    "delivered": 20.5,
+    "request": {
+      "new": 0,
+      "review": 0,
+      "inProgress": 0,
+      "inTesting": 0,
+      "rfd": 0,
+      "done": 2
+    },
+    "bug": {
+      "inProgress": 4,
+      "closed": 0,
+      "review": 0,
+      "rfd": 0,
+      "accepted": 6,
+      "inTesting": 6,
+      "onHold": 0
+    }
+  },
+  {
+    "nr": 14,
+    "start": "2020.7.20",
+    "end": "2020.7.31",
+    "plan": 20,
+    "delivered": 8,
+    "request": {
+      "new": 0,
+      "review": 0,
+      "inProgress": 0,
+      "inTesting": 0,
+      "rfd": 0,
+      "done": 3
+    },
+    "bug": {
+      "inProgress": 0,
+      "closed": 9,
+      "review": 0,
+      "rfd": 3,
+      "accepted": 1,
+      "inTesting": 5,
+      "onHold": 1
+    }
+  },
+  {
+    "nr": 15,
+    "start": "2020.8.3",
+    "end": "2020.8.14",
+    "plan": 20,
+    "delivered": 18,
+    "request": {
+      "new": 0,
+      "review": 0,
+      "inProgress": 0,
+      "inTesting": 0,
+      "rfd": 1,
+      "done": 5
+    },
+    "bug": {
+      "inProgress": 2,
+      "closed": 4,
+      "review": 0,
+      "rfd": 9,
+      "accepted": 0,
+      "inTesting": 0,
+      "onHold": 0
+    }
+  },
+  {
+    "nr": 16,
+    "start": "2020.8.17",
+    "end": "2020.8.28",
+    "plan": 19,
+    "delivered": 16,
+    "request": {
+      "new": 0,
+      "review": 0,
+      "inProgress": 1,
+      "inTesting": 0,
+      "rfd": 1,
+      "done": 3
+    },
+    "bug": {
+      "inProgress": 1,
+      "closed": 7,
+      "review": 0,
+      "rfd": 2,
+      "accepted": 0,
+      "inTesting": 0,
+      "onHold": 0
+    }
+  },
+  {
+    "nr": 17,
+    "start": "2020.8.31",
+    "end": "2020.9.11",
+    "plan": 17,
+    "delivered": 12,
+    "request": {
+      "new": 0,
+      "review": 0,
+      "inProgress": 1,
+      "inTesting": 0,
+      "rfd": 0,
+      "done": 5
+    },
+    "bug": {
+      "inProgress": 0,
+      "closed": 11,
+      "review": 0,
+      "rfd": 2,
+      "accepted": 2,
+      "inTesting": 2,
+      "onHold": 0
+    }
+  },
+  {
+    "nr": 18,
+    "start": "2020.9.14",
+    "end": "2020.9.25",
+    "plan": 17,
+    "delivered": 16.5,
+    "request": {
+      "new": 0,
+      "review": 0,
+      "inProgress": 1,
+      "inTesting": 0,
+      "rfd": 2,
+      "done": 4
+    },
+    "bug": {
+      "inProgress": 2,
+      "closed": 14,
+      "review": 1,
+      "rfd": 4,
+      "accepted": 0,
+      "inTesting": 4,
+      "onHold": 0
+    }
+  },
+  {
+    "nr": 19,
+    "start": "2020.9.28",
+    "end": "2020.10.9",
+    "plan": 13.5,
+    "delivered": 11,
+    "request": {
+      "new": 0,
+      "review": 0,
+      "inProgress": 0,
+      "inTesting": 0,
+      "rfd": 1,
+      "done": 1
+    },
+    "bug": {
+      "inProgress": 1,
+      "closed": 8,
+      "review": 1,
+      "rfd": 0,
+      "accepted": 0,
+      "inTesting": 1,
+      "onHold": 2
+    }
+  },
+  {
+    "nr": 20,
+    "start": "2020.10.12",
+    "end": "2020.10.23",
+    "plan": 14.5,
+    "delivered": 10.5,
+    "request": {
+      "new": 0,
+      "review": 0,
+      "inProgress": 0,
+      "inTesting": 0,
+      "rfd": 2,
+      "done": 1
+    },
+    "bug": {
+      "inProgress": 1,
+      "closed": 5,
+      "review": 0,
+      "rfd": 3,
+      "accepted": 0,
+      "inTesting": 1,
+      "onHold": 1
+    }
+  },
+  {
+    "nr": 21,
+    "start": "2020.10.26",
+    "end": "2020.11.6",
+    "plan": 10.5,
+    "delivered": 16,
+    "request": {
+      "new": 0,
+      "review": 0,
+      "inProgress": 1,
+      "inTesting": 0,
+      "rfd": 0,
+      "done": 4
+    },
+    "bug": {
+      "inProgress": 0,
+      "closed": 10,
+      "review": 0,
+      "rfd": 3,
+      "accepted": 0,
+      "inTesting": 1,
+      "onHold": 2
+    }
+  },
+  {
+    "nr": 22,
+    "start": "2020.11.9",
+    "end": "2020.11.20",
+    "plan": 8,
+    "delivered": 8.5,
+    "request": {
+      "new": 0,
+      "review": 0,
+      "inProgress": 2,
+      "inTesting": 0,
+      "rfd": 2,
+      "done": 0
+    },
+    "bug": {
+      "inProgress": 0,
+      "closed": 2,
+      "review": 0,
+      "rfd": 0,
+      "accepted": 1,
+      "inTesting": 0,
+      "onHold": 2
+    }
+  },
+  {
+    "nr": 23,
+    "start": "2020.11.23",
+    "end": "2020.12.4",
+    "plan": 15.5,
+    "delivered": 18.5,
+    "request": {
+      "new": 0,
+      "review": 0,
+      "inProgress": 1,
+      "inTesting": 0,
+      "rfd": 1,
+      "done": 3
+    },
+    "bug": {
+      "inProgress": 0,
+      "closed": 5,
+      "review": 1,
+      "rfd": 2,
+      "accepted": 0,
+      "inTesting": 1,
+      "onHold": 2
+    }
+  },
+  {
+    "nr": 24,
+    "start": "2020.12.7",
+    "end": "2020.12.18",
+    "plan": 13,
+    "delivered": 14,
+    "request": {
+      "new": 1,
+      "review": 0,
+      "inProgress": 0,
+      "inTesting": 0,
+      "rfd": 0,
+      "done": 3
+    },
+    "bug": {
+      "inProgress": 1,
+      "closed": 3,
+      "review": 1,
+      "rfd": 0,
+      "accepted": 4,
+      "inTesting": 1,
+      "onHold": 0
+    }
+  },
+  {
+    "nr": 25,
+    "start": "2020.12.21",
+    "end": "2021.1.1",
+    "plan": 5,
+    "delivered": 5,
+    "request": {
+      "new": 0,
+      "review": 0,
+      "inProgress": 0,
+      "inTesting": 0,
+      "rfd": 0,
+      "done": 2
+    },
+    "bug": {
+      "inProgress": 0,
+      "closed": 0,
+      "review": 1,
+      "rfd": 3,
+      "accepted": 0,
+      "inTesting": 0,
+      "onHold": 0
+    }
+  },
+  {
+    "nr": 26,
+    "start": "2021.1.4",
+    "end": "2021.1.15",
+    "plan": 10.5,
+    "delivered": 11,
+    "request": {
+      "new": 0,
+      "review": 0,
+      "inProgress": 1,
+      "inTesting": 0,
+      "rfd": 2,
+      "done": 2
+    },
+    "bug": {
+      "inProgress": 1,
+      "closed": 2,
+      "review": 0,
+      "rfd": 5,
+      "accepted": 1,
+      "inTesting": 2,
+      "onHold": 0
+    }
+  },
+  {
+    "nr": 27,
+    "start": "2021.1.18",
+    "end": "2021.1.29",
+    "plan": 15,
+    "delivered": 16,
+    "request": {
+      "new": 0,
+      "review": 0,
+      "inProgress": 0,
+      "inTesting": 0,
+      "rfd": 0,
+      "done": 4
+    },
+    "bug": {
+      "inProgress": 1,
+      "closed": 1,
+      "review": 0,
+      "rfd": 0,
+      "accepted": 1,
+      "inTesting": 2,
+      "onHold": 0
+    }
+  },
+  {
+    "nr": 28,
+    "start": "2021.2.1",
+    "end": "2021.2.12",
+    "plan": 13,
+    "delivered": 14,
+    "request": {
+      "new": 0,
+      "review": 0,
+      "inProgress": 0,
+      "inTesting": 0,
+      "rfd": 1,
+      "done": 1
+    },
+    "bug": {
+      "inProgress": 0,
+      "closed": 1,
+      "review": 0,
+      "rfd": 1,
+      "accepted": 0,
+      "inTesting": 3,
+      "onHold": 0
+    }
+  },
+  {
+    "nr": 29,
+    "start": "2021.2.15",
+    "end": "2021.2.26",
+    "plan": 16,
+    "delivered": 16,
+    "request": {
+      "new": 0,
+      "review": 0,
+      "inProgress": 0,
+      "inTesting": 0,
+      "rfd": 2,
+      "done": 1
+    },
+    "bug": {
+      "inProgress": 0,
+      "closed": 1,
+      "review": 1,
+      "rfd": 0,
+      "accepted": 0,
+      "inTesting": 1,
+      "onHold": 0
+    }
+  },
+  {
+    "nr": 30,
+    "start": "2021.3.1",
+    "end": "2021.3.12",
+    "plan": 15.5,
+    "delivered": 15.5,
+    "request": {
+      "new": 0,
+      "review": 0,
+      "inProgress": 0,
+      "inTesting": 0,
+      "rfd": 1,
+      "done": 1
+    },
+    "bug": {
+      "inProgress": 3,
+      "closed": 9,
+      "review": 0,
+      "rfd": 0,
+      "accepted": 0,
+      "inTesting": 0,
+      "onHold": 0
+    }
+  },
+  {
+    "nr": 31,
+    "start": "2021.3.15",
+    "end": "2021.3.26",
+    "plan": 17.5,
+    "delivered": 17.5,
+    "request": {
+      "new": 0,
+      "review": 0,
+      "inProgress": 0,
+      "inTesting": 0,
+      "rfd": 0,
+      "done": 2
+    },
+    "bug": {
+      "inProgress": 0,
+      "closed": 3,
+      "review": 0,
+      "rfd": 1,
+      "accepted": 0,
+      "inTesting": 0,
+      "onHold": 0
+    }
+  },
+  {
+    "nr": 32,
+    "start": "2021.3.29",
+    "end": "2021.4.9",
+    "plan": 19.5,
+    "delivered": 16.5,
+    "request": {
+      "new": 0,
+      "review": 0,
+      "inProgress": 0,
+      "inTesting": 0,
+      "rfd": 1,
+      "done": 1
+    },
+    "bug": {
+      "inProgress": 0,
+      "closed": 3,
+      "review": 1,
+      "rfd": 0,
+      "accepted": 0,
+      "inTesting": 0,
+      "onHold": 0
+    }
+  },
+  {
+    "nr": 33,
+    "start": "2021.4.12",
+    "end": "2021.4.23",
+    "plan": 17.5,
+    "delivered": 11.5,
+    "request": {
+      "new": 0,
+      "review": 0,
+      "inProgress": 0,
+      "inTesting": 0,
+      "rfd": 2,
+      "done": 2
+    },
+    "bug": {
+      "inProgress": 1,
+      "closed": 10,
+      "review": 1,
+      "rfd": 4,
+      "accepted": 0,
+      "inTesting": 0,
+      "onHold": 0
+    }
+  },
+  {
+    "nr": 34,
+    "start": "2021.4.26",
+    "end": "2021.5.7",
+    "plan": 19,
+    "delivered": 17,
+    "request": {
+      "new": 0,
+      "review": 0,
+      "inProgress": 0,
+      "inTesting": 0,
+      "rfd": 0,
+      "done": 5
+    },
+    "bug": {
+      "inProgress": 2,
+      "closed": 1,
+      "review": 1,
+      "rfd": 2,
+      "accepted": 0,
+      "inTesting": 0,
+      "onHold": 0
+    }
+  },
+  {
+    "nr": 35,
+    "start": "2021.5.10",
+    "end": "2021.5.21",
+    "plan": 17,
+    "delivered": 17.5,
+    "request": {
+      "new": 0,
+      "review": 0,
+      "inProgress": 0,
+      "inTesting": 0,
+      "rfd": 0,
+      "done": 2
+    },
+    "bug": {
+      "inProgress": 3,
+      "closed": 3,
+      "review": 1,
+      "rfd": 0,
+      "accepted": 0,
+      "inTesting": 1,
+      "onHold": 1
+    }
+  },
+  {
+    "nr": 36,
+    "start": "2021.5.24",
+    "end": "2021.6.4",
+    "plan": 9.5,
+    "delivered": 10,
+    "request": {
+      "new": 0,
+      "review": 0,
+      "inProgress": 0,
+      "inTesting": 0,
+      "rfd": 1,
+      "done": 5
+    },
+    "bug": {
+      "inProgress": 4,
+      "closed": 2,
+      "review": 0,
+      "rfd": 0,
+      "accepted": 0,
+      "inTesting": 1,
+      "onHold": 0
+    }
+  },
+  {
+    "nr": 37,
+    "start": "2021.6.7",
+    "end": "2021.6.18",
+    "plan": 19,
+    "delivered": 19,
+    "request": {
+      "new": 0,
+      "review": 0,
+      "inProgress": 1,
+      "inTesting": 1,
+      "rfd": 2,
+      "done": 1
+    },
+    "bug": {
+      "inProgress": 4,
+      "closed": 17,
+      "review": 0,
+      "rfd": 2,
+      "accepted": 0,
+      "inTesting": 1,
+      "onHold": 1
+    }
+  },
+  {
+    "nr": 38,
+    "start": "2021.6.21",
+    "end": "2021.7.2",
+    "plan": 18.5,
+    "delivered": 22.5,
+    "request": {
+      "new": 1,
+      "review": 1,
+      "inProgress": 0,
+      "inTesting": 0,
+      "rfd": 0,
+      "done": 1
+    },
+    "bug": {
+      "inProgress": 3,
+      "closed": 9,
+      "review": 0,
+      "rfd": 1,
+      "accepted": 1,
+      "inTesting": 0,
+      "onHold": 1
+    }
+  },
+  {
+    "nr": 39,
+    "start": "2021.7.5",
+    "end": "2021.7.16",
+    "plan": 13.5,
+    "delivered": 11.5,
+    "request": {
+      "new": 0,
+      "review": 0,
+      "inProgress": 0,
+      "inTesting": 0,
+      "rfd": 0,
+      "done": 4
+    },
+    "bug": {
+      "inProgress": 5,
+      "closed": 20,
+      "review": 0,
+      "rfd": 4,
+      "accepted": 1,
+      "inTesting": 1,
+      "onHold": 2
+    }
+  },
+  {
+    "nr": 40,
+    "start": "2021.7.19",
+    "end": "2021.7.30",
+    "plan": 18,
+    "delivered": 18,
+    "request": {
+      "new": 0,
+      "review": 0,
+      "inProgress": 1,
+      "inTesting": 3,
+      "rfd": 2,
+      "done": 3
+    },
+    "bug": {
+      "inProgress": 0,
+      "closed": 11,
+      "review": 0,
+      "rfd": 2,
+      "accepted": 0,
+      "inTesting": 1,
+      "onHold": 0
+    }
+  },
+  {
+    "nr": 41,
+    "start": "2021.8.2",
+    "end": "2021.8.15",
+    "plan": 14.5,
+    "delivered": 14.5,
+    "request": {
+      "new": 0,
+      "review": 0,
+      "inProgress": 0,
+      "inTesting": 1,
+      "rfd": 2,
+      "done": 3
+    },
+    "bug": {
+      "inProgress": 3,
+      "closed": 3,
+      "review": 0,
+      "rfd": 2,
+      "accepted": 0,
+      "inTesting": 1,
+      "onHold": 1
+    }
+  },
+  {
+    "nr": 42,
+    "start": "2021.8.16",
+    "end": "2021.8.27",
+    "plan": 11,
+    "delivered": 9,
+    "request": {
+      "new": 0,
+      "review": 0,
+      "inProgress": 0,
+      "inTesting": 2,
+      "rfd": 0,
+      "done": 0
+    },
+    "bug": {
+      "inProgress": 4,
+      "closed": 1,
+      "review": 0,
+      "rfd": 1,
+      "accepted": 0,
+      "inTesting": 4,
+      "onHold": 1
+    }
+  },
+  {
+    "nr": 43,
+    "start": "2021.8.30",
+    "end": "2021.9.10",
+    "plan": 13.5,
+    "delivered": 13.5,
+    "request": {
+      "new": 0,
+      "review": 0,
+      "inProgress": 1,
+      "inTesting": 1,
+      "rfd": 1,
+      "done": 0
+    },
+    "bug": {
+      "inProgress": 3,
+      "closed": 2,
+      "review": 1,
+      "rfd": 9,
+      "accepted": 0,
+      "inTesting": 1,
+      "onHold": 1
+    }
+  },
+  {
+    "nr": 44,
+    "start": "2021.9.13",
+    "end": "2021.9.26",
+    "plan": 15,
+    "delivered": 15,
+    "request": {
+      "new": 0,
+      "review": 0,
+      "inProgress": 0,
+      "inTesting": 0,
+      "rfd": 1,
+      "done": 5
+    },
+    "bug": {
+      "inProgress": 4,
+      "closed": 10,
+      "review": 0,
+      "rfd": 7,
+      "accepted": 0,
+      "inTesting": 0,
+      "onHold": 3
+    }
+  },
+  {
+    "nr": 45,
+    "start": "2021.9.27",
+    "end": "2021.10.8",
+    "plan": 15.5,
+    "delivered": 10.5,
+    "request": {
+      "new": 0,
+      "review": 0,
+      "inProgress": 1,
+      "inTesting": 1,
+      "rfd": 0,
+      "done": 3
+    },
+    "bug": {
+      "inProgress": 1,
+      "closed": 1,
+      "review": 0,
+      "rfd": 0,
+      "accepted": 0,
+      "inTesting": 1,
+      "onHold": 5
+    }
+  },
+  {
+    "nr": 46,
+    "start": "2021.10.11",
+    "end": "2021.10.24",
+    "plan": 16,
+    "delivered": 16,
+    "request": {
+      "new": 0,
+      "review": 0,
+      "inProgress": 2,
+      "inTesting": 0,
+      "rfd": 3,
+      "done": 2
+    },
+    "bug": {
+      "inProgress": 3,
+      "closed": 1,
+      "review": 0,
+      "rfd": 11,
+      "accepted": 0,
+      "inTesting": 0,
+      "onHold": 0
+    }
+  },
+  {
+    "nr": 47,
+    "start": "2021.10.25",
+    "end": "2021.11.5",
+    "plan": 16,
+    "delivered": 8,
+    "request": {
+      "new": 0,
+      "review": 0,
+      "inProgress": 1,
+      "inTesting": 0,
+      "rfd": 2,
+      "done": 4
+    },
+    "bug": {
+      "inProgress": 1,
+      "closed": 4,
+      "review": 0,
+      "rfd": 2,
+      "accepted": 0,
+      "inTesting": 0,
+      "onHold": 0
+    }
+  },
+  {
+    "nr": 48,
+    "start": "2021.11.8",
+    "end": "2021.11.21",
+    "plan": 13,
+    "delivered": 11.5,
+    "request": {
+      "new": 0,
+      "review": 0,
+      "inProgress": 1,
+      "inTesting": 0,
+      "rfd": 0,
+      "done": 4
+    },
+    "bug": {
+      "inProgress": 0,
+      "closed": 3,
+      "review": 0,
+      "rfd": 1,
+      "accepted": 0,
+      "inTesting": 0,
+      "onHold": 0
+    }
+  },
+  {
+    "nr": 49,
+    "start": "2021.11.22",
+    "end": "2021.12.5",
+    "plan": 17,
+    "delivered": 19,
+    "request": {
+      "new": 0,
+      "review": 0,
+      "inProgress": 0,
+      "inTesting": 0,
+      "rfd": 0,
+      "done": 4
+    },
+    "bug": {
+      "inProgress": 1,
+      "closed": 4,
+      "review": 0,
+      "rfd": 3,
+      "accepted": 0,
+      "inTesting": 0,
+      "onHold": 0
+    }
+  },
+  {
+    "nr": 50,
+    "start": "2021.12.6",
+    "end": "2021.12.19",
+    "plan": 20.5,
+    "delivered": 20.5,
+    "request": {
+      "new": 0,
+      "review": 0,
+      "inProgress": 0,
+      "inTesting": 0,
+      "rfd": 0,
+      "done": 2
+    },
+    "bug": {
+      "inProgress": 1,
+      "closed": 4,
+      "review": 0,
+      "rfd": 2,
+      "accepted": 0,
+      "inTesting": 1,
+      "onHold": 0
+    }
+  },
+  {
+    "nr": 51,
+    "start": "2021.12.20",
+    "end": "2022.1.10",
+    "plan": 17.5,
+    "delivered": 4,
+    "request": {
+      "new": 0,
+      "review": 0,
+      "inProgress": 1,
+      "inTesting": 1,
+      "rfd": 1,
+      "done": 3
+    },
+    "bug": {
+      "inProgress": 1,
+      "closed": 1,
+      "review": 1,
+      "rfd": 1,
+      "accepted": 0,
+      "inTesting": 0,
+      "onHold": 0
+    }
+  },
+  {
+    "nr": 52,
+    "start": "2022.1.10",
+    "end": "2022.1.23",
+    "plan": 11.5,
+    "delivered": 4,
+    "request": {
+      "new": 0,
+      "review": 0,
+      "inProgress": 0,
+      "inTesting": 1,
+      "rfd": 2,
+      "done": 4
+    },
+    "bug": {
+      "inProgress": 1,
+      "closed": 4,
+      "review": 2,
+      "rfd": 0,
+      "accepted": 0,
+      "inTesting": 0,
+      "onHold": 0
+    }
+  },
+  {
+    "nr": 53,
+    "start": "2022.1.24",
+    "end": "2022.2.6",
+    "plan": 11,
+    "delivered": 11,
+    "request": {
+      "new": 0,
+      "review": 0,
+      "inProgress": 0,
+      "inTesting": 0,
+      "rfd": 0,
+      "done": 4
+    },
+    "bug": {
+      "inProgress": 3,
+      "closed": 7,
+      "review": 1,
+      "rfd": 5,
+      "accepted": 0,
+      "inTesting": 2,
+      "onHold": 1
+    }
+  },
+  {
+    "nr": 54,
+    "start": "2022.2.7",
+    "end": "2022.2.20",
+    "plan": 10,
+    "delivered": 16,
+    "request": {
+      "new": 0,
+      "review": 0,
+      "inProgress": 0,
+      "inTesting": 0,
+      "rfd": 0,
+      "done": 1
+    },
+    "bug": {
+      "inProgress": 0,
+      "closed": 1,
+      "review": 0,
+      "rfd": 4,
+      "accepted": 0,
+      "inTesting": 0,
+      "onHold": 0
+    }
+  },
+  {
+    "nr": 55,
+    "start": "2022.2.21",
+    "end": "2022.3.4",
+    "plan": 12,
+    "delivered": 12,
+    "request": {
+      "new": 0,
+      "review": 0,
+      "inProgress": 0,
+      "inTesting": 0,
+      "rfd": 0,
+      "done": 1
+    },
+    "bug": {
+      "inProgress": 3,
+      "closed": 13,
+      "review": 1,
+      "rfd": 1,
+      "accepted": 0,
+      "inTesting": 4,
+      "onHold": 1
+    }
+  },
+  {
+    "nr": 56,
+    "start": "2022.3.7",
+    "end": "2022.3.20",
+    "plan": 10,
+    "delivered": 9,
+    "request": {
+      "new": 0,
+      "review": 0,
+      "inProgress": 0,
+      "inTesting": 0,
+      "rfd": 0,
+      "done": 2
+    },
+    "bug": {
+      "inProgress": 3,
+      "closed": 15,
+      "review": 0,
+      "rfd": 3,
+      "accepted": 0,
+      "inTesting": 3,
+      "onHold": 1
+    }
+  },
+  {
+    "nr": 57,
+    "start": "2022.3.21",
+    "end": "2022.4.1",
+    "plan": 11.5,
+    "delivered": 11,
+    "request": {
+      "new": 0,
+      "review": 0,
+      "inProgress": 0,
+      "inTesting": 0,
+      "rfd": 0,
+      "done": 1
+    },
+    "bug": {
+      "inProgress": 3,
+      "closed": 3,
+      "review": 1,
+      "rfd": 1,
+      "accepted": 0,
+      "inTesting": 5,
+      "onHold": 1
+    }
+  },
+  {
+    "nr": 58,
+    "start": "2022.4.5",
+    "end": "2022.4.17",
+    "plan": 11.5,
+    "delivered": 11.5,
+    "request": {
+      "new": 0,
+      "review": 1,
+      "inProgress": 0,
+      "inTesting": 0,
+      "rfd": 6,
+      "done": 2
+    },
+    "bug": {
+      "inProgress": 2,
+      "closed": 4,
+      "review": 1,
+      "rfd": 7,
+      "accepted": 0,
+      "inTesting": 6,
+      "onHold": 0
+    }
+  },
+  {
+    "nr": 59,
+    "start": "2022.4.18",
+    "end": "2022.5.1",
+    "plan": 15,
+    "delivered": 16,
+    "request": {
+      "new": 0,
+      "review": 0,
+      "inProgress": 0,
+      "inTesting": 0,
+      "rfd": 2,
+      "done": 2
+    },
+    "bug": {
+      "inProgress": 2,
+      "closed": 3,
+      "review": 2,
+      "rfd": 0,
+      "accepted": 0,
+      "inTesting": 3,
+      "onHold": 5
+    }
+  },
+  {
+    "nr": 60,
+    "start": "2022.5.2",
+    "end": "2022.5.15",
+    "plan": 12.5,
+    "delivered": 13,
+    "request": {
+      "new": 0,
+      "review": 0,
+      "inProgress": 0,
+      "inTesting": 0,
+      "rfd": 3,
+      "done": 3
+    },
+    "bug": {
+      "inProgress": 1,
+      "closed": 6,
+      "review": 1,
+      "rfd": 0,
+      "accepted": 1,
+      "inTesting": 0,
+      "onHold": 0
+    }
+  },
+  {
+    "nr": 61,
+    "start": "2022.5.16",
+    "end": "2022.5.29",
+    "plan": 15,
+    "delivered": 7,
+    "request": {
+      "new": 0,
+      "review": 0,
+      "inProgress": 0,
+      "inTesting": 0,
+      "rfd": 0,
+      "done": 1
+    },
+    "bug": {
+      "inProgress": 1,
+      "closed": 6,
+      "review": 1,
+      "rfd": 1,
+      "accepted": 1,
+      "inTesting": 1,
+      "onHold": 1
+    }
+  },
+  {
+    "nr": 62,
+    "start": "2022.5.30",
+    "end": "2022.6.12",
+    "plan": 11,
+    "delivered": 12,
+    "request": {
+      "new": 0,
+      "review": 0,
+      "inProgress": 0,
+      "inTesting": 0,
+      "rfd": 0,
+      "done": 0
+    },
+    "bug": {
+      "inProgress": 1,
+      "closed": 0,
+      "review": 1,
+      "rfd": 3,
+      "accepted": 1,
+      "inTesting": 0,
+      "onHold": 1
+    }
+  },
+  {
+    "nr": 63,
+    "start": "2022.6.16",
+    "end": "2022.6.26",
+    "plan": 13,
+    "delivered": 4,
+    "request": {
+      "new": 0,
+      "review": 0,
+      "inProgress": 0,
+      "inTesting": 0,
+      "rfd": 0,
+      "done": 2
+    },
+    "bug": {
+      "inProgress": 1,
+      "closed": 2,
+      "review": 1,
+      "rfd": 0,
+      "accepted": 1,
+      "inTesting": 1,
+      "onHold": 1
+    }
+  },
+  {
+    "nr": 64,
+    "start": "2022.6.27",
+    "end": "2022.7.10",
+    "plan": 12.5,
+    "delivered": 12.5,
+    "request": {
+      "new": 0,
+      "review": 0,
+      "inProgress": 0,
+      "inTesting": 0,
+      "rfd": 3,
+      "done": 1
+    },
+    "bug": {
+      "inProgress": 4,
+      "closed": 4,
+      "review": 0,
+      "rfd": 5,
+      "accepted": 0,
+      "inTesting": 0,
+      "onHold": 1
+    }
+  },
+  {
+    "nr": 65,
+    "start": "2022.7.11",
+    "end": "2022.7.24",
+    "plan": 12,
+    "delivered": 10,
+    "request": {
+      "new": 0,
+      "review": 0,
+      "inProgress": 0,
+      "inTesting": 0,
+      "rfd": 3,
+      "done": 3
+    },
+    "bug": {
+      "inProgress": 2,
+      "closed": 1,
+      "review": 0,
+      "rfd": 1,
+      "accepted": 0,
+      "inTesting": 0,
+      "onHold": 2
+    }
+  }
+]
