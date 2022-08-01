@@ -1,4 +1,4 @@
-import { ResponsMongo } from "./Mongo";
+import { ResponsMongo } from "./mongo/Mongo";
 import * as yup from "yup";
 
 export const RequestSchemaAdd: yup.ObjectSchema<RequestStatSprint> = yup

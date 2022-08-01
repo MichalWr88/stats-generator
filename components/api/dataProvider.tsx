@@ -1,6 +1,12 @@
-import { Sprint } from "@/models/Sprint";
+import {
+  DEFAULT_PAGE,
+  DEFAULT_PAGE_SIZE,
+  PaginationRequest,
+  PaginationResponseAggregate,
+} from "@/models/mongo/Mongo";
+import { ResponsSprint, Sprint } from "@/models/Sprint";
 import axios, { AxiosError, AxiosRequestConfig } from "axios";
-
+import { ProjectionType } from "mongoose";
 
 const config: AxiosRequestConfig = {
   baseURL: "./",
@@ -13,7 +19,16 @@ export const sendSprintData = async (data: Sprint): Promise<Sprint> => {
   const resp = await axiosInstance.put<Sprint>("./api/mongo/sprint", data);
   return resp.data;
 };
-export const getAllSprints = async (): Promise<Array<Sprint>> => {
-  const resp = await axiosInstance.get<Array<Sprint>>("./api/mongo/sprint");
+export const getAllSprints = async (
+  pagination: PaginationRequest = {
+    page: DEFAULT_PAGE,
+    pageSize: DEFAULT_PAGE_SIZE,
+  }
+): Promise<PaginationResponseAggregate<ResponsSprint>> => {
+  const resp = await axiosInstance.get<
+    PaginationResponseAggregate<ResponsSprint>
+  >("./api/mongo/sprint", {
+    params: pagination,
+  });
   return resp.data;
 };
