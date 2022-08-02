@@ -20,7 +20,7 @@ const ChartSprintsContext = ({ children }: Props) => {
   useEffect(() => {
     getAllSprints().then((resp) => {
       setData(() => {
-        return setStatsSpritnts(resp.data.reverse());
+        return setStatsSpritnts(resp.data.reverse()).splice(2);
       });
     });
     return () => {};

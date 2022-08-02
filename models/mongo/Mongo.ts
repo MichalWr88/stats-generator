@@ -1,7 +1,7 @@
 import { ObjectId } from "mongoose";
 
 export const DEFAULT_PAGE = 0;
-export const DEFAULT_PAGE_SIZE = 12;
+export const DEFAULT_PAGE_SIZE = 15;
 
 export interface ResponsMongo {
   _id: ObjectId | string;

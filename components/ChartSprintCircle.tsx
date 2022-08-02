@@ -28,7 +28,6 @@ const ChartSprintCircle = ({ sprint, type }: Props) => {
   useEffect(() => {
     if (!sprint) return;
     const chartData = {
-      title: "dupa jasna",
       labels: [],
       datasets: [
         {

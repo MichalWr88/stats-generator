@@ -1,10 +1,12 @@
-import PredictabilitySprintsStat from "@/components/PredictabilitySprintsStat";
+import RequestAndBugSprintCharts from "@/components/charts/RequestAndBugSprintCharts";
+import SpeedSprintsStats from "@/components/charts/SpeedSprintsStats";
+import PredictabilitySprintsStats from "@/components/charts/PredictabilitySprintsStats";
 import ChartSprintsContext from "@/components/store/ChartSprintsContext";
 import React, { useState } from "react";
 import ReactPageScroller from "react-page-scroller";
-type Props = {};
-
-const ChartsPage = (props: Props) => {
+import { IoIosReturnLeft } from "react-icons/io";
+import Link from "next/link";
+const ChartsPage = () => {
   const [currentPage, setCurrentPage] = useState(0);
 
   const handlePageChange = (nr: number) => {
@@ -16,21 +18,36 @@ const ChartsPage = (props: Props) => {
   };
 
   return (
-    <ChartSprintsContext>
-      <ReactPageScroller
-        pageOnChange={handlePageChange}
-        onBeforePageScroll={handleBeforePageChange}
-        customPageNumber={currentPage}
-      >
-        <div className=" min-h-full">
-          <PredictabilitySprintsStat />
-        </div>
-        <div className="bg-gray-600 min-h-full">Predkosc</div>
-        <div className="bg-yellow-500 min-h-full">Imo</div>
-        <div className="bg-purple-500 min-h-full">Epic</div>
-        <div className="bg-indigo-500 min-h-full">Request and bugs</div>
-      </ReactPageScroller>
-    </ChartSprintsContext>
+    <>
+      <ChartSprintsContext>
+        <ReactPageScroller
+          pageOnChange={handlePageChange}
+          onBeforePageScroll={handleBeforePageChange}
+          customPageNumber={currentPage}
+        >
+          <div className=" min-h-full">
+            <PredictabilitySprintsStats />
+          </div>
+          <div className="min-h-full">
+            <SpeedSprintsStats />
+          </div>
+          <div className="bg-yellow-500 min-h-full">Imo</div>
+          <div className="bg-purple-500 min-h-full">Epic</div>
+          <div className="min-h-full">
+            <RequestAndBugSprintCharts />
+          </div>
+        </ReactPageScroller>
+      </ChartSprintsContext>
+      <Link href={"/"}>
+        <a
+          title="home"
+          type="button"
+          className="flex items-center justify-center z-100 m-5 absolute top-1 rounded-full bg-blue-600 text-white  shadow-lg hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg  focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out w-9 h-9"
+        >
+          <IoIosReturnLeft className="text-3xl" />
+        </a>
+      </Link>
+    </>
   );
 };
 
