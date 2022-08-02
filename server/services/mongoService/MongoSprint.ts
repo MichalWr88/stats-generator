@@ -1,7 +1,8 @@
 import { PaginationRequest } from "@/models/mongo/Mongo";
 import { PaginationResponseAggregate } from "@/models/mongo/Mongo";
-import { SprintScheme } from "@/models/mongo/SprintSchema";
+import { LegacyIssue, SprintScheme } from "@/models/mongo/SprintSchema";
 import {
+  Issue,
   ResponsSprint,
   Sprint,
   SprintCollection,
@@ -19,14 +20,17 @@ class MonogSprint extends Mongodb<SprintCollection> {
   }
 
   public async getAllPagination(pagination: PaginationRequest) {
-
     const query = [...queryPagination(pagination.page, pagination.pageSize)];
-  
+
     const resp = await this.model.aggregate<
       PaginationResponseAggregate<ResponsSprint>
     >(query);
-   
-    return paginationResponse<ResponsSprint>(resp, pagination.page, pagination.pageSize);
+
+    return paginationResponse<ResponsSprint>(
+      resp,
+      pagination.page,
+      pagination.pageSize
+    );
   }
   public async getLastOne(): Promise<ResponsSprint | null> {
     return await this.model.findOne({}, {}, { sort: { nr: -1 } });
@@ -38,12 +42,16 @@ class MonogSprint extends Mongodb<SprintCollection> {
     return await this.model.findOne({});
   }
   public async addOne(sender: Sprint): Promise<Sprint> {
-    const user = new this.model(sender);
-    return await user.save();
+    const sprint = new this.model(sender);
+    return await sprint.save();
   }
   public async updateOne(sender: Sprint): Promise<Sprint> {
-    const user = new this.model(sender);
-    return await user.save();
+    const sprint = new this.model(sender);
+    return await sprint.save();
+  }
+  public async updateLegacySprintsIssueArr(obj: Issue) {
+    const { NR, ...iss } = obj as LegacyIssue;
+    return await this.model.updateOne({ nr: NR }, { $push: { issues: iss } });
   }
 }
 export default MonogSprint;

@@ -74,7 +74,7 @@ export type EpicGroup =
 export interface Issue {
   IssueKey: string;
   Issuesummary: string;
-  Hours: string;
+  Hours: string | number;
   IssueType: string;
   EpicLink: string | null |undefined;
   Username: string;

@@ -114,3 +114,6 @@ export const SprintScheme = new Schema<Sprint>(
     timestamps: true,
   }
 );
+
+export type LegacyIssue = Issue & { NR: number };
+

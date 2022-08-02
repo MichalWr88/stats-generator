@@ -13,9 +13,7 @@ const ChartsPage = () => {
     setCurrentPage(nr);
   };
 
-  const handleBeforePageChange = (nr: number) => {
-
-  };
+  const handleBeforePageChange = (nr: number) => {};
 
   return (
     <>
