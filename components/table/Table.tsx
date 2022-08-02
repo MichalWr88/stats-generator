@@ -83,7 +83,7 @@ const Table = <T,>({ data, selectSprint, columns }: Props<T>) => {
                   // Loop over the rows cells
                   row.cells.map((cell, id2d) => {
                     // Apply the cell props
-                    // console.log(cell.getCellProps());
+
                     return (
                       <td
                         {...cell.getCellProps()}

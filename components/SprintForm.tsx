@@ -13,7 +13,7 @@ const SprintForm = ({ issues = [] }: Props) => {
   const addSprint = useSendSprint();
 
   const onSubmit = (data: Sprint) => {
-    console.log(data);
+
     addSprint({ ...data, issues });
   };
   return (

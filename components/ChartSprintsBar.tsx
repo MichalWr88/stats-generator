@@ -11,17 +11,14 @@ import {
   Legend,
   Tooltip,
 } from "chart.js";
-import {
-  Chart,
-  getDatasetAtEvent,
-  getElementAtEvent,
-  getElementsAtEvent,
-} from "react-chartjs-2";
+import { Chart } from "react-chartjs-2";
 import { SprintWithStats } from "@/models/Sprint";
 import useColors from "./api/hooks/useColors";
+
+type ChartType = keyof Pick<SprintWithStats, "predictability"> | "speed" | null;
 type Props = {
   sprints: Array<SprintWithStats>;
-  type: keyof Pick<SprintWithStats, "predictability"> | "speed" | null;
+  type: ChartType;
 };
 ChartJS.register(
   LinearScale,
@@ -33,9 +30,12 @@ ChartJS.register(
   Tooltip,
   ChartDataLabels
 );
+const isPredictability = (type: ChartType) => {
+  return type === "predictability";
+};
 
 const ChartSprintsBar = ({ sprints, type = null }: Props) => {
-  const colors = useColors()
+  const colors = useColors();
   const [data, setData] = useState<ChartData<"bar", number[], string> | null>(
     null
   );
@@ -46,29 +46,36 @@ const ChartSprintsBar = ({ sprints, type = null }: Props) => {
       labels: [],
       datasets: [
         {
-          label:
-            type === "predictability"
-              ? "Przewid. ost 3 sprinty"
-              : type === "speed"
-              ? "Prędkość zespołu"
-              : type,
+          label: isPredictability(type)
+            ? "Przewid. ost 3 sprinty"
+            : type === "speed"
+            ? "Prędkość zespołu"
+            : type,
           type: "line",
           data: [],
           backgroundColor: "red",
           borderColor: "red",
           hoverOffset: 4,
           datalabels: {
+            formatter: (value: string) => {
+              return `${value} ${isPredictability(type) ? "%" : ""}`;
+            },
+            font:{
+              weight: 'bold'
+            },
             anchor: "end",
-            align: "start",
+            align: "top",
+            ofset: 1,
+            backgroundColor: colors.white,
+            borderRadius: 10,
           },
         },
         {
-          label:
-            type === "predictability"
-              ? "Przewidywalność zespołu"
-              : type === "speed"
-              ? "Prędkość zespołu"
-              : type,
+          label: isPredictability(type)
+            ? "Przewidywalność zespołu"
+            : type === "speed"
+            ? "Prędkość zespołu"
+            : type,
           data: [],
           backgroundColor: colors.indigo[900],
           hoverOffset: 4,
@@ -76,7 +83,7 @@ const ChartSprintsBar = ({ sprints, type = null }: Props) => {
             anchor: "middle",
             align: "start",
             formatter: (value: string) => {
-              return value + "%";
+              return `${value} ${isPredictability(type) ? "%" : ""}`;
             },
             color: "white",
             font: {
@@ -97,16 +104,16 @@ const ChartSprintsBar = ({ sprints, type = null }: Props) => {
           month: "2-digit",
         })}`
     );
-    chartData.datasets[1].data = sprints.map(
-      (spr: SprintWithStats) => spr.predictability
+    chartData.datasets[1].data = sprints.map((spr: SprintWithStats) =>
+      isPredictability(type) ? spr.predictability : spr.delivered
     );
-    chartData.datasets[0].data = sprints.map(
-      (spr: SprintWithStats, index) => spr.predictabilityThree
+    chartData.datasets[0].data = sprints.map((spr: SprintWithStats, index) =>
+      isPredictability(type) ? spr.predictabilityThree : spr.speedThree
     );
 
     setData(chartData);
     return () => {};
-  }, [sprints, type]);
+  }, [sprints, type, colors.indigo]);
   if (!data) return <div>Loading data ...</div>;
   return (
     <Chart
@@ -122,7 +129,9 @@ const ChartSprintsBar = ({ sprints, type = null }: Props) => {
             callbacks: {
               label: function (context) {
                 let label = context.dataset.label || "";
-                return label + " " + context.raw + "%";
+                return `${label} ${context.raw} ${
+                  isPredictability(type) ? "%" : ""
+                }`;
               },
             },
           },

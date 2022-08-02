@@ -21,11 +21,11 @@ class MonogSprint extends Mongodb<SprintCollection> {
   public async getAllPagination(pagination: PaginationRequest) {
 
     const query = [...queryPagination(pagination.page, pagination.pageSize)];
-    console.log(query)
+  
     const resp = await this.model.aggregate<
       PaginationResponseAggregate<ResponsSprint>
     >(query);
-    console.log(resp)
+   
     return paginationResponse<ResponsSprint>(resp, pagination.page, pagination.pageSize);
   }
   public async getLastOne(): Promise<ResponsSprint | null> {

@@ -10,7 +10,7 @@ const ReactFormProvider = <T extends FieldValues>({
   onSubmit,
 }: Props<T>) => {
   const methods = useForm<T>();
-  //   const onSubmit = (data: FieldValues) => console.log(data);
+
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit((data) => onSubmit(data))}>

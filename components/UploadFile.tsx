@@ -30,7 +30,7 @@ const parseCsv = (csv: string): Array<Issue> => {
 
       return head.split(regexp).join("");
     });
-  console.log(lines);
+
 
   lines.shift(); // get rid of definitions
 
@@ -68,7 +68,7 @@ const parseHTML = (csv: string): Array<Issue> => {
 
     return head.split(regexp).join("");
   });
-  console.log(lines);
+
 
   lines.shift(); // get rid of definitions
 
@@ -86,7 +86,7 @@ const parseHTML = (csv: string): Array<Issue> => {
       EpicGroup: null,
     };
     header.forEach((h, i) => {
-      console.log(obj[h]);
+
       if (h === "EpicLink" && obj[h]) {
         return (obj[h] = `${line[i]} - ${obj[h]}`);
       }
@@ -205,7 +205,7 @@ const UploadFile = ({ onLoad }: Props) => {
       reader.addEventListener("load", (e: ProgressEvent<FileReader>) => {
         if (typeof reader.result === "string") {
           const res = parseHTML(reader.result);
-          console.log(res);
+
 
           onLoad(res);
         }

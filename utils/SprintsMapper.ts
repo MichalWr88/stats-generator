@@ -4,7 +4,7 @@ export const setStatsSpritnts = (
   arr: Array<ResponsSprint>
 ): Array<SprintWithStats> => {
   const sprints: Array<SprintWithStats> = [];
-  console.log(arr);
+
   arr.forEach((sprint, index, array) => {
     const sprintWithStats: SprintWithStats = {
       ...sprint,
@@ -32,18 +32,7 @@ export const setStatsSpritnts = (
           array[index - 2].delivered,
         ].reduce((a, b) => a + b, 0) / 3
       ).toFixed(2);
-      console.log(
-        sprintWithStats.nr,
-        sprintWithStats.speedThree,
-        array[index - 1].delivered,
-        array[index - 2].delivered
-      );
-      console.log(
-        sprintWithStats.nr,
-        Number(sprintWithStats.speedThree),
-        Number(sprints[index - 1].speedThree),
-        Number(sprints[index - 2].speedThree)
-      );
+
       sprintWithStats.predictabilityThree = (
         [
           Number(sprintWithStats.predictability),

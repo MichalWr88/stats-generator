@@ -14,7 +14,7 @@ const ChartsPage = () => {
   };
 
   const handleBeforePageChange = (nr: number) => {
-    console.log(nr);
+
   };
 
   return (

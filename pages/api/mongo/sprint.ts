@@ -32,7 +32,7 @@ router.get(
     await mongoSprint
       .getAllPagination(pagination)
       .then((resp) => {
-        console.log(resp);
+
         res.status(200).json(resp);
       })
       .catch((err) => {
@@ -60,7 +60,7 @@ router.put(async (req, res: NextApiResponse<unknown>) => {
     const body = typeof req.body === "string" ? JSON.parse(req.body) : req.body;
 
     await mongoSprint.addOne(body).then((resp) => {
-      console.log(resp);
+
       res.status(200).json(resp);
     });
   } catch (error) {
