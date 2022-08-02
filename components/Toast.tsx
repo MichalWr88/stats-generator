@@ -1,17 +1,16 @@
 import React from "react";
 import { Toaster } from "react-hot-toast";
-import resolveConfig from "tailwindcss/resolveConfig";
-import { DefaultColors } from "tailwindcss/types/generated/colors.js";
-import tailwindConfig from "../tailwind.config.js";
+import useColors from "./api/hooks/useColors";
+
 // import { TailwindConfig, TailwindValues } from "tailwindcss/tailwind-config";
 
-type keyColorProps = "50" | "100" | "200" | "300" | '400' | "500" | "600" | '700'| "800" | "900";
-const fullConfig = resolveConfig(tailwindConfig);
-const colors = fullConfig?.theme?.colors as unknown as DefaultColors;
+
 
 
 
 const Toast = () => {
+const colors = useColors(); 
+
   return (
     <Toaster
       toastOptions={{
