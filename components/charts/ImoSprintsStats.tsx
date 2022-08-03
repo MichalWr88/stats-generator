@@ -1,5 +1,5 @@
 import { SprintWithStats, TypeofworkList } from "@/models/Sprint";
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { useSprintsContext } from "../store/ChartSprintsContext";
 
 import useColors from "../../components/api/hooks/useColors";
@@ -93,7 +93,9 @@ const ImoSprintsStats = (props: Props) => {
       <h5 className="uppercase text-indigo-800 font-bold text-2xl text-center">
         Innovation vs. Maintenance
       </h5>
-      <StackedSprintsBar group={grupped} />;
+      <Suspense fallback={`Loading...`}>
+        <StackedSprintsBar group={grupped} />;
+      </Suspense>
     </div>
   );
 };

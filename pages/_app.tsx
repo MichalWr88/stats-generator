@@ -5,13 +5,16 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "@/components/api/queryClient";
 import Loader from "@/components/Loader";
 import Toast from "@/components/Toast";
+import { ErrorBoundary } from "utils/ReactBoundry";
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <QueryClientProvider client={queryClient}>
-      <Toast/>
-      <Loader />
-      <Component {...pageProps} />
-    </QueryClientProvider>
+    <ErrorBoundary>
+      <QueryClientProvider client={queryClient}>
+        <Toast />
+        <Loader />
+        <Component {...pageProps} />
+      </QueryClientProvider>
+    </ErrorBoundary>
   );
 }
 
