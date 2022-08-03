@@ -36,13 +36,11 @@ ChartJS.register(
 );
 const ChartSprintsBar = ({ sprints, type = null }: Props) => {
   const colors = useColors();
-  const [data, setData] = useState<ChartData<"bar">| null>(
-    null
-  );
+  const [data, setData] = useState<ChartData| null>(null);
 
   useEffect(() => {
     if (!sprints.length) return;
-    const chartData:ChartData<"bar"> = {
+    const chartData: ChartData = {
       labels: [],
       datasets: [
         {
@@ -51,7 +49,7 @@ const ChartSprintsBar = ({ sprints, type = null }: Props) => {
             : type === "speed"
             ? "Prędkość zespołu"
             : undefined,
-          type: "bar",
+          type: 'line' as const,
           data: [],
           backgroundColor: "red",
           borderColor: "red",
@@ -59,8 +57,8 @@ const ChartSprintsBar = ({ sprints, type = null }: Props) => {
             formatter: (value: string) => {
               return `${value} ${isPredictability(type) ? "%" : ""}`;
             },
-            font:{
-              weight: 'bold'
+            font: {
+              weight: "bold",
             },
             anchor: "end",
             align: "top",
@@ -106,18 +104,20 @@ const ChartSprintsBar = ({ sprints, type = null }: Props) => {
       isPredictability(type) ? Number(spr.predictability) : spr.delivered
     );
     chartData.datasets[0].data = sprints.map((spr: SprintWithStats, index) =>
-      isPredictability(type) ? Number(spr.predictabilityThree) : Number(spr.speedThree)
+      isPredictability(type)
+        ? Number(spr.predictabilityThree)
+        : Number(spr.speedThree)
     );
 
     setData(chartData);
     return () => {};
-  }, [sprints, type, colors.indigo,colors.white]);
+  }, [sprints, type, colors.indigo, colors.white]);
   if (!data) return <div>Loading data ...</div>;
   return (
-    <Bar
+    <Chart
       height={"22vh"}
       width={"50vh"}
-   
+      type="bar"
       data={data}
       options={{
         responsive: true,
