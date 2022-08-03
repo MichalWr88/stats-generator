@@ -1,16 +1,7 @@
 import React, { useEffect, useState } from "react";
 import type { ChartData, InteractionItem } from "chart.js";
 import ChartDataLabels from "chartjs-plugin-datalabels";
-import {
-  Chart as ChartJS,
-  LinearScale,
-  CategoryScale,
-  BarElement,
-  PointElement,
-  LineElement,
-  Legend,
-  Tooltip,
-} from "chart.js";
+import { Chart as ChartJS, registerables } from "chart.js";
 import { Bar, Chart } from "react-chartjs-2";
 import { SprintWithStats } from "@/models/Sprint";
 import useColors from "./api/hooks/useColors";
@@ -24,19 +15,10 @@ type Props = {
 const isPredictability = (type: ChartType) => {
   return type === "predictability";
 };
-ChartJS.register(
-  LinearScale,
-  CategoryScale,
-  BarElement,
-  PointElement,
-  LineElement,
-  Legend,
-  Tooltip,
-  ChartDataLabels
-);
+ChartJS.register(...registerables);
 const ChartSprintsBar = ({ sprints, type = null }: Props) => {
   const colors = useColors();
-  const [data, setData] = useState<ChartData| null>(null);
+  const [data, setData] = useState<ChartData | null>(null);
 
   useEffect(() => {
     if (!sprints.length) return;
@@ -49,7 +31,7 @@ const ChartSprintsBar = ({ sprints, type = null }: Props) => {
             : type === "speed"
             ? "Prędkość zespołu"
             : undefined,
-          type: 'line' as const,
+          type: "line" as const,
           data: [],
           backgroundColor: "red",
           borderColor: "red",
