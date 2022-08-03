@@ -1,5 +1,11 @@
 import { TypeofworkList } from "@/models/Sprint";
-import { ChartData, Chart as ChartJS } from "chart.js";
+import {
+  ChartData,
+  Chart as ChartJS,
+  ChartTypeRegistry,
+  BubbleDataPoint,
+  ScatterDataPoint,
+} from "chart.js";
 import React, { useEffect, useState } from "react";
 import { Bar, Chart } from "react-chartjs-2";
 import useColors from "../api/hooks/useColors";
@@ -8,7 +14,7 @@ type Group = { labels: Array<string>; datasets: Array<Dataset> };
 
 type Dataset = {
   label: TypeofworkList;
-  data: Array<string>;
+  data: Array<number>;
 };
 type Props = {
   group: Group;
@@ -16,8 +22,8 @@ type Props = {
 
 ChartJS.register(ChartjsPluginStacked100);
 const StackedSprintsBar = ({ group }: Props) => {
-  const colors = useColors();
-  const [data, setData] = useState<ChartData<"bar", number[], string> | null>(
+
+  const [data, setData] = useState<ChartData<"bar", number[], unknown> | null>(
     null
   );
 
@@ -45,11 +51,15 @@ const StackedSprintsBar = ({ group }: Props) => {
         plugins: {
           stacked100: {
             enable: true,
-            replaceTooltipLabel:false
+            replaceTooltipLabel: false,
           },
           datalabels: {
             formatter: (_value, context) => {
-              const data = context.chart.data;
+              const data = context.chart.data as unknown as ChartData<
+                keyof ChartTypeRegistry,
+                (number | ScatterDataPoint | BubbleDataPoint | null)[],
+                unknown
+              > & { calculatedData: { [key: number]: Array<number> } };
               const { datasetIndex, dataIndex } = context;
               return `${data.calculatedData[datasetIndex][dataIndex]}%`;
             },
@@ -90,7 +100,7 @@ const StackedSprintsBar = ({ group }: Props) => {
           },
           y: {
             beginAtZero: true,
-            stacked:true,
+            stacked: true,
           },
         },
       }}

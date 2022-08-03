@@ -9,7 +9,7 @@ type Group = { labels: Array<string>; datasets: Array<Dataset> };
 
 type Dataset = {
   label: TypeofworkList;
-  data: Array<string>;
+  data: Array<number>;
   backgroundColor: string;
 };
 const setGr = (data: SprintWithStats[], colors: DefaultColors): Group => {
@@ -52,6 +52,7 @@ const setGr = (data: SprintWithStats[], colors: DefaultColors): Group => {
     let imoObj = {};
 
     const result = issues.reduce(function (r, a) {
+      if(!a.Typeofwork) return;
       r[a.Typeofwork] = r[a.Typeofwork] || 0;
       r[a.Typeofwork] = r[a.Typeofwork] + Number(a.Hours);
       return r;
@@ -59,7 +60,7 @@ const setGr = (data: SprintWithStats[], colors: DefaultColors): Group => {
 
     Object.entries(result).forEach(([key, value]) => {
       const index = datasets.findIndex((data) => data.label === key);
-      datasets[index].data.push(Number(value).toFixed(2));
+      datasets[index].data.push(Number(Number(value).toFixed(2)));
     });
 
     issues.forEach((issue) => {
@@ -79,7 +80,7 @@ const ImoSprintsStats = (props: Props) => {
   useEffect(() => {
     setGrupped(setGr(data, colors));
     return () => {};
-  }, [data]);
+  }, [data,colors]);
   if (!grupped) return <div> Loading data....</div>;
   return (
     <div className="h-screen flex flex-col justify-center">
