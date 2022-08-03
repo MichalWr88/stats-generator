@@ -31,7 +31,6 @@ const parseCsv = (csv: string): Array<Issue> => {
       return head.split(regexp).join("");
     });
 
-
   lines.shift(); // get rid of definitions
 
   const issueList = lines.map((line) => {
@@ -69,7 +68,6 @@ const parseHTML = (csv: string): Array<Issue> => {
     return head.split(regexp).join("");
   });
 
-
   lines.shift(); // get rid of definitions
 
   const issueList = lines.map((line) => {
@@ -86,7 +84,6 @@ const parseHTML = (csv: string): Array<Issue> => {
       EpicGroup: null,
     };
     header.forEach((h, i) => {
-
       if (h === "EpicLink" && obj[h]) {
         return (obj[h] = `${line[i]} - ${obj[h]}`);
       }
@@ -144,9 +141,15 @@ class Mapper {
       if (
         [...config.texts, ...config.epics].some(
           (text) =>
-            this.issue.Issuesummary.toLocaleLowerCase().includes(text.toLocaleLowerCase()) ||
-            this.issue.EpicLink.toLocaleLowerCase().includes(text.toLocaleLowerCase()) ||
-            this.issue.WorkDescription.toLocaleLowerCase().includes(text.toLocaleLowerCase())
+            this.issue.Issuesummary.toLocaleLowerCase().includes(
+              text.toLocaleLowerCase()
+            ) ||
+            this.issue.EpicLink?.toLocaleLowerCase().includes(
+              text.toLocaleLowerCase()
+            ) ||
+            this.issue.WorkDescription.toLocaleLowerCase().includes(
+              text.toLocaleLowerCase()
+            )
         )
       ) {
         this.issue.EpicGroup = config.name;
@@ -206,8 +209,9 @@ const UploadFile = ({ onLoad }: Props) => {
         if (typeof reader.result === "string") {
           const res = parseHTML(reader.result);
 
-
-          onLoad(res);
+          if (onLoad) {
+            onLoad(res);
+          }
         }
       });
 
