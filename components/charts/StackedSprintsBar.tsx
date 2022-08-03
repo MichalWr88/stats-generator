@@ -98,10 +98,10 @@ const StackedSprintsBar = ({ group }: Props) => {
         responsive: true,
         // maintainAspectRatio: false,
         plugins: {
-          // stacked100: {
-          //   enable: true,
-          //   replaceTooltipLabel: false,
-          // },
+          stacked100: {
+            enable: true,
+            replaceTooltipLabel: false,
+          },
           datalabels: {
             formatter: (_value, context) => {
               const data = context.chart.data as unknown as ChartData<

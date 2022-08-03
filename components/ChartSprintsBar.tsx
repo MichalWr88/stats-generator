@@ -85,7 +85,7 @@ const ChartSprintsBar = ({ sprints, type = null }: Props) => {
             : undefined,
           type: 'line' as const,
           data: [],
-          backgroundColor: "red",
+          
           borderColor: "red",
           datalabels: {
             formatter: (value: string) => {
