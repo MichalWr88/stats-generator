@@ -63,20 +63,20 @@ const Table = <T,>({ data, selectSprint, columns }: Props<T>) => {
               <tr
                 {...row.getRowProps()}
                 key={id2d}
-                className={`${
-                  row.original.Typeofwork === "Organization"
-                    ? "bg-green-600"
-                    : ""
-                }
-                ${row.original.Typeofwork === "Bugs" ? "bg-red-600" : ""}
-                ${
-                  row.original.Typeofwork === "Maintenance"
-                    ? "bg-orange-400"
-                    : ""
-                }
-                ${row.original.Typeofwork === "Innovation" ? "bg-blue-400" : ""}
+                // className={`${
+                //   row.original.Typeofwork === "Organization"
+                //     ? "bg-green-600"
+                //     : ""
+                // }
+                // ${row.original.Typeofwork === "Bugs" ? "bg-red-600" : ""}
+                // ${
+                //   row.original.Typeofwork === "Maintenance"
+                //     ? "bg-orange-400"
+                //     : ""
+                // }
+                // ${row.original.Typeofwork === "Innovation" ? "bg-blue-400" : ""}
                 
-                hover:bg-slate-400 transition-colors cursor-pointer`}
+                // hover:bg-slate-400 transition-colors cursor-pointer`}
                 onClick={() => selectSprint && selectSprint(row.original)}
               >
                 {

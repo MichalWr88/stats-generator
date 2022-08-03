@@ -4,13 +4,11 @@ import UploadFile from "@/components/UploadFile";
 import { Issue } from "@/models/Sprint";
 import WithNavBar from "layouts/WithNavBar";
 import React, { useState } from "react";
-
-
-
+import { Column } from "react-table";
 
 const AddSprintPage = () => {
   const [data, setData] = useState<Array<Issue>>([]);
-  const columns = React.useMemo(
+  const columns: Array<Column<Issue>> = React.useMemo(
     () => [
       {
         Header: "IssueKey",
@@ -67,7 +65,7 @@ const AddSprintPage = () => {
   };
   return (
     <WithNavBar>
-      <SprintForm issues={data}/>
+      <SprintForm issues={data} />
       <UploadFile onLoad={addFile} />
       <div className="">
         <Table data={data} columns={columns} />

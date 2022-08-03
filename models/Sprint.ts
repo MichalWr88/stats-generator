@@ -23,7 +23,7 @@ export const BugSchemaAdd: yup.ObjectSchema<BugStatSprint> = yup
     onHold: yup.number().min(0).required(),
   });
 
-export const IssueSchemaAdd: yup.ObjectSchema<Issue> = yup.object().shape({
+export const IssueSchemaAdd:yup.ObjectSchema<Issue> = yup.object().shape({
   IssueKey: yup.string().required(),
   Issuesummary: yup.string().required(),
   Hours: yup.string().required(),
@@ -35,7 +35,7 @@ export const IssueSchemaAdd: yup.ObjectSchema<Issue> = yup.object().shape({
   Typeofwork: yup.string<TypeofworkList>().required().default(null),
   EpicGroup: yup.string<EpicGroup>().nullable(),
 });
-
+// @ts-ignore
 export const sprintSchemaAdd: yup.ObjectSchema<Sprint> = yup.object().shape({
   nr: yup.number().min(0).defined().required(),
   start: yup.date().required(),
@@ -45,12 +45,13 @@ export const sprintSchemaAdd: yup.ObjectSchema<Sprint> = yup.object().shape({
   request: RequestSchemaAdd.required(),
   bug: BugSchemaAdd.required(),
   issues: yup
-    .array(IssueSchemaAdd)
+    .array()
+    .of(IssueSchemaAdd.required())
     .test({
       message: "issues don't be empty",
       test: (arr) => arr?.length !== 0,
-    }).defined()
-    .required(),
+    })
+    .defined(),
 });
 
 // type SprintForm = yup.InferType<typeof IssueSchemaAdd>;
@@ -76,12 +77,12 @@ export interface Issue {
   Issuesummary: string;
   Hours: string | number;
   IssueType: string;
-  EpicLink: string | null |undefined;
+  EpicLink: string | null | undefined;
   Username: string;
   WorkDescription: string;
-  ParentKey: string | null |undefined;
-  Typeofwork: TypeofworkList | null;
-  EpicGroup: EpicGroup | null |undefined;
+  ParentKey: string | null | undefined;
+  Typeofwork: TypeofworkList | null | undefined;
+  EpicGroup: EpicGroup | null | undefined;
 }
 export interface BugStatSprint {
   closed: number;

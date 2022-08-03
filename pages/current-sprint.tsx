@@ -4,13 +4,14 @@ import UploadFile from "@/components/UploadFile";
 import { Issue } from "@/models/Sprint";
 import WithNavBar from "layouts/WithNavBar";
 import React, { useState } from "react";
+import { Column } from "react-table";
 
 
 
 
 const CurrentSprintPage = () => {
   const [data, setData] = useState<Array<Issue>>([]);
-  const columns = React.useMemo(
+  const columns:Array<Column<Issue>> = React.useMemo(
     () => [
       {
         Header: "IssueKey",

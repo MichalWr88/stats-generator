@@ -1,3 +1,4 @@
+
 import { getAllSprints } from "@/components/api/dataProvider";
 import ChartSprintCircle from "@/components/ChartSprintCircle";
 import ChartSprintsBar from "@/components/ChartSprintsBar";
@@ -5,7 +6,7 @@ import Table from "@/components/table/Table";
 import { Sprint, SprintWithStats } from "@/models/Sprint";
 import WithNavBar from "layouts/WithNavBar";
 import React, { useMemo, useEffect, useState, useDebugValue } from "react";
-import { useTable } from "react-table";
+import { Column, useTable } from "react-table";
 import { setStatsSpritnts } from "utils/SprintsMapper";
 import sprint from "./api/mongo/sprint";
 
@@ -25,7 +26,8 @@ const SprintListPage = () => {
   const selectSprint = (sprint: SprintWithStats) => {
     setActiveSprint(sprint);
   };
-  const columns = React.useMemo(
+  // @ts-ignore
+  const columns: Array<Column<SprintWithStats>>  = React.useMemo(
     () => [
       {
         Header: "NR Sprintu",
@@ -110,9 +112,10 @@ const SprintListPage = () => {
 
   return (
     // apply the table props
+
     <WithNavBar>
       <>
-        <Table data={data} columns={columns} selectSprint={selectSprint} />
+        <Table data={data} columns={columns} />
         {activeSprint && (
           <div className="grid grid-cols-4 relative grid-rows-4 max-h-96 grid-flow-row">
             <h5 className="col-span-2 self-end font-bold	place-self-center p-2 border-2 border-pink-700">
@@ -128,7 +131,7 @@ const SprintListPage = () => {
             </div>
           </div>
         )}
-        <ChartSprintsBar sprints={data} />
+        {/* <ChartSprintsBar sprints={data} /> */}
       </>
     </WithNavBar>
   );
