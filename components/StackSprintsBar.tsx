@@ -30,12 +30,12 @@ const StackSprintsBar = ({ sprints }: Props) => {
 
   useEffect(() => {
     if (!sprints.length) return;
-    const chartData: ChartData = {
-      labels: [],
+    const chartData = {
+      labels: sprints.map((spr: SprintWithStats) => `${spr.nr}`),
       datasets: [
         {
           label: "My First Dataset",
-          data: [],
+          data: sprints.map((spr: SprintWithStats) => spr.delivered),
           backgroundColor: "blue",
           // borderColor:"grey",
           // borderColor:[
@@ -51,11 +51,6 @@ const StackSprintsBar = ({ sprints }: Props) => {
         },
       ],
     };
-
-    chartData.labels = sprints.map((spr: SprintWithStats) => `${spr.nr}`);
-    chartData.datasets[0].data = sprints.map(
-      (spr: SprintWithStats) => spr.delivered
-    );
 
     setData(chartData);
     return () => {};
