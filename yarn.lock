@@ -553,6 +553,13 @@ chartjs-plugin-datalabels@^2.0.0:
   resolved "https://registry.yarnpkg.com/chartjs-plugin-datalabels/-/chartjs-plugin-datalabels-2.0.0.tgz#caacefb26803d968785071eab012dde8746c5939"
   integrity sha512-WBsWihphzM0Y8fmQVm89+iy99mmgejmj5/jcsYqwxSioLRL/zqJ4Scv/eXq5ZqvG3TpojlGzZLeaOaSvDm7fwA==
 
+chartjs-plugin-stacked100@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/chartjs-plugin-stacked100/-/chartjs-plugin-stacked100-1.2.1.tgz#b84956c6b0b847b5205f4429bd9da0c1c96f4f33"
+  integrity sha512-6RIvM1gBSXVFTcYs1kkTzPVIzMgJtRO7KNADwHzcVqqQw7xKrIOZfGQ4fXGF8FZtQ26KzjqmNUllPgx4GhlMng==
+  dependencies:
+    chart.js "^3.8.0"
+
 chokidar@^3.5.3:
   version "3.5.3"
   resolved "https://registry.yarnpkg.com/chokidar/-/chokidar-3.5.3.tgz#1cf37c8707b932bd1af1ae22c0432e2acd1903bd"
