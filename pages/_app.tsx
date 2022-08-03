@@ -6,6 +6,25 @@ import { queryClient } from "@/components/api/queryClient";
 import Loader from "@/components/Loader";
 import Toast from "@/components/Toast";
 import { ErrorBoundary } from "utils/ReactBoundry";
+import {
+  Chart as ChartJS,
+  LinearScale,
+  CategoryScale,
+  BarElement,
+  PointElement,
+  LineElement,
+  Legend,
+  Tooltip,
+} from "chart.js";
+ChartJS.register(
+  LineElement,
+  LinearScale,
+  CategoryScale,
+  BarElement,
+  PointElement,
+  Legend,
+  Tooltip
+);
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ErrorBoundary>

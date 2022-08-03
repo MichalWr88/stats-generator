@@ -20,10 +20,6 @@ type Props = {
   sprints: Array<SprintWithStats>;
   type?: ChartType;
 };
-
-const isPredictability = (type: ChartType) => {
-  return type === "predictability";
-};
 ChartJS.register(
   LineElement,
   LinearScale,
@@ -34,6 +30,10 @@ ChartJS.register(
   Tooltip,
   ChartDataLabels
 );
+const isPredictability = (type: ChartType) => {
+  return type === "predictability";
+};
+
 const ChartSprintsBar = ({ sprints, type = null }: Props) => {
   const colors = useColors();
   const [data, setData] = useState<ChartData| null>(null);
