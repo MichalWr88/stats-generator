@@ -9,16 +9,18 @@ const RequestAndBugSprintCharts = (props: Props) => {
 
   const [activeSprint, setActiveSprint] = useState(data[data.length - 1]);
   return (
-    <div className="grid grid-cols-2 relative grid-rows-6  h-screen">
-      <h5 className="col-span-2 self-end font-bold	place-self-center p-2 border-2 border-pink-700">
+    <div className="flex flex-wrap h-screen p-2 w-screen items-center justify-center content-start">
+      <h5 className="w-full flex items-center justify-center">
+        <div className="font-bold p-2 border-2 border-pink-700 text-center">
         Sprint: #{activeSprint.nr}{" "}
         {new Date(activeSprint.start).toLocaleDateString("pl-PL")}-
         {new Date(activeSprint.end).toLocaleDateString("pl-PL")}
+        </div>
       </h5>
-      <div className="row-span-2 row-start-2">
+      <div className=" h-10 w-2/5">
         <ChartSprintCircle sprint={activeSprint} type="bug" />
       </div>
-      <div className="row-span-2 row-start-2">
+      <div className="h-10 w-2/5">
         <ChartSprintCircle sprint={activeSprint} type="request" />
       </div>
     </div>

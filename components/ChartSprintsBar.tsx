@@ -36,13 +36,13 @@ const isPredictability = (type: ChartType) => {
 
 const ChartSprintsBar = ({ sprints, type = null }: Props) => {
   const colors = useColors();
-  const [data, setData] = useState<ChartData<"bar", number[], string> | null>(
+  const [data, setData] = useState<ChartData| null>(
     null
   );
 
   useEffect(() => {
     if (!sprints.length) return;
-    const chartData = {
+    const chartData:ChartData = {
       labels: [],
       datasets: [
         {
@@ -50,12 +50,11 @@ const ChartSprintsBar = ({ sprints, type = null }: Props) => {
             ? "Przewid. ost 3 sprinty"
             : type === "speed"
             ? "Prędkość zespołu"
-            : type,
+            : undefined,
           type: "line",
           data: [],
           backgroundColor: "red",
           borderColor: "red",
-          hoverOffset: 4,
           datalabels: {
             formatter: (value: string) => {
               return `${value} ${isPredictability(type) ? "%" : ""}`;
@@ -65,7 +64,6 @@ const ChartSprintsBar = ({ sprints, type = null }: Props) => {
             },
             anchor: "end",
             align: "top",
-            ofset: 1,
             backgroundColor: colors.white,
             borderRadius: 10,
           },
@@ -75,12 +73,12 @@ const ChartSprintsBar = ({ sprints, type = null }: Props) => {
             ? "Przewidywalność zespołu"
             : type === "speed"
             ? "Prędkość zespołu"
-            : type,
+            : undefined,
           data: [],
           backgroundColor: colors.indigo[900],
           hoverOffset: 4,
           datalabels: {
-            anchor: "middle",
+            anchor: "center",
             align: "start",
             formatter: (value: string) => {
               return `${value} ${isPredictability(type) ? "%" : ""}`;
@@ -105,15 +103,15 @@ const ChartSprintsBar = ({ sprints, type = null }: Props) => {
         })}`
     );
     chartData.datasets[1].data = sprints.map((spr: SprintWithStats) =>
-      isPredictability(type) ? spr.predictability : spr.delivered
+      isPredictability(type) ? Number(spr.predictability) : spr.delivered
     );
     chartData.datasets[0].data = sprints.map((spr: SprintWithStats, index) =>
-      isPredictability(type) ? spr.predictabilityThree : spr.speedThree
+      isPredictability(type) ? Number(spr.predictabilityThree) : Number(spr.speedThree)
     );
 
     setData(chartData);
     return () => {};
-  }, [sprints, type, colors.indigo]);
+  }, [sprints, type, colors.indigo,colors.white]);
   if (!data) return <div>Loading data ...</div>;
   return (
     <Chart

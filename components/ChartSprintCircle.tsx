@@ -5,29 +5,27 @@ import {
   Tooltip,
   Legend,
   ChartData,
+  Title,
 } from "chart.js";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 
 import React, { useEffect, useState } from "react";
 import { Pie } from "react-chartjs-2";
-ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels);
+ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels, Title);
 
 type Props = {
   sprint: Sprint;
-  type: keyof Pick<Sprint,"bug" | "request">;
+  type: keyof Pick<Sprint, "bug" | "request">;
 };
 
 const ChartSprintCircle = ({ sprint, type }: Props) => {
-  const [data, setData] = useState<ChartData<
-    "pie",
-    number[],
-    string
-  > | null>(null);
-
+  const [data, setData] = useState<ChartData<"pie", number[], string> | null>(
+    null
+  );
 
   useEffect(() => {
     if (!sprint) return;
-    const chartData = {
+    const chartData: ChartData<"pie", number[], string> = {
       labels: [],
       datasets: [
         {
@@ -56,10 +54,10 @@ const ChartSprintCircle = ({ sprint, type }: Props) => {
         },
       ],
     };
-    const arrType = sprint[type]
+    const arrType = sprint[type];
     Object.entries(arrType).forEach(([key, value]) => {
-      if (key === "_id" || Number(value) ===  0) return;
-      chartData.labels.push(key);
+      if (key === "_id" || Number(value) === 0) return;
+      chartData.labels?.push(key.toUpperCase());
       chartData.datasets[0].data.push(value);
 
       return;
@@ -71,13 +69,21 @@ const ChartSprintCircle = ({ sprint, type }: Props) => {
 
   if (!data) return <div>Loading data ...</div>;
   return (
-    <div className="flex flex-col justify-center items-center">
-      <h6 className="mr-36 uppercase">{type}</h6>
+    <div className="flex flex-wrap p-2">
       <Pie
         data={data}
         options={{
+          responsive: true,
           plugins: {
-            legend: { display: true ,position:"right"},
+            title: {
+              display: true,
+              text: type.toUpperCase(),
+              position: "top",
+              font: {
+                size: 20,
+              },
+            },
+            legend: { display: true, position: "bottom", fullSize: true },
 
             datalabels: {
               formatter: (val, ctx) => {
@@ -101,7 +107,6 @@ const ChartSprintCircle = ({ sprint, type }: Props) => {
                 size: 18,
               },
             },
-
           },
         }}
       />

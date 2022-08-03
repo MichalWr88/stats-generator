@@ -6,6 +6,7 @@ import React, { useState } from "react";
 import ReactPageScroller from "react-page-scroller";
 import { IoIosReturnLeft } from "react-icons/io";
 import Link from "next/link";
+import ImoSprintsStats from "@/components/charts/ImoSprintsStats";
 const ChartsPage = () => {
   const [currentPage, setCurrentPage] = useState(0);
 
@@ -29,7 +30,9 @@ const ChartsPage = () => {
           <div className="min-h-full">
             <SpeedSprintsStats />
           </div>
-          <div className="bg-yellow-500 min-h-full">Imo</div>
+          <div className=" min-h-full">
+            <ImoSprintsStats />
+          </div>
           <div className="bg-purple-500 min-h-full">Epic</div>
           <div className="min-h-full">
             <RequestAndBugSprintCharts />
