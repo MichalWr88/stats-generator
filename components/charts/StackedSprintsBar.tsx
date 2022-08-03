@@ -33,7 +33,7 @@ import {
 import React, { useEffect, useState } from "react";
 import { Chart } from "react-chartjs-2";
 
-// import ChartjsPluginStacked100 from "chartjs-plugin-stacked100";
+import ChartjsPluginStacked100 from "chartjs-plugin-stacked100";
 type Group = { labels: Array<string>; datasets: Array<Dataset> };
 
 type Dataset = {
