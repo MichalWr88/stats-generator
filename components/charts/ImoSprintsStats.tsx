@@ -1,9 +1,15 @@
 import { SprintWithStats, TypeofworkList } from "@/models/Sprint";
 import React, { useEffect, useState } from "react";
 import { useSprintsContext } from "../store/ChartSprintsContext";
-import StackedSprintsBar from "./StackedSprintsBar";
+
 import useColors from "../../components/api/hooks/useColors";
 import { DefaultColors } from "tailwindcss/types/generated/colors";
+import dynamic from "next/dynamic";
+
+const StackedSprintsBar = dynamic(() => import("./StackedSprintsBar"), {
+  ssr: false,
+});
+
 type Props = {};
 type Group = { labels: Array<string>; datasets: Array<Dataset> };
 
@@ -52,7 +58,7 @@ const setGr = (data: SprintWithStats[], colors: DefaultColors): Group => {
     let imoObj = {};
 
     const result = issues.reduce(function (r, a) {
-      if(!a.Typeofwork) return;
+      if (!a.Typeofwork) return;
       r[a.Typeofwork] = r[a.Typeofwork] || 0;
       r[a.Typeofwork] = r[a.Typeofwork] + Number(a.Hours);
       return r;
@@ -80,12 +86,12 @@ const ImoSprintsStats = (props: Props) => {
   useEffect(() => {
     setGrupped(setGr(data, colors));
     return () => {};
-  }, [data,colors]);
+  }, [data, colors]);
   if (!grupped) return <div> Loading data....</div>;
   return (
     <div className="h-screen flex flex-col justify-center">
       <h5 className="uppercase text-indigo-800 font-bold text-2xl text-center">
-      Innovation vs. Maintenance
+        Innovation vs. Maintenance
       </h5>
       <StackedSprintsBar group={grupped} />;
     </div>

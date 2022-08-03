@@ -7,8 +7,8 @@ import {
   ScatterDataPoint,
 } from "chart.js";
 import React, { useEffect, useState } from "react";
-import { Bar, Chart } from "react-chartjs-2";
-import useColors from "../api/hooks/useColors";
+import { Chart } from "react-chartjs-2";
+
 import ChartjsPluginStacked100 from "chartjs-plugin-stacked100";
 type Group = { labels: Array<string>; datasets: Array<Dataset> };
 
