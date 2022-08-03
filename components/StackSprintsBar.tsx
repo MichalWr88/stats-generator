@@ -1,14 +1,32 @@
 import React, { useEffect, useState } from "react";
-import type { ChartData, InteractionItem } from "chart.js";
+
 import {
+  ChartData,
   Chart as ChartJS,
-  LinearScale,
-  CategoryScale,
+  ArcElement,
+  LineElement,
   BarElement,
   PointElement,
-  LineElement,
+  BarController,
+  BubbleController,
+  DoughnutController,
+  LineController,
+  PieController,
+  PolarAreaController,
+  RadarController,
+  ScatterController,
+  CategoryScale,
+  LinearScale,
+  LogarithmicScale,
+  RadialLinearScale,
+  TimeScale,
+  TimeSeriesScale,
+  Decimation,
+  Filler,
   Legend,
+  Title,
   Tooltip,
+  SubTitle,
 } from "chart.js";
 import { Chart } from "react-chartjs-2";
 import { SprintWithStats } from "@/models/Sprint";
@@ -16,13 +34,31 @@ type Props = {
   sprints: Array<SprintWithStats>;
 };
 ChartJS.register(
-  LinearScale,
-  CategoryScale,
+  Chart as unknown as ChartJS,
+  ArcElement,
+  LineElement,
   BarElement,
   PointElement,
-  LineElement,
+  BarController,
+  BubbleController,
+  DoughnutController,
+  LineController,
+  PieController,
+  PolarAreaController,
+  RadarController,
+  ScatterController,
+  CategoryScale,
+  LinearScale,
+  LogarithmicScale,
+  RadialLinearScale,
+  TimeScale,
+  TimeSeriesScale,
+  Decimation,
+  Filler,
   Legend,
-  Tooltip
+  Title,
+  Tooltip,
+  SubTitle,
 );
 
 const StackSprintsBar = ({ sprints }: Props) => {
