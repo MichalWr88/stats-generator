@@ -2,9 +2,33 @@ import { TypeofworkList } from "@/models/Sprint";
 import {
   ChartData,
   Chart as ChartJS,
+  ArcElement,
+  LineElement,
+  BarElement,
+  PointElement,
+  BarController,
+  BubbleController,
+  DoughnutController,
+  LineController,
+  PieController,
+  PolarAreaController,
+  RadarController,
+  ScatterController,
+  CategoryScale,
+  LinearScale,
+  LogarithmicScale,
+  RadialLinearScale,
+  TimeScale,
+  TimeSeriesScale,
+  Decimation,
+  Filler,
+  Legend,
+  Title,
+  Tooltip,
+  SubTitle,
   ChartTypeRegistry,
-  BubbleDataPoint,
   ScatterDataPoint,
+  BubbleDataPoint,
 } from "chart.js";
 import React, { useEffect, useState } from "react";
 import { Chart } from "react-chartjs-2";
@@ -20,9 +44,34 @@ type Props = {
   group: Group;
 };
 
-// ChartJS.register(ChartjsPluginStacked100);
+ChartJS.register(
+  ArcElement,
+  ChartjsPluginStacked100,
+  LineElement,
+  BarElement,
+  PointElement,
+  BarController,
+  BubbleController,
+  DoughnutController,
+  LineController,
+  PieController,
+  PolarAreaController,
+  RadarController,
+  ScatterController,
+  CategoryScale,
+  LinearScale,
+  LogarithmicScale,
+  RadialLinearScale,
+  TimeScale,
+  TimeSeriesScale,
+  Decimation,
+  Filler,
+  Legend,
+  Title,
+  Tooltip,
+  SubTitle
+);
 const StackedSprintsBar = ({ group }: Props) => {
-
   const [data, setData] = useState<ChartData<"bar", number[], unknown> | null>(
     null
   );

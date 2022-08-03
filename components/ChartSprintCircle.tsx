@@ -1,17 +1,63 @@
 import { Sprint } from "@/models/Sprint";
 import {
+  ChartData,
   Chart as ChartJS,
   ArcElement,
-  Tooltip,
+  LineElement,
+  BarElement,
+  PointElement,
+  BarController,
+  BubbleController,
+  DoughnutController,
+  LineController,
+  PieController,
+  PolarAreaController,
+  RadarController,
+  ScatterController,
+  CategoryScale,
+  LinearScale,
+  LogarithmicScale,
+  RadialLinearScale,
+  TimeScale,
+  TimeSeriesScale,
+  Decimation,
+  Filler,
   Legend,
-  ChartData,
   Title,
+  Tooltip,
+  SubTitle,
 } from "chart.js";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 
 import React, { useEffect, useState } from "react";
 import { Pie } from "react-chartjs-2";
-ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels, Title);
+ChartJS.register(
+  ArcElement,
+  ChartDataLabels,
+  LineElement,
+  BarElement,
+  PointElement,
+  BarController,
+  BubbleController,
+  DoughnutController,
+  LineController,
+  PieController,
+  PolarAreaController,
+  RadarController,
+  ScatterController,
+  CategoryScale,
+  LinearScale,
+  LogarithmicScale,
+  RadialLinearScale,
+  TimeScale,
+  TimeSeriesScale,
+  Decimation,
+  Filler,
+  Legend,
+  Title,
+  Tooltip,
+  SubTitle
+);
 
 type Props = {
   sprint: Sprint;

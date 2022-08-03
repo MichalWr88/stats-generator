@@ -1,15 +1,32 @@
 import React, { useEffect, useState } from "react";
-import type { ChartData, InteractionItem } from "chart.js";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import {
+  ChartData,
   Chart as ChartJS,
-  LinearScale,
-  CategoryScale,
+  ArcElement,
+  LineElement,
   BarElement,
   PointElement,
-  LineElement,
+  BarController,
+  BubbleController,
+  DoughnutController,
+  LineController,
+  PieController,
+  PolarAreaController,
+  RadarController,
+  ScatterController,
+  CategoryScale,
+  LinearScale,
+  LogarithmicScale,
+  RadialLinearScale,
+  TimeScale,
+  TimeSeriesScale,
+  Decimation,
+  Filler,
   Legend,
+  Title,
   Tooltip,
+  SubTitle
 } from "chart.js";
 import { Bar, Chart } from "react-chartjs-2";
 import { SprintWithStats } from "@/models/Sprint";
@@ -21,14 +38,31 @@ type Props = {
   type?: ChartType;
 };
 ChartJS.register(
+  ArcElement,
+  ChartDataLabels,
   LineElement,
-  LinearScale,
-  CategoryScale,
   BarElement,
   PointElement,
+  BarController,
+  BubbleController,
+  DoughnutController,
+  LineController,
+  PieController,
+  PolarAreaController,
+  RadarController,
+  ScatterController,
+  CategoryScale,
+  LinearScale,
+  LogarithmicScale,
+  RadialLinearScale,
+  TimeScale,
+  TimeSeriesScale,
+  Decimation,
+  Filler,
   Legend,
+  Title,
   Tooltip,
-  ChartDataLabels
+  SubTitle
 );
 const isPredictability = (type: ChartType) => {
   return type === "predictability";
