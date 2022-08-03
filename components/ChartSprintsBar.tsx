@@ -11,7 +11,7 @@ import {
   Legend,
   Tooltip,
 } from "chart.js";
-import { Chart } from "react-chartjs-2";
+import { Bar, Chart } from "react-chartjs-2";
 import { SprintWithStats } from "@/models/Sprint";
 import useColors from "./api/hooks/useColors";
 
@@ -19,6 +19,10 @@ type ChartType = keyof Pick<SprintWithStats, "predictability"> | "speed" | null;
 type Props = {
   sprints: Array<SprintWithStats>;
   type?: ChartType;
+};
+
+const isPredictability = (type: ChartType) => {
+  return type === "predictability";
 };
 ChartJS.register(
   LinearScale,
@@ -30,19 +34,15 @@ ChartJS.register(
   Tooltip,
   ChartDataLabels
 );
-const isPredictability = (type: ChartType) => {
-  return type === "predictability";
-};
-
 const ChartSprintsBar = ({ sprints, type = null }: Props) => {
   const colors = useColors();
-  const [data, setData] = useState<ChartData| null>(
+  const [data, setData] = useState<ChartData<"bar">| null>(
     null
   );
 
   useEffect(() => {
     if (!sprints.length) return;
-    const chartData:ChartData = {
+    const chartData:ChartData<"bar"> = {
       labels: [],
       datasets: [
         {
@@ -51,7 +51,7 @@ const ChartSprintsBar = ({ sprints, type = null }: Props) => {
             : type === "speed"
             ? "Prędkość zespołu"
             : undefined,
-          type: "line",
+          type: "bar",
           data: [],
           backgroundColor: "red",
           borderColor: "red",
@@ -76,7 +76,7 @@ const ChartSprintsBar = ({ sprints, type = null }: Props) => {
             : undefined,
           data: [],
           backgroundColor: colors.indigo[900],
-          hoverOffset: 4,
+          // hoverOffset: 4,
           datalabels: {
             anchor: "center",
             align: "start",
@@ -114,10 +114,10 @@ const ChartSprintsBar = ({ sprints, type = null }: Props) => {
   }, [sprints, type, colors.indigo,colors.white]);
   if (!data) return <div>Loading data ...</div>;
   return (
-    <Chart
+    <Bar
       height={"22vh"}
       width={"50vh"}
-      type="bar"
+   
       data={data}
       options={{
         responsive: true,
