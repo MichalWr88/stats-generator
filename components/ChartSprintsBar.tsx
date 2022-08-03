@@ -18,7 +18,7 @@ import useColors from "./api/hooks/useColors";
 type ChartType = keyof Pick<SprintWithStats, "predictability"> | "speed" | null;
 type Props = {
   sprints: Array<SprintWithStats>;
-  type: ChartType;
+  type?: ChartType;
 };
 ChartJS.register(
   LinearScale,

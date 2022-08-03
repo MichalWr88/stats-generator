@@ -1,4 +1,3 @@
-
 import { getAllSprints } from "@/components/api/dataProvider";
 import ChartSprintCircle from "@/components/ChartSprintCircle";
 import ChartSprintsBar from "@/components/ChartSprintsBar";
@@ -27,7 +26,7 @@ const SprintListPage = () => {
     setActiveSprint(sprint);
   };
   // @ts-ignore
-  const columns: Array<Column<SprintWithStats>>  = React.useMemo(
+  const columns: Array<Column<SprintWithStats>> = React.useMemo(
     () => [
       {
         Header: "NR Sprintu",
@@ -131,7 +130,7 @@ const SprintListPage = () => {
             </div>
           </div>
         )}
-        {/* <ChartSprintsBar sprints={data} /> */}
+        <ChartSprintsBar sprints={data} />
       </>
     </WithNavBar>
   );
