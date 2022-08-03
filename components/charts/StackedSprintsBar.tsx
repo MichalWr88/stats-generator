@@ -9,7 +9,7 @@ import {
 import React, { useEffect, useState } from "react";
 import { Chart } from "react-chartjs-2";
 
-import ChartjsPluginStacked100 from "chartjs-plugin-stacked100";
+// import ChartjsPluginStacked100 from "chartjs-plugin-stacked100";
 type Group = { labels: Array<string>; datasets: Array<Dataset> };
 
 type Dataset = {
@@ -20,7 +20,7 @@ type Props = {
   group: Group;
 };
 
-ChartJS.register(ChartjsPluginStacked100);
+// ChartJS.register(ChartjsPluginStacked100);
 const StackedSprintsBar = ({ group }: Props) => {
 
   const [data, setData] = useState<ChartData<"bar", number[], unknown> | null>(
@@ -49,10 +49,10 @@ const StackedSprintsBar = ({ group }: Props) => {
         responsive: true,
         // maintainAspectRatio: false,
         plugins: {
-          stacked100: {
-            enable: true,
-            replaceTooltipLabel: false,
-          },
+          // stacked100: {
+          //   enable: true,
+          //   replaceTooltipLabel: false,
+          // },
           datalabels: {
             formatter: (_value, context) => {
               const data = context.chart.data as unknown as ChartData<
