@@ -1,4 +1,4 @@
-import { EpicGroup, Issue } from "@/models/Sprint";
+import { EpicGroups, Issue } from "@/models/Sprint";
 import { Group } from "next/dist/shared/lib/router/utils/route-regex";
 import { useRef } from "react";
 
@@ -12,7 +12,7 @@ enum ReaderType {
 }
 type AcceptType = ".txt" | ".csv" | ".xls" | ".xlsx" | ".html";
 interface ConfigMapperGroup {
-  name: EpicGroup;
+  name: EpicGroups;
   epics: Array<string>;
   texts: Array<string>;
 }
