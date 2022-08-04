@@ -1,4 +1,4 @@
-import { TypeofworkList } from "@/models/Sprint";
+import { EpicGroups, TypeofworkList } from "@/models/Sprint";
 import {
   ChartData,
   Chart as ChartJS,
@@ -37,7 +37,7 @@ import ChartjsPluginStacked100 from "chartjs-plugin-stacked100";
 type Group = { labels: Array<string>; datasets: Array<Dataset> };
 
 type Dataset = {
-  label: TypeofworkList;
+  label: TypeofworkList |EpicGroups;
   data: Array<number>;
 };
 type Props = {
@@ -110,7 +110,9 @@ const StackedSprintsBar = ({ group }: Props) => {
                 unknown
               > & { calculatedData: { [key: number]: Array<number> } };
               const { datasetIndex, dataIndex } = context;
-              return `${data.calculatedData[datasetIndex][dataIndex]}%`;
+              const value = data.calculatedData[datasetIndex][dataIndex];
+              if(!value) return null
+              return `${value}%`;
             },
           },
           // tooltip: {
@@ -150,6 +152,7 @@ const StackedSprintsBar = ({ group }: Props) => {
           y: {
             beginAtZero: true,
             stacked: true,
+            max: 100,
           },
         },
       }}

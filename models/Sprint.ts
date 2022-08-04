@@ -1,5 +1,6 @@
 import { ResponsMongo } from "./mongo/Mongo";
 import * as yup from "yup";
+import { epicGroups } from "@/data/epicGroups";
 
 export const RequestSchemaAdd: yup.ObjectSchema<RequestStatSprint> = yup
   .object()
@@ -33,7 +34,7 @@ export const IssueSchemaAdd:yup.ObjectSchema<Issue> = yup.object().shape({
   WorkDescription: yup.string().required(),
   ParentKey: yup.string().nullable(),
   Typeofwork: yup.string<TypeofworkList>().required().default(null),
-  EpicGroup: yup.string<EpicGroup>().nullable(),
+  EpicGroup: yup.string<EpicGroups>().nullable(),
 });
 // @ts-ignore
 export const sprintSchemaAdd: yup.ObjectSchema<Sprint> = yup.object().shape({
@@ -61,17 +62,8 @@ export type TypeofworkList =
   | "Innovation"
   | "Bugs"
   | "Maintenance";
-export type EpicGroup =
-  | "NLW"
-  | "CIC"
-  | "CBL"
-  | "RCP"
-  | "COC"
-  | "API Facade"
-  | "Company Monitor"
-  | "CRM"
-  | "Sherlock"
-  | "Company Verification";
+export type EpicGroups = typeof epicGroups[number]
+
 export interface Issue {
   IssueKey: string;
   Issuesummary: string;
@@ -82,7 +74,7 @@ export interface Issue {
   WorkDescription: string;
   ParentKey: string | null | undefined;
   Typeofwork: TypeofworkList | null | undefined;
-  EpicGroup: EpicGroup | null | undefined;
+  EpicGroup: EpicGroups | null | undefined;
 }
 export interface BugStatSprint {
   closed: number;
