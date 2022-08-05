@@ -2,12 +2,6 @@ import React from "react";
 import { Toaster } from "react-hot-toast";
 import useColors from "./api/hooks/useColors";
 
-// import { TailwindConfig, TailwindValues } from "tailwindcss/tailwind-config";
-
-
-
-
-
 const Toast = () => {
 const colors = useColors(); 
 
@@ -16,7 +10,7 @@ const colors = useColors();
       toastOptions={{
         success: {
           style: {
-            background: "green",
+            background: colors.green[300],
           },
         },
         error: {

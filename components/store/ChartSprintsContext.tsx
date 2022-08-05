@@ -1,7 +1,7 @@
 import { SprintWithStats } from "@/models/Sprint";
 import React, { ReactNode, useContext, useEffect, useState } from "react";
 import { setStatsSpritnts } from "utils/SprintsMapper";
-import { getAllSprints } from "../api/dataProvider";
+import useGetSprints from "../api/hooks/useGetSprints";
 
 export interface ContextData {
   data: Array<SprintWithStats>;
@@ -15,19 +15,23 @@ export const SprintsContext = React.createContext<ContextData | null>({
 });
 
 const ChartSprintsContext = ({ children }: Props) => {
-  const [data, setData] = useState<Array<SprintWithStats>>([]);
-
+  const [sprintsList, setSprintsList] = useState<Array<SprintWithStats>>([]);
+  const { data } = useGetSprints();
   useEffect(() => {
-    getAllSprints().then((resp) => {
-      setData(() => {
-        return setStatsSpritnts(resp.data.reverse()).splice(2);
-      });
+    if (!data) return;
+    const list = data.data.reverse();
+
+    setSprintsList(() => {
+      return setStatsSpritnts(list).splice(2);
     });
-    return () => {};
-  }, []);
+
+    return () => {
+      setSprintsList([]);
+    };
+  }, [data]);
 
   return (
-    <SprintsContext.Provider value={{ data }}>
+    <SprintsContext.Provider value={{ data: sprintsList }}>
       {children}
     </SprintsContext.Provider>
   );

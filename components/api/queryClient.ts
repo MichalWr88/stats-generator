@@ -22,12 +22,8 @@ const queryErrorHandler = (error: unknown): void => {
     );
   }
 
-  // prevent duplicate toasts
-  // toast.closeAll();
-  // toast({ id, title, status: 'error', variant: 'subtle', isClosable: true });
-};
+ };
 
-// to satisfy typescript until this file has uncommented contents
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {

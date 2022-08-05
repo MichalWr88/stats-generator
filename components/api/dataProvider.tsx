@@ -20,15 +20,16 @@ export const sendSprintData = async (data: Sprint): Promise<Sprint> => {
   return resp.data;
 };
 export const getAllSprints = async (
-  pagination: PaginationRequest = {
-    page: DEFAULT_PAGE,
-    pageSize: DEFAULT_PAGE_SIZE,
-  }
+  pagination: PaginationRequest | null
 ): Promise<PaginationResponseAggregate<ResponsSprint>> => {
+  
   const resp = await axiosInstance.get<
     PaginationResponseAggregate<ResponsSprint>
   >("./api/mongo/sprint", {
-    params: pagination,
+    params: pagination || {
+      page: DEFAULT_PAGE,
+      pageSize: DEFAULT_PAGE_SIZE,
+    },
   });
   return resp.data;
 };
