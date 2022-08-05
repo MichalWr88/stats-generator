@@ -13,8 +13,14 @@ const queryErrorHandler = (error: unknown): void => {
       position: "bottom-center",
       className: "text-red-700",
     });
-  }else {
-    toast.error(`${msg}`, {
+  }
+  if (error instanceof Error) {
+    toast.error(`${error.message}`, {
+      position: "bottom-center",
+      className: "text-red-700",
+    });
+  } else {
+    toast.error(`${error}`, {
       position: "bottom-center",
       className: "text-red-700",
     });
