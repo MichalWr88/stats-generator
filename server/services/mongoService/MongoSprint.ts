@@ -4,6 +4,7 @@ import { LegacyIssue, SprintScheme } from "@/models/mongo/SprintSchema";
 import {
   Issue,
   ResponsSprint,
+  ResponsSprintForCSV,
   Sprint,
   SprintCollection,
   SprintCollectName,
@@ -37,6 +38,14 @@ class MonogSprint extends Mongodb<SprintCollection> {
   }
   public async geByNrSprint(nr: number): Promise<ResponsSprint | null> {
     return await this.model.findOne({ nr });
+  }
+  public async geIssuesByNrSprint(
+    nr: number
+  ): Promise<ResponsSprintForCSV | null> {
+    return await this.model.findOne(
+      { nr },
+      {  "issues._id": 0 }
+    );
   }
   public async getLastByLimit(limit: number): Promise<ResponsSprint | null> {
     return await this.model.findOne({});

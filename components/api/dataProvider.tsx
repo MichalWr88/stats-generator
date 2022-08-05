@@ -22,7 +22,6 @@ export const sendSprintData = async (data: Sprint): Promise<Sprint> => {
 export const getAllSprints = async (
   pagination?: PaginationRequest | null
 ): Promise<PaginationResponseAggregate<ResponsSprint>> => {
-  
   const resp = await axiosInstance.get<
     PaginationResponseAggregate<ResponsSprint>
   >("./api/mongo/sprint", {
@@ -30,6 +29,13 @@ export const getAllSprints = async (
       page: DEFAULT_PAGE,
       pageSize: DEFAULT_PAGE_SIZE,
     },
+  });
+  return resp.data;
+};
+export const downloadIssuesCSV = async (id: number) => {
+  const resp = await axiosInstance.get("./api/mongo/report", {
+    params: { id },
+    responseType: "blob",
   });
   return resp.data;
 };

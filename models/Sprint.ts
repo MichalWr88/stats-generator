@@ -24,7 +24,7 @@ export const BugSchemaAdd: yup.ObjectSchema<BugStatSprint> = yup
     onHold: yup.number().min(0).required(),
   });
 
-export const IssueSchemaAdd:yup.ObjectSchema<Issue> = yup.object().shape({
+export const IssueSchemaAdd: yup.ObjectSchema<Issue> = yup.object().shape({
   IssueKey: yup.string().required(),
   Issuesummary: yup.string().required(),
   Hours: yup.string().required(),
@@ -62,7 +62,7 @@ export type TypeofworkList =
   | "Innovation"
   | "Bugs"
   | "Maintenance";
-export type EpicGroups = typeof epicGroups[number]
+export type EpicGroups = typeof epicGroups[number];
 
 export interface Issue {
   IssueKey: string;
@@ -111,6 +111,8 @@ export interface SprintWithStats extends Sprint {
 }
 
 export interface ResponsSprint extends Sprint, ResponsMongo {}
+export interface ResponsSprintForCSV
+  extends Pick<Sprint, "nr" | "end" | "start" | "issues"> {}
 
 export const SprintCollectName = "sprints";
 

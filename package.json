@@ -10,11 +10,13 @@
   },
   "dependencies": {
     "@tanstack/react-query": "^4.0.10",
+    "@types/json2csv": "^5.0.3",
     "@types/tailwindcss": "^3.1.0",
     "axios": "^0.27.2",
     "chart.js": "^3.8.0",
     "chartjs-plugin-datalabels": "^2.0.0",
     "chartjs-plugin-stacked100": "^1.2.1",
+    "json2csv": "^5.0.7",
     "mongodb": "^4.8.1",
     "mongoose": "^6.4.4",
     "next": "12.2.2",

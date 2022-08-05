@@ -1,4 +1,7 @@
-import { getAllSprints } from "@/components/api/dataProvider";
+import {
+  downloadIssuesCSV,
+  getAllSprints,
+} from "@/components/api/dataProvider";
 import ChartSprintCircle from "@/components/ChartSprintCircle";
 import ChartSprintsBar from "@/components/ChartSprintsBar";
 import Table from "@/components/table/Table";
@@ -6,6 +9,7 @@ import { Sprint, SprintWithStats } from "@/models/Sprint";
 import WithNavBar from "layouts/WithNavBar";
 import React, { useMemo, useEffect, useState, useDebugValue } from "react";
 import { Column, useTable } from "react-table";
+import { parseLocalDate } from "utils";
 import { setStatsSpritnts } from "utils/SprintsMapper";
 import sprint from "./api/mongo/sprint";
 
@@ -14,6 +18,24 @@ const SprintListPage = () => {
   const [activeSprint, setActiveSprint] = useState<SprintWithStats | null>(
     null
   );
+  const getIssueCSV = (sprint: SprintWithStats) => {
+    downloadIssuesCSV(Number(sprint.nr)).then((data) => {
+      const url = window.URL.createObjectURL(new Blob([data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute(
+        "download",
+        sprint.nr +
+          " " +
+          parseLocalDate(new Date(sprint.start || new Date())) +
+          "-" +
+          parseLocalDate(new Date(sprint.end || new Date()))
+      );
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    });
+  };
   useEffect(() => {
     getAllSprints().then((resp) => {
       setData(() => {
@@ -43,6 +65,7 @@ const SprintListPage = () => {
       {
         Header: "Koniec Sprintu",
         accessor: "end",
+
         Cell: ({ value }: { value: Date }) =>
           new Date(value).toLocaleDateString("pl-PL"),
       },
@@ -104,6 +127,19 @@ const SprintListPage = () => {
             accessor: "bug.onHold",
           },
         ],
+      },
+      {
+        Header: "Actions",
+        Cell: (cell: { row: { original: SprintWithStats } }) => (
+          <div>
+            <button
+              onClick={() => getIssueCSV(cell.row.original)}
+              className="inline-block px-6 py-2 border-2 border-blue-600 text-blue-600 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
+            >
+              csv
+            </button>
+          </div>
+        ),
       },
     ],
     []
