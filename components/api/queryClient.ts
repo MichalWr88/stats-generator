@@ -8,21 +8,18 @@ const queryErrorHandler = (error: unknown): void => {
 
   if (error instanceof AxiosError) {
     const msg = error.message || "error connecting to server";
-
     const errorData = error.response?.data;
-
-    console.log("handler", error);
-    toast.error(
-      `${msg} 
-  ${JSON.stringify(errorData)}`,
-      {
-        position: "bottom-center",
-        className: "text-red-700",
-      }
-    );
+    toast.error(`${msg} ${JSON.stringify(errorData)}`, {
+      position: "bottom-center",
+      className: "text-red-700",
+    });
+  }else {
+    toast.error(`${msg}`, {
+      position: "bottom-center",
+      className: "text-red-700",
+    });
   }
-
- };
+};
 
 export const queryClient = new QueryClient({
   defaultOptions: {
