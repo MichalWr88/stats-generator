@@ -1,49 +1,46 @@
-import { IconType } from "react-icons/lib";
-import { ImHome } from "react-icons/im";
-import { AiOutlineAreaChart } from "react-icons/ai";
-import { HiOutlinePresentationChartBar } from "react-icons/hi";
-import { MdOutlineBackupTable,MdLibraryAdd } from "react-icons/md";
-import { GoSettings } from "react-icons/go";
+import { ImHome } from 'react-icons/im';
+import { AiOutlineAreaChart } from 'react-icons/ai';
+import { HiOutlinePresentationChartBar } from 'react-icons/hi';
+import { MdOutlineBackupTable, MdLibraryAdd } from 'react-icons/md';
+import { GoSettings } from 'react-icons/go';
 
-import { NavLinkData } from "@/models/Routing";
-
-
+import { NavLinkData } from '@/models/Routing';
 
 export const navBarData: Array<NavLinkData> = [
   {
-    label: "Główna",
+    label: 'Główna',
     id: 1,
-    path: "/",
+    path: '/',
     icon: ImHome,
   },
   {
-    label: "Wykresy",
+    label: 'Wykresy',
     id: 2,
-    path: "/charts",
+    path: '/charts',
     icon: AiOutlineAreaChart,
   },
   {
-    label: "Najnowszy sprint",
+    label: 'Najnowszy sprint',
     id: 3,
-    path: "/current-sprint",
+    path: '/current-sprint',
     icon: HiOutlinePresentationChartBar,
   },
   {
-    label: "Lista sprintów",
+    label: 'Lista sprintów',
     id: 4,
-    path: "/sprint-list",
+    path: '/sprint-list',
     icon: MdOutlineBackupTable,
   },
   {
-    label: "dodaj sprint",
+    label: 'dodaj sprint',
     id: 5,
-    path: "/add-sprint",
+    path: '/add-sprint',
     icon: MdLibraryAdd,
   },
   {
-    label: "config",
+    label: 'config',
     id: 6,
-    path: "/works",
+    path: '/works',
     icon: GoSettings,
   },
 ];

@@ -1,6 +1,5 @@
-import { PaginationRequest } from "@/models/mongo/Mongo";
-import { PaginationResponseAggregate } from "@/models/mongo/Mongo";
-import { LegacyIssue, SprintScheme } from "@/models/mongo/SprintSchema";
+import { PaginationRequest, PaginationResponseAggregate } from '@/models/mongo/Mongo';
+import { LegacyIssue, SprintScheme } from '@/models/mongo/SprintSchema';
 import {
   Issue,
   ResponsSprint,
@@ -8,9 +7,9 @@ import {
   Sprint,
   SprintCollection,
   SprintCollectName,
-} from "@/models/Sprint";
-import Mongodb from "./mongoClass";
-import { paginationResponse, queryPagination } from "./queryHelpers";
+} from '@/models/Sprint';
+import Mongodb from './mongoClass';
+import { paginationResponse, queryPagination } from './queryHelpers';
 class MonogSprint extends Mongodb<SprintCollection> {
   public constructor() {
     super(SprintScheme, SprintCollectName);
@@ -23,15 +22,9 @@ class MonogSprint extends Mongodb<SprintCollection> {
   public async getAllPagination(pagination: PaginationRequest) {
     const query = [...queryPagination(pagination.page, pagination.pageSize)];
 
-    const resp = await this.model.aggregate<
-      PaginationResponseAggregate<ResponsSprint>
-    >(query);
+    const resp = await this.model.aggregate<PaginationResponseAggregate<ResponsSprint>>(query);
 
-    return paginationResponse<ResponsSprint>(
-      resp,
-      pagination.page,
-      pagination.pageSize
-    );
+    return paginationResponse<ResponsSprint>(resp, pagination.page, pagination.pageSize);
   }
   public async getLastOne(): Promise<ResponsSprint | null> {
     return await this.model.findOne({}, {}, { sort: { nr: -1 } });
@@ -39,15 +32,10 @@ class MonogSprint extends Mongodb<SprintCollection> {
   public async geByNrSprint(nr: number): Promise<ResponsSprint | null> {
     return await this.model.findOne({ nr });
   }
-  public async geIssuesByNrSprint(
-    nr: number
-  ): Promise<ResponsSprintForCSV | null> {
-    return await this.model.findOne(
-      { nr },
-      {  "issues._id": 0 }
-    );
+  public async geIssuesByNrSprint(nr: number): Promise<ResponsSprintForCSV | null> {
+    return await this.model.findOne({ nr }, { 'issues._id': 0 });
   }
-  public async getLastByLimit(limit: number): Promise<ResponsSprint | null> {
+  public async getLastByLimit(): Promise<ResponsSprint | null> {
     return await this.model.findOne({});
   }
   public async addOne(sender: Sprint): Promise<Sprint> {

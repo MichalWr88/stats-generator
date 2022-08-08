@@ -1,6 +1,6 @@
-import { checkMongoConnected } from "@/helpers/mongoHelpers";
-import { connect, set, connection } from "mongoose";
-import MonogSprint from "./MongoSprint";
+import { checkMongoConnected } from '@/helpers/mongoHelpers';
+import { connect, connection } from 'mongoose';
+import MonogSprint from './MongoSprint';
 
 // import MongoUser from "./MongoUser";
 // import MongoCompany from "./MongoWork";
@@ -10,7 +10,7 @@ export const initConnectMongo = (): Promise<boolean> => {
     // if (process.env.PRODUCTION) {
     //   set("debug", true);
     // }
-    console.log("initConnectMongo");
+    console.log('initConnectMongo');
     return new Promise((resolve, reject) => {
       const mongodbOptions = {
         useNewUrlParser: true,
@@ -22,11 +22,11 @@ export const initConnectMongo = (): Promise<boolean> => {
         `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_CLUSTER}/trans?retryWrites=true&w=majority`,
         mongodbOptions
       );
-      connection.once("open", () => {
-        console.log("✅ Connected to DB");
+      connection.once('open', () => {
+        console.log('✅ Connected to DB');
         resolve(true);
       });
-      connection.on("error", (error) => {
+      connection.on('error', (error) => {
         console.log(`❌ Error on DB Connection:${error}`);
         reject(error);
         if (!checkMongoConnected()) {

@@ -1,8 +1,8 @@
-import WithNavBar from "layouts/WithNavBar";
-import type { NextPage } from "next";
-import Head from "next/head";
+import WithNavBar from 'layouts/WithNavBar';
+import type { NextPage } from 'next';
+import Head from 'next/head';
 
-import styles from "../styles/Home.module.css";
+import styles from '../styles/Home.module.css';
 
 const Home: NextPage = () => {
   return (
@@ -14,8 +14,10 @@ const Home: NextPage = () => {
       </Head>
 
       <WithNavBar>
-        <div className="flex items-center justify-center h-full flex-grow" >
-        <h1 className="bg-blue-500  p-3 uppercase font-bold align-middle text-3xl rounded-xl">generator statystyk dla zespołu rangers</h1>
+        <div className="flex items-center justify-center h-full flex-grow">
+          <h1 className="bg-blue-500  p-3 uppercase font-bold align-middle text-3xl rounded-xl">
+            generator statystyk dla zespołu rangers
+          </h1>
         </div>
       </WithNavBar>
     </div>

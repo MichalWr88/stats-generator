@@ -1,5 +1,6 @@
-import React from "react";
-import { Column, useTable } from "react-table";
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+import React from 'react';
+import { Column, useTable } from 'react-table';
 interface Props<T> {
   selectSprint?: (sprint: T) => void;
   readonly data: Array<T & object>;
@@ -9,13 +10,9 @@ interface Props<T> {
 const Table = <T,>({ data, selectSprint, columns }: Props<T>) => {
   const tableInstance = useTable<T & object>({ columns, data });
   if (!data) return <div>Loading....</div>;
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    tableInstance;
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = tableInstance;
   return (
-    <table
-      {...getTableProps()}
-      className="m-2 border-emerald-500 border-2 table-auto"
-    >
+    <table {...getTableProps()} className="m-2 border-emerald-500 border-2 table-auto">
       <thead className="p-2 border-emerald-500">
         {
           // Loop over the header rows
@@ -42,7 +39,7 @@ const Table = <T,>({ data, selectSprint, columns }: Props<T>) => {
                   >
                     {
                       // Render the header
-                      column.render("Header")
+                      column.render('Header')
                     }
                   </th>
                 ))
@@ -75,7 +72,7 @@ const Table = <T,>({ data, selectSprint, columns }: Props<T>) => {
                 //     : ""
                 // }
                 // ${row.original.Typeofwork === "Innovation" ? "bg-blue-400" : ""}
-                
+
                 // hover:bg-slate-400 transition-colors cursor-pointer`}
                 onClick={() => selectSprint && selectSprint(row.original)}
               >
@@ -85,14 +82,10 @@ const Table = <T,>({ data, selectSprint, columns }: Props<T>) => {
                     // Apply the cell props
 
                     return (
-                      <td
-                        {...cell.getCellProps()}
-                        key={id2d}
-                        className="p-2 border-2 border-zinc-900"
-                      >
+                      <td {...cell.getCellProps()} key={id2d} className="p-2 border-2 border-zinc-900">
                         {
                           // Render the cell contents
-                          cell.render("Cell")
+                          cell.render('Cell')
                         }
                       </td>
                     );

@@ -1,39 +1,30 @@
-import {
-  DEFAULT_PAGE,
-  DEFAULT_PAGE_SIZE,
-  PaginationResponse,
-  PaginationResponseAggregate,
-} from "@/models/mongo/Mongo";
-import { PipelineStage } from "mongoose";
+import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE, PaginationResponse, PaginationResponseAggregate } from '@/models/mongo/Mongo';
+import { PipelineStage } from 'mongoose';
 
-interface AggrSort {
-  $sort: {
-    [key: string]: -1 | 1;
-  };
-}
-interface DateRangeSearch {
-  $and:
-    | [EndDateSearch, StarDateSearch]
-    | []
-    | [EndDateSearch]
-    | [StarDateSearch];
-}
+// interface AggrSort {
+//   $sort: {
+//     [key: string]: -1 | 1;
+//   };
+// }
+// interface DateRangeSearch {
+//   $and: [EndDateSearch, StarDateSearch] | [] | [EndDateSearch] | [StarDateSearch];
+// }
 
-enum DateProps {
-  SERVER = "serverDate",
-  CREATED = "createdAt",
-}
+// enum DateProps {
+//   SERVER = 'serverDate',
+//   CREATED = 'createdAt',
+// }
 
-type StarDateSearch = {
-  [key in DateProps]?: {
-    $gte: Date;
-  };
-};
-type EndDateSearch = {
-  [key in DateProps]?: {
-    $lte: Date;
-  };
-};
+// type StarDateSearch = {
+//   [key in DateProps]?: {
+//     $gte: Date;
+//   };
+// };
+// type EndDateSearch = {
+//   [key in DateProps]?: {
+//     $lte: Date;
+//   };
+// };
 
 // export const setSortObj = (
 //   param: Pick<SearchParams, "sortBy" | "sortDir">
@@ -91,10 +82,7 @@ type EndDateSearch = {
 //   return dateRangeQuery;
 // };
 
-export const queryPagination = (
-  page = DEFAULT_PAGE,
-  pageSize = DEFAULT_PAGE_SIZE
-): PipelineStage[] => {
+export const queryPagination = (page = DEFAULT_PAGE, pageSize = DEFAULT_PAGE_SIZE): PipelineStage[] => {
   return [
     {
       $facet: {
@@ -121,13 +109,13 @@ export const queryPagination = (
     },
     {
       $unwind: {
-        path: "$stage1",
+        path: '$stage1',
       },
     },
     {
       $project: {
-        total: "$stage1.count",
-        data: "$stage2",
+        total: '$stage1.count',
+        data: '$stage2',
       },
     },
   ];

@@ -1,4 +1,4 @@
-import { Sprint } from "@/models/Sprint";
+import { Sprint } from '@/models/Sprint';
 import {
   ChartData,
   Chart as ChartJS,
@@ -26,11 +26,11 @@ import {
   Title,
   Tooltip,
   SubTitle,
-} from "chart.js";
-import ChartDataLabels from "chartjs-plugin-datalabels";
+} from 'chart.js';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 
-import React, { useEffect, useState } from "react";
-import { Pie } from "react-chartjs-2";
+import React, { useEffect, useState } from 'react';
+import { Pie } from 'react-chartjs-2';
 ChartJS.register(
   ArcElement,
   ChartDataLabels,
@@ -61,30 +61,28 @@ ChartJS.register(
 
 type Props = {
   sprint: Sprint;
-  type: keyof Pick<Sprint, "bug" | "request">;
+  type: keyof Pick<Sprint, 'bug' | 'request'>;
 };
 
 const ChartSprintCircle = ({ sprint, type }: Props) => {
-  const [data, setData] = useState<ChartData<"pie", number[], string> | null>(
-    null
-  );
+  const [data, setData] = useState<ChartData<'pie', number[], string> | null>(null);
 
   useEffect(() => {
     if (!sprint) return;
-    const chartData: ChartData<"pie", number[], string> = {
+    const chartData: ChartData<'pie', number[], string> = {
       labels: [],
       datasets: [
         {
-          label: "My First Dataset",
+          label: 'My First Dataset',
           data: [],
           backgroundColor: [
-            "rgb(155, 159, 132)",
-            "rgb(54, 162, 235)",
-            "rgb(255, 225, 86)",
-            "rgb(255, 99, 132)",
-            "rgb(54, 162, 235)",
-            "rgb(245, 215, 86)",
-            "rgb(155, 255, 56)",
+            'rgb(155, 159, 132)',
+            'rgb(54, 162, 235)',
+            'rgb(255, 225, 86)',
+            'rgb(255, 99, 132)',
+            'rgb(54, 162, 235)',
+            'rgb(245, 215, 86)',
+            'rgb(155, 255, 56)',
           ],
           // borderColor:"grey",
           // borderColor:[
@@ -102,7 +100,7 @@ const ChartSprintCircle = ({ sprint, type }: Props) => {
     };
     const arrType = sprint[type];
     Object.entries(arrType).forEach(([key, value]) => {
-      if (key === "_id" || Number(value) === 0) return;
+      if (key === '_id' || Number(value) === 0) return;
       chartData.labels?.push(key.toUpperCase());
       chartData.datasets[0].data.push(value);
 
@@ -110,7 +108,6 @@ const ChartSprintCircle = ({ sprint, type }: Props) => {
     });
 
     setData(chartData);
-    return () => {};
   }, [type, sprint]);
 
   if (!data) return <div>Loading data ...</div>;
@@ -124,17 +121,17 @@ const ChartSprintCircle = ({ sprint, type }: Props) => {
             title: {
               display: true,
               text: type.toUpperCase(),
-              position: "top",
+              position: 'top',
               font: {
                 size: 20,
               },
             },
-            legend: { display: true, position: "bottom", fullSize: true },
+            legend: { display: true, position: 'bottom', fullSize: true },
 
             datalabels: {
-              formatter: (val, ctx) => {
+              formatter: (val) => {
                 // Grab the label for this value
-                const label = ctx.chart.data.labels?.[ctx.dataIndex];
+                // const label = ctx.chart.data.labels?.[ctx.dataIndex];
 
                 // // Format the number with 2 decimal places
                 // const formattedVal = Intl.NumberFormat("en-US", {
@@ -146,8 +143,8 @@ const ChartSprintCircle = ({ sprint, type }: Props) => {
               },
 
               display: true,
-              align: "bottom",
-              backgroundColor: "",
+              align: 'bottom',
+              backgroundColor: '',
               borderRadius: 3,
               font: {
                 size: 18,

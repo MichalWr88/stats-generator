@@ -1,7 +1,7 @@
-import { SprintWithStats } from "@/models/Sprint";
-import React, { ReactNode, useContext, useEffect, useState } from "react";
-import { setStatsSpritnts } from "utils/SprintsMapper";
-import useGetSprints from "../api/hooks/useGetSprints";
+import { SprintWithStats } from '@/models/Sprint';
+import React, { ReactNode, useContext, useEffect, useState, createContext } from 'react';
+import { setStatsSpritnts } from 'utils/SprintsMapper';
+import useGetSprints from '../api/hooks/useGetSprints';
 
 export interface ContextData {
   data: Array<SprintWithStats>;
@@ -10,7 +10,7 @@ export interface ContextData {
 type Props = {
   children: ReactNode;
 };
-export const SprintsContext = React.createContext<ContextData | null>({
+export const SprintsContext = createContext<ContextData | null>({
   data: [],
 });
 
@@ -30,16 +30,12 @@ const ChartSprintsContext = ({ children }: Props) => {
     };
   }, [data]);
 
-  return (
-    <SprintsContext.Provider value={{ data: sprintsList }}>
-      {children}
-    </SprintsContext.Provider>
-  );
+  return <SprintsContext.Provider value={{ data: sprintsList }}>{children}</SprintsContext.Provider>;
 };
 export const useSprintsContext = () => {
   const context = useContext(SprintsContext);
   if (!context) {
-    throw Error("ChartSprintsContext is undefined");
+    throw Error('ChartSprintsContext is undefined');
   }
   return context;
 };

@@ -1,28 +1,27 @@
-import { QueryClient } from "@tanstack/react-query";
-import { AxiosError } from "axios";
-import toast, { Toaster } from "react-hot-toast";
+import { QueryClient } from '@tanstack/react-query';
+import { AxiosError } from 'axios';
+import { toast } from 'react-hot-toast';
 
 const queryErrorHandler = (error: unknown): void => {
   // error is type unknown because in js, anything can be an error (e.g. throw(5))
-  const id = "react-query-error";
 
   if (error instanceof AxiosError) {
-    const msg = error.message || "error connecting to server";
+    const msg = error.message || 'error connecting to server';
     const errorData = error.response?.data;
     toast.error(`${msg} ${JSON.stringify(errorData)}`, {
-      position: "bottom-center",
-      className: "text-red-700",
+      position: 'bottom-center',
+      className: 'text-red-700',
     });
   }
   if (error instanceof Error) {
     toast.error(`${error.message}`, {
-      position: "bottom-center",
-      className: "text-red-700",
+      position: 'bottom-center',
+      className: 'text-red-700',
     });
   } else {
     toast.error(`${error}`, {
-      position: "bottom-center",
-      className: "text-red-700",
+      position: 'bottom-center',
+      className: 'text-red-700',
     });
   }
 };
@@ -30,7 +29,7 @@ const queryErrorHandler = (error: unknown): void => {
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      refetchOnWindowFocus:false,
+      refetchOnWindowFocus: false,
       onError: queryErrorHandler,
     },
     mutations: {

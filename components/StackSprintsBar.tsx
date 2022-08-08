@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 
 import {
   ChartData,
@@ -27,9 +27,9 @@ import {
   Title,
   Tooltip,
   SubTitle,
-} from "chart.js";
-import { Chart } from "react-chartjs-2";
-import { SprintWithStats } from "@/models/Sprint";
+} from 'chart.js';
+import { Chart } from 'react-chartjs-2';
+import { SprintWithStats } from '@/models/Sprint';
 type Props = {
   sprints: Array<SprintWithStats>;
 };
@@ -58,7 +58,7 @@ ChartJS.register(
   Legend,
   Title,
   Tooltip,
-  SubTitle,
+  SubTitle
 );
 
 const StackSprintsBar = ({ sprints }: Props) => {
@@ -70,9 +70,9 @@ const StackSprintsBar = ({ sprints }: Props) => {
       labels: sprints.map((spr: SprintWithStats) => `${spr.nr}`),
       datasets: [
         {
-          label: "My First Dataset",
+          label: 'My First Dataset',
           data: sprints.map((spr: SprintWithStats) => spr.delivered),
-          backgroundColor: "blue",
+          backgroundColor: 'blue',
           // borderColor:"grey",
           // borderColor:[
           //   "rgb(155, 159, 132)",
@@ -89,7 +89,6 @@ const StackSprintsBar = ({ sprints }: Props) => {
     };
 
     setData(chartData);
-    return () => {};
   }, [sprints]);
   if (!data) return <div>Loading data ...</div>;
   return <Chart type="bar" data={data} />;

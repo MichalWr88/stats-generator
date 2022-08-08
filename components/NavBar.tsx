@@ -1,8 +1,7 @@
-import { navBarData } from "@/data/routing";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import React from "react";
-import NavLink from "./NavLink";
+import { navBarData } from '@/data/routing';
+
+import React from 'react';
+import NavLink from './NavLink';
 
 const NavBar = () => {
   return (

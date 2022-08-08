@@ -1,7 +1,7 @@
-import React, { useMemo } from "react";
-import { useFormContext } from "react-hook-form";
+import React, { useMemo } from 'react';
+import { useFormContext } from 'react-hook-form';
 
-type InputType = "text" | "number" | "date";
+type InputType = 'text' | 'number' | 'date';
 type Props = {
   label: string;
   name: string;
@@ -10,21 +10,15 @@ type Props = {
   step?: string;
 };
 
-const InputField = ({
-  label,
-  type = "text",
-  name,
-  className,
-  step = "1",
-}: Props) => {
+const InputField = ({ label, type = 'text', name, className, step = '1' }: Props) => {
   const { register } = useFormContext();
   const configInput = useMemo(() => {
     switch (type) {
-      case "date":
+      case 'date':
         return {};
-      case "number":
+      case 'number':
         return {
-          placeholder: "number",
+          placeholder: 'number',
           defaultValue: 0,
           step,
         };
@@ -40,7 +34,7 @@ const InputField = ({
 
         <input
           {...register(name, {
-            valueAsNumber: type === "number",
+            valueAsNumber: type === 'number',
           })}
           type={type}
           {...configInput}

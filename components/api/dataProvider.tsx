@@ -1,30 +1,22 @@
-import {
-  DEFAULT_PAGE,
-  DEFAULT_PAGE_SIZE,
-  PaginationRequest,
-  PaginationResponseAggregate,
-} from "@/models/mongo/Mongo";
-import { ResponsSprint, Sprint } from "@/models/Sprint";
-import axios, { AxiosError, AxiosRequestConfig } from "axios";
-import { ProjectionType } from "mongoose";
+import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE, PaginationRequest, PaginationResponseAggregate } from '@/models/mongo/Mongo';
+import { ResponsSprint, Sprint } from '@/models/Sprint';
+import axios, { AxiosRequestConfig } from 'axios';
 
 const config: AxiosRequestConfig = {
-  baseURL: "./",
+  baseURL: './',
   timeout: 60000,
   //   headers: { "X-Custom-Header": "foobar" },
 };
 const axiosInstance = axios.create(config);
 
 export const sendSprintData = async (data: Sprint): Promise<Sprint> => {
-  const resp = await axiosInstance.put<Sprint>("./api/mongo/sprint", data);
+  const resp = await axiosInstance.put<Sprint>('./api/mongo/sprint', data);
   return resp.data;
 };
 export const getAllSprints = async (
   pagination?: PaginationRequest | null
 ): Promise<PaginationResponseAggregate<ResponsSprint>> => {
-  const resp = await axiosInstance.get<
-    PaginationResponseAggregate<ResponsSprint>
-  >("./api/mongo/sprint", {
+  const resp = await axiosInstance.get<PaginationResponseAggregate<ResponsSprint>>('./api/mongo/sprint', {
     params: pagination || {
       page: DEFAULT_PAGE,
       pageSize: DEFAULT_PAGE_SIZE,
@@ -33,9 +25,9 @@ export const getAllSprints = async (
   return resp.data;
 };
 export const downloadIssuesCSV = async (id: number) => {
-  const resp = await axiosInstance.get("./api/mongo/report", {
+  const resp = await axiosInstance.get('./api/mongo/report', {
     params: { id },
-    responseType: "blob",
+    responseType: 'blob',
   });
   return resp.data;
 };

@@ -1,16 +1,14 @@
-import { ResponsSprint, Sprint, SprintWithStats } from "@/models/Sprint";
+import { ResponsSprint, SprintWithStats } from '@/models/Sprint';
 
-export const setStatsSpritnts = (
-  arr: Array<ResponsSprint>
-): Array<SprintWithStats> => {
+export const setStatsSpritnts = (arr: Array<ResponsSprint>): Array<SprintWithStats> => {
   const sprints: Array<SprintWithStats> = [];
 
   arr.forEach((sprint, index, array) => {
     const sprintWithStats: SprintWithStats = {
       ...sprint,
       predictability: ((sprint.delivered / sprint.plan) * 100).toFixed(1),
-      predictabilityThree: "0",
-      speedThree: "0",
+      predictabilityThree: '0',
+      speedThree: '0',
     };
 
     if (index === 0) {
@@ -18,19 +16,12 @@ export const setStatsSpritnts = (
     }
     if (index === 1) {
       sprintWithStats.speedThree = (
-        [sprint.delivered, array[index - 1].delivered].reduce(
-          (a, b) => a + b,
-          0
-        ) / 2
+        [sprint.delivered, array[index - 1].delivered].reduce((a, b) => a + b, 0) / 2
       ).toFixed(2);
     }
     if (index > 1) {
       sprintWithStats.speedThree = (
-        [
-          sprint.delivered,
-          array[index - 1].delivered,
-          array[index - 2].delivered,
-        ].reduce((a, b) => a + b, 0) / 3
+        [sprint.delivered, array[index - 1].delivered, array[index - 2].delivered].reduce((a, b) => a + b, 0) / 3
       ).toFixed(2);
 
       sprintWithStats.predictabilityThree = (

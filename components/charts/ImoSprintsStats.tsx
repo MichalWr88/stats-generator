@@ -1,16 +1,15 @@
-import { SprintWithStats, TypeofworkList } from "@/models/Sprint";
-import React, { useEffect, useState } from "react";
-import { useSprintsContext } from "../store/ChartSprintsContext";
+import { SprintWithStats, TypeofworkList } from '@/models/Sprint';
+import React, { useEffect, useState } from 'react';
+import { useSprintsContext } from '../store/ChartSprintsContext';
 
-import useColors from "../../components/api/hooks/useColors";
-import { DefaultColors } from "tailwindcss/types/generated/colors";
-import dynamic from "next/dynamic";
+import useColors from '../../components/api/hooks/useColors';
+import { DefaultColors } from 'tailwindcss/types/generated/colors';
+import dynamic from 'next/dynamic';
 
-const StackedSprintsBar = dynamic(() => import("./StackedSprintsBar"), {
+const StackedSprintsBar = dynamic(() => import('./StackedSprintsBar'), {
   ssr: false,
 });
 
-type Props = {};
 type Group = { labels: Array<string>; datasets: Array<Dataset> };
 
 type Dataset = {
@@ -22,22 +21,22 @@ const setGr = (data: SprintWithStats[], colors: DefaultColors): Group => {
   const labels: Array<string> = [];
   const datasets: Array<Dataset> = [
     {
-      label: "Organization",
+      label: 'Organization',
       backgroundColor: colors.green[300],
       data: [],
     },
     {
-      label: "Bugs",
+      label: 'Bugs',
       data: [],
       backgroundColor: colors.red[300],
     },
     {
-      label: "Innovation",
+      label: 'Innovation',
       data: [],
       backgroundColor: colors.indigo[300],
     },
     {
-      label: "Maintenance",
+      label: 'Maintenance',
       data: [],
       backgroundColor: colors.orange[300],
     },
@@ -45,17 +44,17 @@ const setGr = (data: SprintWithStats[], colors: DefaultColors): Group => {
   data.forEach((sprint) => {
     const { nr, start, end, issues } = sprint;
     labels.push(
-      `#${nr} ${new Date(start).toLocaleDateString("pl-PL", {
-        day: "2-digit",
-        month: "2-digit",
-      })} ${new Date(end).toLocaleDateString("pl-PL", {
-        day: "2-digit",
-        month: "2-digit",
+      `#${nr} ${new Date(start).toLocaleDateString('pl-PL', {
+        day: '2-digit',
+        month: '2-digit',
+      })} ${new Date(end).toLocaleDateString('pl-PL', {
+        day: '2-digit',
+        month: '2-digit',
       })}`
     );
-    let sumH = 0;
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     let index = -1;
-    let imoObj = {};
 
     const result = issues.reduce(function (r, a) {
       if (!a.Typeofwork) return;
@@ -77,7 +76,7 @@ const setGr = (data: SprintWithStats[], colors: DefaultColors): Group => {
   return { labels, datasets };
 };
 
-const ImoSprintsStats = (props: Props) => {
+const ImoSprintsStats = () => {
   const colors = useColors();
   const { data } = useSprintsContext();
 
@@ -85,14 +84,11 @@ const ImoSprintsStats = (props: Props) => {
 
   useEffect(() => {
     setGrupped(setGr(data, colors));
-    return () => {};
   }, [data, colors]);
   if (!grupped) return <div> Loading data....</div>;
   return (
     <div className="h-screen flex flex-col justify-center">
-      <h5 className="uppercase text-indigo-800 font-bold text-2xl text-center">
-        Innovation vs. Maintenance
-      </h5>
+      <h5 className="uppercase text-indigo-800 font-bold text-2xl text-center">Innovation vs. Maintenance</h5>
       <StackedSprintsBar group={grupped} />;
     </div>
   );

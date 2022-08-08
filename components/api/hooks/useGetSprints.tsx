@@ -1,9 +1,7 @@
-import { PaginationRequest } from "@/models/mongo/Mongo";
-import { useQuery } from "@tanstack/react-query";
-import React, { useCallback, useState } from "react";
-import { getAllSprints } from "../dataProvider";
-
-
+import { PaginationRequest } from '@/models/mongo/Mongo';
+import { useQuery } from '@tanstack/react-query';
+import { useCallback, useState } from 'react';
+import { getAllSprints } from '../dataProvider';
 
 const useGetSprints = () => {
   const [pagination, setPagination] = useState<PaginationRequest | null>(null);
@@ -14,14 +12,8 @@ const useGetSprints = () => {
     });
   }, []);
 
-  const { data } = useQuery(
-    [
-      pagination?.page,
-      pagination?.sortBy,
-      pagination?.pageSize,
-      pagination?.sortDir,
-    ],
-    () => getAllSprints(pagination)
+  const { data } = useQuery([pagination?.page, pagination?.sortBy, pagination?.pageSize, pagination?.sortDir], () =>
+    getAllSprints(pagination)
   );
   return { data, updatePagination, pagination };
 };

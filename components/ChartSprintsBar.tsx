@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import ChartDataLabels from "chartjs-plugin-datalabels";
+import React, { useEffect, useState } from 'react';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 import {
   ChartData,
   Chart as ChartJS,
@@ -26,13 +26,13 @@ import {
   Legend,
   Title,
   Tooltip,
-  SubTitle
-} from "chart.js";
-import { Bar, Chart } from "react-chartjs-2";
-import { SprintWithStats } from "@/models/Sprint";
-import useColors from "./api/hooks/useColors";
+  SubTitle,
+} from 'chart.js';
+import { Chart } from 'react-chartjs-2';
+import { SprintWithStats } from '@/models/Sprint';
+import useColors from './api/hooks/useColors';
 
-type ChartType = keyof Pick<SprintWithStats, "predictability"> | "speed" | null;
+type ChartType = keyof Pick<SprintWithStats, 'predictability'> | 'speed' | null;
 type Props = {
   sprints: Array<SprintWithStats>;
   type?: ChartType;
@@ -65,12 +65,12 @@ ChartJS.register(
   SubTitle
 );
 const isPredictability = (type: ChartType) => {
-  return type === "predictability";
+  return type === 'predictability';
 };
 
 const ChartSprintsBar = ({ sprints, type = null }: Props) => {
   const colors = useColors();
-  const [data, setData] = useState<ChartData| null>(null);
+  const [data, setData] = useState<ChartData | null>(null);
 
   useEffect(() => {
     if (!sprints.length) return;
@@ -78,46 +78,38 @@ const ChartSprintsBar = ({ sprints, type = null }: Props) => {
       labels: [],
       datasets: [
         {
-          label: isPredictability(type)
-            ? "Przewid. ost 3 sprinty"
-            : type === "speed"
-            ? "Prędkość zespołu"
-            : undefined,
+          label: isPredictability(type) ? 'Przewid. ost 3 sprinty' : type === 'speed' ? 'Prędkość zespołu' : undefined,
           type: 'line' as const,
           data: [],
-          
-          borderColor: "red",
+
+          borderColor: 'red',
           datalabels: {
             formatter: (value: string) => {
-              return `${value} ${isPredictability(type) ? "%" : ""}`;
+              return `${value} ${isPredictability(type) ? '%' : ''}`;
             },
             font: {
-              weight: "bold",
+              weight: 'bold',
             },
-            anchor: "end",
-            align: "top",
+            anchor: 'end',
+            align: 'top',
             backgroundColor: colors.white,
             borderRadius: 10,
           },
         },
         {
-          label: isPredictability(type)
-            ? "Przewidywalność zespołu"
-            : type === "speed"
-            ? "Prędkość zespołu"
-            : undefined,
+          label: isPredictability(type) ? 'Przewidywalność zespołu' : type === 'speed' ? 'Prędkość zespołu' : undefined,
           data: [],
           backgroundColor: colors.indigo[900],
           // hoverOffset: 4,
           datalabels: {
-            anchor: "center",
-            align: "start",
+            anchor: 'center',
+            align: 'start',
             formatter: (value: string) => {
-              return `${value} ${isPredictability(type) ? "%" : ""}`;
+              return `${value} ${isPredictability(type) ? '%' : ''}`;
             },
-            color: "white",
+            color: 'white',
             font: {
-              weight: "bold",
+              weight: 'bold',
             },
           },
         },
@@ -126,31 +118,28 @@ const ChartSprintsBar = ({ sprints, type = null }: Props) => {
 
     chartData.labels = sprints.map(
       (spr: SprintWithStats) =>
-        `#${spr.nr} ${new Date(spr.start).toLocaleDateString("pl-Pl", {
-          day: "2-digit",
-          month: "2-digit",
-        })}-${new Date(spr.end).toLocaleDateString("pl-Pl", {
-          day: "2-digit",
-          month: "2-digit",
+        `#${spr.nr} ${new Date(spr.start).toLocaleDateString('pl-Pl', {
+          day: '2-digit',
+          month: '2-digit',
+        })}-${new Date(spr.end).toLocaleDateString('pl-Pl', {
+          day: '2-digit',
+          month: '2-digit',
         })}`
     );
     chartData.datasets[1].data = sprints.map((spr: SprintWithStats) =>
       isPredictability(type) ? Number(spr.predictability) : spr.delivered
     );
-    chartData.datasets[0].data = sprints.map((spr: SprintWithStats, index) =>
-      isPredictability(type)
-        ? Number(spr.predictabilityThree)
-        : Number(spr.speedThree)
+    chartData.datasets[0].data = sprints.map((spr: SprintWithStats) =>
+      isPredictability(type) ? Number(spr.predictabilityThree) : Number(spr.speedThree)
     );
 
     setData(chartData);
-    return () => {};
   }, [sprints, type, colors.indigo, colors.white]);
   if (!data) return <div>Loading data ...</div>;
   return (
     <Chart
-      height={"22vh"}
-      width={"50vh"}
+      height={'22vh'}
+      width={'50vh'}
       type="bar"
       data={data}
       options={{
@@ -160,10 +149,8 @@ const ChartSprintsBar = ({ sprints, type = null }: Props) => {
           tooltip: {
             callbacks: {
               label: function (context) {
-                let label = context.dataset.label || "";
-                return `${label} ${context.raw} ${
-                  isPredictability(type) ? "%" : ""
-                }`;
+                const label = context.dataset.label || '';
+                return `${label} ${context.raw} ${isPredictability(type) ? '%' : ''}`;
               },
             },
           },

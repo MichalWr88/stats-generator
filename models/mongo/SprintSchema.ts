@@ -1,5 +1,5 @@
-import { Model, Schema } from "mongoose";
-import { BugStatSprint, Issue, RequestStatSprint, Sprint } from "../Sprint";
+import { Model, Schema } from 'mongoose';
+import { BugStatSprint, Issue, RequestStatSprint, Sprint } from '../Sprint';
 export const IssueStatScheme = new Schema<Issue, Model<Issue>>({
   IssueKey: {
     type: String,
@@ -55,10 +55,7 @@ export const BugStatScheme = new Schema<BugStatSprint, Model<BugStatSprint>>({
     type: Number,
   },
 });
-export const RequestStatScheme = new Schema<
-  RequestStatSprint,
-  Model<RequestStatSprint>
->({
+export const RequestStatScheme = new Schema<RequestStatSprint, Model<RequestStatSprint>>({
   new: {
     type: Number,
   },
@@ -116,4 +113,3 @@ export const SprintScheme = new Schema<Sprint>(
 );
 
 export type LegacyIssue = Issue & { NR: number };
-

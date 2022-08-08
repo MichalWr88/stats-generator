@@ -1,9 +1,9 @@
-import React from "react";
-import { Toaster } from "react-hot-toast";
-import useColors from "./api/hooks/useColors";
+import React from 'react';
+import { Toaster } from 'react-hot-toast';
+import useColors from './api/hooks/useColors';
 
 const Toast = () => {
-const colors = useColors(); 
+  const colors = useColors();
 
   return (
     <Toaster
@@ -16,7 +16,7 @@ const colors = useColors();
         error: {
           style: {
             background: colors.red[500],
-            color: "white",
+            color: 'white',
           },
         },
       }}

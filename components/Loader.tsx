@@ -1,8 +1,5 @@
-import {
-  useIsFetching,
-  useIsMutating,
-} from "@tanstack/react-query";
-import React from "react";
+import { useIsFetching, useIsMutating } from '@tanstack/react-query';
+import React from 'react';
 
 const Loader = () => {
   const isFetching = useIsFetching();
@@ -14,9 +11,7 @@ const Loader = () => {
           className="spinner-border animate-spin inline-block  border-8 border-green-600 border-l-transparent rounded-full w-36 h-36 "
           role="status"
         ></div>
-        <span className="visually-hidden flex-grow flex-shrink w-full text-center font-bold p-4">
-          Loading...
-        </span>
+        <span className="visually-hidden flex-grow flex-shrink w-full text-center font-bold p-4">Loading...</span>
       </div>
     );
   }

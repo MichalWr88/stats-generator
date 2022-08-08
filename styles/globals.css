@@ -2,6 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-:root{
-    --color-primary: theme("colors.indigo.800");
+:root {
+  --color-primary: theme('colors.indigo.800');
 }

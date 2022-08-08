@@ -1,13 +1,13 @@
-import RequestAndBugSprintCharts from "@/components/charts/RequestAndBugSprintCharts";
-import SpeedSprintsStats from "@/components/charts/SpeedSprintsStats";
-import PredictabilitySprintsStats from "@/components/charts/PredictabilitySprintsStats";
-import ChartSprintsContext from "@/components/store/ChartSprintsContext";
-import React, { useState } from "react";
-import ReactPageScroller from "react-page-scroller";
-import { IoIosReturnLeft } from "react-icons/io";
-import Link from "next/link";
-import ImoSprintsStats from "@/components/charts/ImoSprintsStats";
-import EpicSprintsStats from "@/components/charts/EpicSprintsStats";
+import RequestAndBugSprintCharts from '@/components/charts/RequestAndBugSprintCharts';
+import SpeedSprintsStats from '@/components/charts/SpeedSprintsStats';
+import PredictabilitySprintsStats from '@/components/charts/PredictabilitySprintsStats';
+import ChartSprintsContext from '@/components/store/ChartSprintsContext';
+import React, { useState } from 'react';
+import ReactPageScroller from 'react-page-scroller';
+import { IoIosReturnLeft } from 'react-icons/io';
+import Link from 'next/link';
+import ImoSprintsStats from '@/components/charts/ImoSprintsStats';
+import EpicSprintsStats from '@/components/charts/EpicSprintsStats';
 const ChartsPage = () => {
   const [currentPage, setCurrentPage] = useState(0);
 
@@ -15,14 +15,14 @@ const ChartsPage = () => {
     setCurrentPage(nr);
   };
 
-  const handleBeforePageChange = (nr: number) => {};
+  // const handleBeforePageChange = (nr: number) => {};
 
   return (
     <>
       <ChartSprintsContext>
         <ReactPageScroller
           pageOnChange={handlePageChange}
-          onBeforePageScroll={handleBeforePageChange}
+          // onBeforePageScroll={handleBeforePageChange}
           customPageNumber={currentPage}
         >
           <div className=" min-h-full">
@@ -42,7 +42,7 @@ const ChartsPage = () => {
           </div>
         </ReactPageScroller>
       </ChartSprintsContext>
-      <Link href={"/"}>
+      <Link href={'/'}>
         <a
           title="home"
           type="button"
