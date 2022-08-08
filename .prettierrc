@@ -1,0 +1,15 @@
+{
+  "trailingComma": "es5",
+  "spaces": 2,
+  "semi": true,
+  "singleQuote": true,
+  "printWidth": 120,
+  "files.autoSave": "onFocusChange",
+  "editor.formatOnSave": true,
+  "editor.formatOnType": true,
+  "eslint.autoFixOnSave": true,
+  "eslint.enable": true,
+  "prettier/prettier": ["error", {}, {
+    "usePrettierrc": true
+  }]
+}
