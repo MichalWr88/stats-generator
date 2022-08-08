@@ -2,8 +2,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { downloadIssuesCSV, getAllSprints } from '@/components/api/dataProvider';
 import ChartSprintCircle from '@/components/ChartSprintCircle';
-import Modal from '@/components/Modal';
-import SprintForm from '@/components/SprintForm';
+// import Modal from '@/components/Modal';
+// import SprintForm from '@/components/SprintForm';
 import Table from '@/components/table/Table';
 import { SprintWithStats } from '@/models/Sprint';
 import WithNavBar from 'layouts/WithNavBar';
@@ -15,7 +15,7 @@ import { setStatsSpritnts } from 'utils/SprintsMapper';
 const SprintListPage = () => {
   const [data, setData] = useState<Array<SprintWithStats>>([]);
   const ref = useRef(null);
-  const [isEditModal, setIsEditModal] = useState(false);
+  // const [isEditModal, setIsEditModal] = useState(false);
   const [activeSprint, setActiveSprint] = useState<SprintWithStats | null>(null);
   const getIssueCSV = (sprint: SprintWithStats) => {
     downloadIssuesCSV(Number(sprint.nr)).then((data) => {
@@ -143,7 +143,7 @@ const SprintListPage = () => {
             >
               edit
             </button>
-            <button
+            {/* <button
               onClick={() => {
                 setIsEditModal(true);
               }}
@@ -153,7 +153,7 @@ const SprintListPage = () => {
               data-bs-target="#exampleModal"
             >
               edit
-            </button>
+            </button> */}
           </div>
         ),
       },
@@ -181,9 +181,9 @@ const SprintListPage = () => {
             </div>
           </div>
         )}
-        <Modal>
+        {/* <Modal>
           <SprintForm issues={[]} />
-        </Modal>
+        </Modal> */}
       </>
     </WithNavBar>
   );
