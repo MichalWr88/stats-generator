@@ -1,60 +1,58 @@
-import {  ConfigMapperGroup, Issue } from "@/models/Sprint";
-import { Group } from "next/dist/shared/lib/router/utils/route-regex";
-import { useRef } from "react";
-import useConfigEpicGroups from "./api/hooks/useConfigEpicGroups";
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+import { ConfigMapperGroup, Issue } from '@/models/Sprint';
+import useConfigEpicGroups from './api/hooks/useConfigEpicGroups';
 
 interface Props {
   onLoad?: (file: Array<Issue>) => void;
 }
-enum ReaderType {
-  URL = "url",
-  BUFFER = "buffer",
-  TEXT = "text",
-}
-type AcceptType = ".txt" | ".csv" | ".xls" | ".xlsx" | ".html";
+// enum ReaderType {
+//   URL = 'url',
+//   BUFFER = 'buffer',
+//   TEXT = 'text',
+// }
+type AcceptType = '.txt' | '.csv' | '.xls' | '.xlsx' | '.html';
 
-const accept: Array<AcceptType> = [".html"];
-const readerType: ReaderType = ReaderType.BUFFER;
+const accept: Array<AcceptType> = ['.html'];
 
-const parseCsv = (csv: string): Array<Issue> => {
-  let lines = csv.split("\n");
-  // @ts-ignore for shift()
-  const header = lines
-    .shift()
-    .split(",")
-    .map((head) => {
-      const regexp = /\W/g;
+// const parseCsv = (csv: string): Array<Issue> => {
+//   let lines = csv.split('\n');
+//   // @ts-ignore for shift()
+//   const header = lines
+//     .shift()
+//     .split(',')
+//     .map((head) => {
+//       const regexp = /\W/g;
 
-      return head.split(regexp).join("");
-    });
+//       return head.split(regexp).join('');
+//     });
 
-  lines.shift(); // get rid of definitions
+//   lines.shift(); // get rid of definitions
 
-  const issueList = lines.map((line) => {
-    const bits = line.split("\t");
+//   const issueList = lines.map((line) => {
+//     const bits = line.split('\t');
 
-    let obj = {};
-    header.forEach((h, i) => {
-      // @ts-ignore for obj[h]
-      if (!checkIsCorrectHeader(h)) return;
+//     const obj = {};
+//     header.forEach((h, i) => {
+//       // @ts-ignore for obj[h]
+//       if (!checkIsCorrectHeader(h)) return;
 
-      // @ts-ignore for obj[h] ? bits[i].slice(1, -1) :
-      return (obj[h] = bits[i] ?? null);
-    }); // or use reduce here
-    return obj;
-  });
+//       // @ts-ignore for obj[h] ? bits[i].slice(1, -1) :
+//       return (obj[h] = bits[i] ?? null);
+//     }); // or use reduce here
+//     return obj;
+//   });
 
-  return issueList as Array<Issue>;
-};
+//   return issueList as Array<Issue>;
+// };
 
-const parseHTML = (csv: string,configEpicArr: Array<ConfigMapperGroup>): Array<Issue> => {
-  const html = document.createElement("html");
+const parseHTML = (csv: string, configEpicArr: Array<ConfigMapperGroup>): Array<Issue> => {
+  const html = document.createElement('html');
   html.innerHTML = csv;
-  const body = html.getElementsByTagName("tbody");
-  const htmlLines = body[0].getElementsByTagName("tr");
+  const body = html.getElementsByTagName('tbody');
+  const htmlLines = body[0].getElementsByTagName('tr');
 
   const lines = Array.from(htmlLines).map((tr) => {
-    const arr = Array.from(tr.getElementsByTagName("td"));
+    const arr = Array.from(tr.getElementsByTagName('td'));
     return arr.map((td) => td.innerText);
   });
 
@@ -62,26 +60,26 @@ const parseHTML = (csv: string,configEpicArr: Array<ConfigMapperGroup>): Array<I
   const header = lines.shift().map((head) => {
     const regexp = /\W/g;
 
-    return head.split(regexp).join("");
+    return head.split(regexp).join('');
   });
 
   lines.shift(); // get rid of definitions
 
   const issueList = lines.map((line) => {
-    let obj: Issue = {
-      IssueKey: "",
-      Issuesummary: "",
-      Hours: "",
-      IssueType: "",
-      EpicLink: "",
-      Username: "",
-      WorkDescription: "",
-      ParentKey: "",
+    const obj: Issue = {
+      IssueKey: '',
+      Issuesummary: '',
+      Hours: '',
+      IssueType: '',
+      EpicLink: '',
+      Username: '',
+      WorkDescription: '',
+      ParentKey: '',
       Typeofwork: null,
       EpicGroup: null,
     };
     header.forEach((h, i) => {
-      if (h === "EpicLink" && obj[h]) {
+      if (h === 'EpicLink' && obj[h]) {
         return (obj[h] = `${line[i]} - ${obj[h]}`);
       }
       // @ts-ignore for obj[h]
@@ -90,53 +88,46 @@ const parseHTML = (csv: string,configEpicArr: Array<ConfigMapperGroup>): Array<I
       // @ts-ignore for obj[h] ? bits[i].slice(1, -1) :
       return (obj[h] = line[i] ?? null);
     }); // or use reduce here
-    return mappedValidateIsuue(obj,configEpicArr);
+    return mappedValidateIsuue(obj, configEpicArr);
   });
 
   return issueList as Array<Issue>;
 };
-const imoMappedIssue = (obj: Issue): Issue => {
-  const mappedIssue = { ...obj };
-  const ORGTasks = ["CSS-1812", "CSS-1811"];
-  if (ORGTasks.includes(obj.IssueKey)) {
-    mappedIssue.Typeofwork = "Organization";
-  }
-  if (obj.IssueType === "Bug") {
-    mappedIssue.Typeofwork = "Bugs";
-  }
-  return mappedIssue;
-};
+// const imoMappedIssue = (obj: Issue): Issue => {
+//   const mappedIssue = { ...obj };
+//   const ORGTasks = ['CSS-1812', 'CSS-1811'];
+//   if (ORGTasks.includes(obj.IssueKey)) {
+//     mappedIssue.Typeofwork = 'Organization';
+//   }
+//   if (obj.IssueType === 'Bug') {
+//     mappedIssue.Typeofwork = 'Bugs';
+//   }
+//   return mappedIssue;
+// };
 class Mapper {
-  constructor(public issue: Issue,public configEpicArr: Array<ConfigMapperGroup>) {
+  constructor(public issue: Issue, public configEpicArr: Array<ConfigMapperGroup>) {
     this.issue = issue;
     this.configEpicArr = configEpicArr;
   }
 
   public imoMappedIssue(): Mapper {
-    const ORGTasks = ["CSS-1812", "CSS-1811"];
+    const ORGTasks = ['CSS-1812', 'CSS-1811'];
     if (ORGTasks.includes(this.issue.IssueKey)) {
-      this.issue.Typeofwork = "Organization";
+      this.issue.Typeofwork = 'Organization';
     }
-    if (this.issue.IssueType === "Bug") {
-      this.issue.Typeofwork = "Bugs";
+    if (this.issue.IssueType === 'Bug') {
+      this.issue.Typeofwork = 'Bugs';
     }
     return this;
   }
   public groupEpicMappedIssue(): Mapper {
-
     this.configEpicArr.forEach((config) => {
       if (
         [...config.texts, ...config.epics].some(
           (text) =>
-            this.issue.Issuesummary.toLocaleLowerCase().includes(
-              text.toLocaleLowerCase()
-            ) ||
-            this.issue.EpicLink?.toLocaleLowerCase().includes(
-              text.toLocaleLowerCase()
-            ) ||
-            this.issue.WorkDescription.toLocaleLowerCase().includes(
-              text.toLocaleLowerCase()
-            )
+            this.issue.Issuesummary.toLocaleLowerCase().includes(text.toLocaleLowerCase()) ||
+            this.issue.EpicLink?.toLocaleLowerCase().includes(text.toLocaleLowerCase()) ||
+            this.issue.WorkDescription.toLocaleLowerCase().includes(text.toLocaleLowerCase())
         )
       ) {
         this.issue.EpicGroup = config.name;
@@ -147,31 +138,30 @@ class Mapper {
   }
 }
 
-const mappedValidateIsuue = (obj: Issue,configEpicArr: Array<ConfigMapperGroup>): Issue => {
-  
+const mappedValidateIsuue = (obj: Issue, configEpicArr: Array<ConfigMapperGroup>): Issue => {
   const mappedIssue = { ...obj };
-  const mapper = new Mapper(mappedIssue,configEpicArr);
+  const mapper = new Mapper(mappedIssue, configEpicArr);
   return mapper.imoMappedIssue().groupEpicMappedIssue().issue;
 };
 
 const checkIsCorrectHeader = (header: keyof Issue) => {
   const correctHEaders: Array<keyof Issue> = [
-    "IssueKey",
-    "Issuesummary",
-    "Hours",
-    "IssueType",
-    "EpicLink",
-    "Username",
-    "WorkDescription",
-    "ParentKey",
-    "Typeofwork",
+    'IssueKey',
+    'Issuesummary',
+    'Hours',
+    'IssueType',
+    'EpicLink',
+    'Username',
+    'WorkDescription',
+    'ParentKey',
+    'Typeofwork',
   ];
   return correctHEaders.includes(header);
 };
 
 const UploadFile = ({ onLoad }: Props) => {
   const configEpicArr = useConfigEpicGroups();
-  const fileInput = useRef(null);
+  // const fileInput = useRef(null);
   const isAcceptType = (name: string, accept: Array<AcceptType>) => {
     const reg = /\.[0-9a-z]+$/;
     const type = name.match(reg);
@@ -184,19 +174,19 @@ const UploadFile = ({ onLoad }: Props) => {
   const handleChange = (fileInput: React.ChangeEvent<HTMLInputElement>) => {
     if (fileInput.target.files && fileInput.target.files[0]) {
       if (!isAcceptType(fileInput.target.files[0].name, accept)) {
-        console.log("niepoprawny format pliku");
+        console.log('niepoprawny format pliku');
       }
 
       if (isToBigSize(fileInput.target.files[0].size)) {
-        console.log(" za duzy plik");
+        console.log(' za duzy plik');
       }
 
       const file = fileInput.target.files[0];
       const reader = new FileReader();
 
-      reader.addEventListener("load", (e: ProgressEvent<FileReader>) => {
-        if (typeof reader.result === "string") {
-          const res = parseHTML(reader.result,configEpicArr);
+      reader.addEventListener('load', () => {
+        if (typeof reader.result === 'string') {
+          const res = parseHTML(reader.result, configEpicArr);
 
           if (onLoad) {
             onLoad(res);
@@ -231,20 +221,11 @@ const UploadFile = ({ onLoad }: Props) => {
             ></path>
           </svg>
           <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-            <span className="font-semibold">Click to upload</span> or drag and
-            drop
+            <span className="font-semibold">Click to upload</span> or drag and drop
           </p>
-          <p className="text-xs text-gray-500 dark:text-gray-400">
-            SVG, PNG, JPG or GIF (MAX. 800x400px)
-          </p>
+          <p className="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
         </div>
-        <input
-          id="dropzone-file"
-          type="file"
-          className="hidden"
-          onChange={handleChange}
-          accept={accept.join()}
-        />
+        <input id="dropzone-file" type="file" className="hidden" onChange={handleChange} accept={accept.join()} />
       </label>
     </div>
   );

@@ -1,4 +1,4 @@
-import { EpicGroups, TypeofworkList } from "@/models/Sprint";
+import { EpicGroups, TypeofworkList } from '@/models/Sprint';
 import {
   ChartData,
   Chart as ChartJS,
@@ -29,11 +29,11 @@ import {
   ChartTypeRegistry,
   ScatterDataPoint,
   BubbleDataPoint,
-} from "chart.js";
-import React, { useEffect, useState } from "react";
-import { Chart } from "react-chartjs-2";
+} from 'chart.js';
+import React, { useEffect, useState } from 'react';
+import { Chart } from 'react-chartjs-2';
 
-import ChartjsPluginStacked100 from "chartjs-plugin-stacked100";
+import ChartjsPluginStacked100 from 'chartjs-plugin-stacked100';
 type Group = { labels: Array<string>; datasets: Array<Dataset> };
 
 type Dataset = {
@@ -72,9 +72,7 @@ ChartJS.register(
   SubTitle
 );
 const StackedSprintsBar = ({ group }: Props) => {
-  const [data, setData] = useState<ChartData<"bar", number[], unknown> | null>(
-    null
-  );
+  const [data, setData] = useState<ChartData<'bar', number[], unknown> | null>(null);
 
   useEffect(() => {
     if (!group) return;
@@ -84,14 +82,13 @@ const StackedSprintsBar = ({ group }: Props) => {
     };
 
     setData(chartData);
-    return () => {};
   }, [group]);
   if (!data) return <div>Loading data ...</div>;
 
   return (
     <Chart
-      height={"22vh"}
-      width={"50vh"}
+      height={'22vh'}
+      width={'50vh'}
       type="bar"
       data={data}
       options={{

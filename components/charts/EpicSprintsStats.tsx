@@ -1,19 +1,12 @@
-import {
-  ConfigMapperGroup,
-  EpicGroups,
-  SprintWithStats,
-  TypeofworkList,
-} from "@/models/Sprint";
-import React, { useEffect, useState } from "react";
-import { useSprintsContext } from "../store/ChartSprintsContext";
+import { ConfigMapperGroup, EpicGroups, SprintWithStats } from '@/models/Sprint';
+import React, { useEffect, useState } from 'react';
+import { useSprintsContext } from '../store/ChartSprintsContext';
 
-import useColors from "../api/hooks/useColors";
-import { DefaultColors } from "tailwindcss/types/generated/colors";
-import dynamic from "next/dynamic";
-import { allEpicGroups, epicGroups } from "@/data/epicGroups";
-import useConfigEpicGroups from "../api/hooks/useConfigEpicGroups";
+import dynamic from 'next/dynamic';
+import { allEpicGroups } from '@/data/epicGroups';
+import useConfigEpicGroups from '../api/hooks/useConfigEpicGroups';
 
-const StackedSprintsBar = dynamic(() => import("./StackedSprintsBar"), {
+const StackedSprintsBar = dynamic(() => import('./StackedSprintsBar'), {
   ssr: false,
 });
 
@@ -24,10 +17,7 @@ type Dataset = {
   data: Array<number>;
   backgroundColor: string;
 };
-const setGr = (
-  data: SprintWithStats[],
-  configArr: Array<ConfigMapperGroup>
-): Group => {
+const setGr = (data: SprintWithStats[], configArr: Array<ConfigMapperGroup>): Group => {
   const labels: Array<string> = [];
   const datasets: Array<Dataset> = configArr.map((group) => {
     return {
@@ -40,16 +30,16 @@ const setGr = (
   data.forEach((sprint) => {
     const { nr, start, end, issues } = sprint;
     labels.push(
-      `#${nr} ${new Date(start).toLocaleDateString("pl-PL", {
-        day: "2-digit",
-        month: "2-digit",
-      })} ${new Date(end).toLocaleDateString("pl-PL", {
-        day: "2-digit",
-        month: "2-digit",
+      `#${nr} ${new Date(start).toLocaleDateString('pl-PL', {
+        day: '2-digit',
+        month: '2-digit',
+      })} ${new Date(end).toLocaleDateString('pl-PL', {
+        day: '2-digit',
+        month: '2-digit',
       })}`
     );
-    let index = -1;
-    console.log(issues);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    let indexx = -1;
     const result = issues.reduce(function (r, a) {
       console.log(result);
       if (!a.EpicGroup) return r;
@@ -67,7 +57,7 @@ const setGr = (
     });
 
     issues.forEach((issue) => {
-      index = datasets.findIndex((data) => data.label === issue.EpicGroup);
+      indexx = datasets.findIndex((data) => data.label === issue.EpicGroup);
     });
   });
   console.log({ labels, datasets });
@@ -82,14 +72,11 @@ const EpicSprintsStats = () => {
 
   useEffect(() => {
     setGrupped(setGr(data, configArr));
-    return () => {};
   }, [configArr, data]);
   if (!grupped) return <div> Loading data....</div>;
   return (
     <div className="h-screen flex flex-col justify-center">
-      <h5 className="uppercase text-indigo-800 font-bold text-2xl text-center">
-        Epics
-      </h5>
+      <h5 className="uppercase text-indigo-800 font-bold text-2xl text-center">Epics</h5>
       <StackedSprintsBar group={grupped} />;
     </div>
   );

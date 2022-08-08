@@ -1,29 +1,25 @@
-import { ResponsMongo } from "./mongo/Mongo";
-import * as yup from "yup";
-import { epicGroups } from "@/data/epicGroups";
-import { DefaultColors } from "tailwindcss/types/generated/colors";
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+import { ResponsMongo } from './mongo/Mongo';
+import * as yup from 'yup';
+import { epicGroups } from '@/data/epicGroups';
 
-export const RequestSchemaAdd: yup.ObjectSchema<RequestStatSprint> = yup
-  .object()
-  .shape({
-    new: yup.number().min(0).required(),
-    review: yup.number().min(0).required(),
-    inProgress: yup.number().min(0).required(),
-    inTesting: yup.number().min(0).required(),
-    rfd: yup.number().min(0).required(),
-    done: yup.number().min(0).required(),
-  });
-export const BugSchemaAdd: yup.ObjectSchema<BugStatSprint> = yup
-  .object()
-  .shape({
-    closed: yup.number().min(0).required(),
-    review: yup.number().min(0).required(),
-    accepted: yup.number().min(0).required(),
-    inProgress: yup.number().min(0).required(),
-    inTesting: yup.number().min(0).required(),
-    rfd: yup.number().min(0).required(),
-    onHold: yup.number().min(0).required(),
-  });
+export const RequestSchemaAdd: yup.ObjectSchema<RequestStatSprint> = yup.object().shape({
+  new: yup.number().min(0).required(),
+  review: yup.number().min(0).required(),
+  inProgress: yup.number().min(0).required(),
+  inTesting: yup.number().min(0).required(),
+  rfd: yup.number().min(0).required(),
+  done: yup.number().min(0).required(),
+});
+export const BugSchemaAdd: yup.ObjectSchema<BugStatSprint> = yup.object().shape({
+  closed: yup.number().min(0).required(),
+  review: yup.number().min(0).required(),
+  accepted: yup.number().min(0).required(),
+  inProgress: yup.number().min(0).required(),
+  inTesting: yup.number().min(0).required(),
+  rfd: yup.number().min(0).required(),
+  onHold: yup.number().min(0).required(),
+});
 
 export const IssueSchemaAdd: yup.ObjectSchema<Issue> = yup.object().shape({
   IssueKey: yup.string().required(),
@@ -58,11 +54,7 @@ export const sprintSchemaAdd: yup.ObjectSchema<Sprint> = yup.object().shape({
 
 // type SprintForm = yup.InferType<typeof IssueSchemaAdd>;
 
-export type TypeofworkList =
-  | "Organization"
-  | "Innovation"
-  | "Bugs"
-  | "Maintenance";
+export type TypeofworkList = 'Organization' | 'Innovation' | 'Bugs' | 'Maintenance';
 export type EpicGroups = typeof epicGroups[number];
 export interface ConfigMapperGroup {
   name: EpicGroups;
@@ -118,10 +110,9 @@ export interface SprintWithStats extends Sprint {
 }
 
 export interface ResponsSprint extends Sprint, ResponsMongo {}
-export interface ResponsSprintForCSV
-  extends Pick<Sprint, "nr" | "end" | "start" | "issues"> {}
+export type ResponsSprintForCSV = Pick<Sprint, 'nr' | 'end' | 'start' | 'issues'>;
 
-export const SprintCollectName = "sprints";
+export const SprintCollectName = 'sprints';
 
 export interface SprintCollection {
   name: typeof SprintCollectName;
