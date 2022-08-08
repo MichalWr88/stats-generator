@@ -1,6 +1,7 @@
 import { ResponsMongo } from "./mongo/Mongo";
 import * as yup from "yup";
 import { epicGroups } from "@/data/epicGroups";
+import { DefaultColors } from "tailwindcss/types/generated/colors";
 
 export const RequestSchemaAdd: yup.ObjectSchema<RequestStatSprint> = yup
   .object()
@@ -67,75 +68,8 @@ export interface ConfigMapperGroup {
   name: EpicGroups;
   epics: Array<string>;
   texts: Array<string>;
+  color: string;
 }
-export const configMapperGroup: Array<ConfigMapperGroup> = [
-  {
-    name: "Synerise Adapter",
-    epics: ["CSS-4557","CSS-4122"],
-    texts: ["Synerise","Adapter"],
-  },
-  {
-    name: "Company Monitor",
-    epics: ["CSS-2198"],
-    texts: ["Monitor", "CM"],
-  },
-  {
-    name: "Company Verification",
-    epics: ["CSS-1739","CSS-2665"],
-    texts: ["Verification","CV"],
-  },
-  {
-    name: "Compliance",
-    epics: ["CSS-2058"],
-    texts: ["Compliance", "COC"],
-  },
-
-  {
-    name: "RCP",
-    epics: [],
-    texts: ["RCP"],
-  },
-  {
-    name: "CBL",
-    epics: [],
-    texts: ["CBL"],
-  },
-  {
-    name: "Sherlock",
-    epics: [],
-    texts: ["Sherlock"],
-  },
-  {
-    name: "CEDC",
-    epics: [],
-    texts: ["CEDC"],
-  },
-  {
-    name: "Billings",
-    epics: [],
-    texts: ["Billings"],
-  },
-  {
-    name: "Transoffice",
-    epics: [],
-    texts: ["Transoffice"],
-  },
-  {
-    name: "API Facade",
-    epics: [],
-    texts: ["Facade"],
-  },
-  {
-    name: "CIC",
-    epics: ["CSS-1169","CSS-3062","CSS-2849","CSS-2542","CSS-2118"],
-    texts: ["cic", "ssi"],
-  },
-  {
-    name: "NLW",
-    epics: ["CSS-3371","CSS-3682","CSS-3753","CSS-2417"],
-    texts: ["NLW","Oppportunity"],
-  },
-];
 
 export interface Issue {
   IssueKey: string;

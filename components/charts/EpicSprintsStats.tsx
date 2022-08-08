@@ -1,4 +1,9 @@
-import { EpicGroups, SprintWithStats, TypeofworkList } from "@/models/Sprint";
+import {
+  ConfigMapperGroup,
+  EpicGroups,
+  SprintWithStats,
+  TypeofworkList,
+} from "@/models/Sprint";
 import React, { useEffect, useState } from "react";
 import { useSprintsContext } from "../store/ChartSprintsContext";
 
@@ -6,6 +11,7 @@ import useColors from "../api/hooks/useColors";
 import { DefaultColors } from "tailwindcss/types/generated/colors";
 import dynamic from "next/dynamic";
 import { allEpicGroups, epicGroups } from "@/data/epicGroups";
+import useConfigEpicGroups from "../api/hooks/useConfigEpicGroups";
 
 const StackedSprintsBar = dynamic(() => import("./StackedSprintsBar"), {
   ssr: false,
@@ -18,32 +24,17 @@ type Dataset = {
   data: Array<number>;
   backgroundColor: string;
 };
-const setGr = (data: SprintWithStats[], colors: DefaultColors): Group => {
+const setGr = (
+  data: SprintWithStats[],
+  configArr: Array<ConfigMapperGroup>
+): Group => {
   const labels: Array<string> = [];
-  const datasets: Array<Dataset> = epicGroups.map((group) => {
-    let dataset = {
-      label: group,
-      backgroundColor: "red",
+  const datasets: Array<Dataset> = configArr.map((group) => {
+    return {
+      label: group.name,
+      backgroundColor: group.color,
       data: [],
     };
-    switch (group) {
-      case "CIC":
-        dataset.backgroundColor = colors.red[300];
-        break;
-      case "NLW":
-        dataset.backgroundColor = colors.indigo[400];
-        break;
-      case "Company Verification":
-        dataset.backgroundColor = colors.orange[400];
-        break;
-      case "CBL":
-        dataset.backgroundColor = colors.gray[400];
-        break;
-
-      default:
-        break;
-    }
-    return dataset;
   });
 
   data.forEach((sprint) => {
@@ -84,15 +75,15 @@ const setGr = (data: SprintWithStats[], colors: DefaultColors): Group => {
 };
 
 const EpicSprintsStats = () => {
-  const colors = useColors();
+  const configArr = useConfigEpicGroups();
   const { data } = useSprintsContext();
 
   const [grupped, setGrupped] = useState<Group | null>(null);
 
   useEffect(() => {
-    setGrupped(setGr(data, colors));
+    setGrupped(setGr(data, configArr));
     return () => {};
-  }, [data, colors]);
+  }, [configArr, data]);
   if (!grupped) return <div> Loading data....</div>;
   return (
     <div className="h-screen flex flex-col justify-center">

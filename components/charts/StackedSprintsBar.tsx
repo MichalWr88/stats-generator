@@ -37,7 +37,7 @@ import ChartjsPluginStacked100 from "chartjs-plugin-stacked100";
 type Group = { labels: Array<string>; datasets: Array<Dataset> };
 
 type Dataset = {
-  label: TypeofworkList |EpicGroups;
+  label: TypeofworkList | EpicGroups;
   data: Array<number>;
 };
 type Props = {
@@ -111,8 +111,11 @@ const StackedSprintsBar = ({ group }: Props) => {
               > & { calculatedData: { [key: number]: Array<number> } };
               const { datasetIndex, dataIndex } = context;
               const value = data.calculatedData[datasetIndex][dataIndex];
-              if(!value) return null
+              if (!value) return null;
               return `${value}%`;
+            },
+            font: {
+              size: 14,
             },
           },
           // tooltip: {
