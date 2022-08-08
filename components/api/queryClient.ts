@@ -30,6 +30,7 @@ const queryErrorHandler = (error: unknown): void => {
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
+      refetchOnWindowFocus:false,
       onError: queryErrorHandler,
     },
     mutations: {
