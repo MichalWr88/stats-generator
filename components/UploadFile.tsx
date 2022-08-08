@@ -1,4 +1,4 @@
-import { EpicGroups, Issue } from "@/models/Sprint";
+import { configMapperGroup, EpicGroups, Issue } from "@/models/Sprint";
 import { Group } from "next/dist/shared/lib/router/utils/route-regex";
 import { useRef } from "react";
 
@@ -11,11 +11,7 @@ enum ReaderType {
   TEXT = "text",
 }
 type AcceptType = ".txt" | ".csv" | ".xls" | ".xlsx" | ".html";
-interface ConfigMapperGroup {
-  name: EpicGroups;
-  epics: Array<string>;
-  texts: Array<string>;
-}
+
 const accept: Array<AcceptType> = [".html"];
 const readerType: ReaderType = ReaderType.BUFFER;
 
@@ -125,19 +121,8 @@ class Mapper {
     return this;
   }
   public groupEpicMappedIssue(): Mapper {
-    const configArr: Array<ConfigMapperGroup> = [
-      {
-        name: "CIC",
-        epics: ["CSS-1169"],
-        texts: ["cic", "ssi"],
-      },
-      {
-        name: "NLW",
-        epics: ["CSS-3371"],
-        texts: ["NLW"],
-      },
-    ];
-    configArr.forEach((config) => {
+
+    configMapperGroup.forEach((config) => {
       if (
         [...config.texts, ...config.epics].some(
           (text) =>
