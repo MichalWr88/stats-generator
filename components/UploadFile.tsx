@@ -1,6 +1,7 @@
-import { configMapperGroup, EpicGroups, Issue } from "@/models/Sprint";
+import {  ConfigMapperGroup, Issue } from "@/models/Sprint";
 import { Group } from "next/dist/shared/lib/router/utils/route-regex";
 import { useRef } from "react";
+import useConfigEpicGroups from "./api/hooks/useConfigEpicGroups";
 
 interface Props {
   onLoad?: (file: Array<Issue>) => void;
@@ -46,7 +47,7 @@ const parseCsv = (csv: string): Array<Issue> => {
   return issueList as Array<Issue>;
 };
 
-const parseHTML = (csv: string): Array<Issue> => {
+const parseHTML = (csv: string,configEpicArr: Array<ConfigMapperGroup>): Array<Issue> => {
   const html = document.createElement("html");
   html.innerHTML = csv;
   const body = html.getElementsByTagName("tbody");
@@ -89,7 +90,7 @@ const parseHTML = (csv: string): Array<Issue> => {
       // @ts-ignore for obj[h] ? bits[i].slice(1, -1) :
       return (obj[h] = line[i] ?? null);
     }); // or use reduce here
-    return mappedValidateIsuue(obj);
+    return mappedValidateIsuue(obj,configEpicArr);
   });
 
   return issueList as Array<Issue>;
@@ -106,8 +107,9 @@ const imoMappedIssue = (obj: Issue): Issue => {
   return mappedIssue;
 };
 class Mapper {
-  constructor(public issue: Issue) {
+  constructor(public issue: Issue,public configEpicArr: Array<ConfigMapperGroup>) {
     this.issue = issue;
+    this.configEpicArr = configEpicArr;
   }
 
   public imoMappedIssue(): Mapper {
@@ -122,7 +124,7 @@ class Mapper {
   }
   public groupEpicMappedIssue(): Mapper {
 
-    configMapperGroup.forEach((config) => {
+    this.configEpicArr.forEach((config) => {
       if (
         [...config.texts, ...config.epics].some(
           (text) =>
@@ -145,9 +147,10 @@ class Mapper {
   }
 }
 
-const mappedValidateIsuue = (obj: Issue): Issue => {
+const mappedValidateIsuue = (obj: Issue,configEpicArr: Array<ConfigMapperGroup>): Issue => {
+  
   const mappedIssue = { ...obj };
-  const mapper = new Mapper(mappedIssue);
+  const mapper = new Mapper(mappedIssue,configEpicArr);
   return mapper.imoMappedIssue().groupEpicMappedIssue().issue;
 };
 
@@ -167,6 +170,7 @@ const checkIsCorrectHeader = (header: keyof Issue) => {
 };
 
 const UploadFile = ({ onLoad }: Props) => {
+  const configEpicArr = useConfigEpicGroups();
   const fileInput = useRef(null);
   const isAcceptType = (name: string, accept: Array<AcceptType>) => {
     const reg = /\.[0-9a-z]+$/;
@@ -192,7 +196,7 @@ const UploadFile = ({ onLoad }: Props) => {
 
       reader.addEventListener("load", (e: ProgressEvent<FileReader>) => {
         if (typeof reader.result === "string") {
-          const res = parseHTML(reader.result);
+          const res = parseHTML(reader.result,configEpicArr);
 
           if (onLoad) {
             onLoad(res);
