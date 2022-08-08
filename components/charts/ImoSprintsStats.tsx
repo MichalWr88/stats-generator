@@ -5,6 +5,7 @@ import { useSprintsContext } from '../store/ChartSprintsContext';
 import useColors from '../../components/api/hooks/useColors';
 import { DefaultColors } from 'tailwindcss/types/generated/colors';
 import dynamic from 'next/dynamic';
+import { allImoGroups } from '@/data/epicGroups';
 
 const StackedSprintsBar = dynamic(() => import('./StackedSprintsBar'), {
   ssr: false,
@@ -60,10 +61,11 @@ const setGr = (data: SprintWithStats[], colors: DefaultColors): Group => {
       if (!a.Typeofwork) return;
       r[a.Typeofwork] = r[a.Typeofwork] || 0;
       r[a.Typeofwork] = r[a.Typeofwork] + Number(a.Hours);
+
       return r;
     }, Object.create(null));
-
-    Object.entries(result).forEach(([key, value]) => {
+    const mappedresult = { ...allImoGroups, ...result };
+    Object.entries(mappedresult).forEach(([key, value]) => {
       const index = datasets.findIndex((data) => data.label === key);
       datasets[index].data.push(Number(Number(value).toFixed(2)));
     });

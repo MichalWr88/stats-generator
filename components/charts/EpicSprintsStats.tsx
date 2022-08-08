@@ -41,7 +41,6 @@ const setGr = (data: SprintWithStats[], configArr: Array<ConfigMapperGroup>): Gr
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     let indexx = -1;
     const result = issues.reduce(function (r, a) {
-      console.log(result);
       if (!a.EpicGroup) return r;
       r[a.EpicGroup] = r[a.EpicGroup] || 0;
       r[a.EpicGroup] = r[a.EpicGroup] + Number(a.Hours);
@@ -49,7 +48,7 @@ const setGr = (data: SprintWithStats[], configArr: Array<ConfigMapperGroup>): Gr
       return r;
     }, Object.create(null));
     const mappedresult = { ...allEpicGroups, ...result };
-    console.log(result);
+
     Object.entries(mappedresult).forEach(([key, value]) => {
       const index = datasets.findIndex((data) => data.label === key);
       if (index === -1) return;

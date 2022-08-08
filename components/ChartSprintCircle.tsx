@@ -31,6 +31,7 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 import React, { useEffect, useState } from 'react';
 import { Pie } from 'react-chartjs-2';
+import useColors from './api/hooks/useColors';
 ChartJS.register(
   ArcElement,
   ChartDataLabels,
@@ -65,6 +66,7 @@ type Props = {
 };
 
 const ChartSprintCircle = ({ sprint, type }: Props) => {
+  const colors = useColors();
   const [data, setData] = useState<ChartData<'pie', number[], string> | null>(null);
 
   useEffect(() => {
@@ -76,31 +78,20 @@ const ChartSprintCircle = ({ sprint, type }: Props) => {
           label: 'My First Dataset',
           data: [],
           backgroundColor: [
-            'rgb(155, 159, 132)',
-            'rgb(54, 162, 235)',
-            'rgb(255, 225, 86)',
-            'rgb(255, 99, 132)',
-            'rgb(54, 162, 235)',
-            'rgb(245, 215, 86)',
-            'rgb(155, 255, 56)',
+            colors.green[400],
+            colors.indigo[400],
+            colors.orange[400],
+            colors.red[400],
+            colors.cyan[400],
+            colors.amber[400],
           ],
-          // borderColor:"grey",
-          // borderColor:[
-          //   "rgb(155, 159, 132)",
-          //   "rgb(54, 162, 235)",
-          //   "rgb(255, 225, 86)",
-          //   "rgb(255, 99, 132)",
-          //   "rgb(54, 162, 235)",
-          //   "rgb(245, 215, 86)",
-          //   "rgb(155, 255, 56)",
-          // ],
           hoverOffset: 4,
         },
       ],
     };
     const arrType = sprint[type];
     Object.entries(arrType).forEach(([key, value]) => {
-      if (key === '_id' || Number(value) === 0) return;
+      if (key === '_id') return;
       chartData.labels?.push(key.toUpperCase());
       chartData.datasets[0].data.push(value);
 
@@ -108,7 +99,7 @@ const ChartSprintCircle = ({ sprint, type }: Props) => {
     });
 
     setData(chartData);
-  }, [type, sprint]);
+  }, [type, sprint, colors.green, colors.indigo, colors.orange, colors.red, colors.cyan, colors.amber]);
 
   if (!data) return <div>Loading data ...</div>;
   return (
@@ -130,15 +121,7 @@ const ChartSprintCircle = ({ sprint, type }: Props) => {
 
             datalabels: {
               formatter: (val) => {
-                // Grab the label for this value
-                // const label = ctx.chart.data.labels?.[ctx.dataIndex];
-
-                // // Format the number with 2 decimal places
-                // const formattedVal = Intl.NumberFormat("en-US", {
-                //   minimumFractionDigits: 0,
-                // }).format(val);  ${label}:
-
-                // Put them together
+                if (val === 0) return '';
                 return ` ${val}`;
               },
 

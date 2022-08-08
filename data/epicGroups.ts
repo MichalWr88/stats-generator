@@ -14,6 +14,12 @@ export const epicGroups = [
   'API Facade',
 ] as const;
 
+export const allImoGroups = {
+  Organization: 0,
+  Bugs: 0,
+  Innovation: 0,
+  Maintenance: 0,
+};
 export const allEpicGroups = {
   CIC: 0,
   'Company Monitor': 0,
