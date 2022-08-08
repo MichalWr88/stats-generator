@@ -22,7 +22,7 @@ const useConfigEpicGroups = () => {
         name: 'Synerise Adapter',
         epics: ['CSS-4557', 'CSS-4122'],
         texts: ['Synerise', 'Adapter'],
-        color: colors.yellow[200],
+        color: colors.yellow[300],
       },
       {
         name: 'Company Monitor',
