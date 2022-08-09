@@ -197,7 +197,7 @@ const SprintListPage = () => {
             >
               edit
             </button> */}
-            <button
+            {/* <button
               onClick={() => {
                 setEditSprint({ isOpen: true, sprint: cell.row.original });
               }}
@@ -207,7 +207,7 @@ const SprintListPage = () => {
               data-bs-target="#exampleModal"
             >
               edit
-            </button>
+            </button> */}
           </div>
         ),
       },
