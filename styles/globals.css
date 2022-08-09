@@ -5,3 +5,6 @@
 :root {
   --color-primary: theme('colors.indigo.800');
 }
+.vertical-rl {
+  writing-mode: vertical-rl;
+}
