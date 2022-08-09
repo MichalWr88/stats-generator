@@ -1,4 +1,4 @@
-import { Issue, Sprint } from '@/models/Sprint';
+import { Issue, Sprint, SprintWithStats } from '@/models/Sprint';
 import React from 'react';
 
 import { useSendSprint } from './api/hooks/useSendSprint';
@@ -6,16 +6,24 @@ import ReactFormProvider from './FormProvider';
 import InputField from './InputField';
 type Props = {
   issues?: Array<Issue>;
+  sprint?: SprintWithStats;
 };
 
-const SprintForm = ({ issues = [] }: Props) => {
+const SprintForm = ({ issues = [], sprint }: Props) => {
   const addSprint = useSendSprint();
 
   const onSubmit = (data: Sprint) => {
     addSprint({ ...data, issues });
   };
   return (
-    <ReactFormProvider<Sprint> onSubmit={onSubmit}>
+    <ReactFormProvider<Sprint>
+      onSubmit={onSubmit}
+      defaultValues={{
+        ...sprint,
+        start: new Date(sprint?.start || new Date()),
+        end: new Date(sprint?.end || new Date()),
+      }}
+    >
       <div className="grid grid-cols-10 p-6  gap-4 items-end justify-center grid-rows-10 border-b-2  border-cyan-600">
         <InputField label={'Numer sprintu'} name={'nr'} type="number" />
         <InputField label={'Zaplanowane'} name={'plan'} className={'col-span-2'} type="number" step=".5" />
@@ -40,7 +48,7 @@ const SprintForm = ({ issues = [] }: Props) => {
         <InputField label={'On hold'} name={'bug.onHold'} type="number" />
         <InputField label={'Accepted'} name={'bug.accepted'} type="number" />
         <button type="submit" className="bg-lime-700 text-white uppercase rounded-lg h-12 col-start-9">
-          dodaj
+          {sprint ? 'edytuj' : 'dodaj'}
         </button>
       </div>
     </ReactFormProvider>

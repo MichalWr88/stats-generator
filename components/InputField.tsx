@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
-import { useFormContext } from 'react-hook-form';
-
+import { Controller, useFormContext } from 'react-hook-form';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 type InputType = 'text' | 'number' | 'date';
 type Props = {
   label: string;
@@ -11,7 +12,8 @@ type Props = {
 };
 
 const InputField = ({ label, type = 'text', name, className, step = '1' }: Props) => {
-  const { register } = useFormContext();
+  const { register, control } = useFormContext();
+
   const configInput = useMemo(() => {
     switch (type) {
       case 'date':
@@ -19,7 +21,7 @@ const InputField = ({ label, type = 'text', name, className, step = '1' }: Props
       case 'number':
         return {
           placeholder: 'number',
-          defaultValue: 0,
+
           step,
         };
 
@@ -31,17 +33,34 @@ const InputField = ({ label, type = 'text', name, className, step = '1' }: Props
     <div className={`relative ${className}`}>
       <label className="text-gray-700">
         {label}
-
-        <input
-          {...register(name, {
-            valueAsNumber: type === 'number',
-          })}
-          type={type}
-          {...configInput}
-          className="rounded-lg
+        {type === 'date' && (
+          <Controller
+            control={control}
+            name={name}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <DatePicker
+                calendarStartDay={1}
+                className="rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                onChange={onChange}
+                onBlur={onBlur}
+                selected={value}
+                dateFormat="dd/MM/yyyy"
+              />
+            )}
+          />
+        )}
+        {type !== 'date' && (
+          <input
+            {...register(name, {
+              valueAsNumber: type === 'number',
+            })}
+            type={type}
+            {...configInput}
+            className="rounded-lg
           border-transparent
           flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
-        />
+          />
+        )}
       </label>
     </div>
   );
