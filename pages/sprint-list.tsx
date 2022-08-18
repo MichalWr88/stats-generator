@@ -217,7 +217,6 @@ const SprintListPage = () => {
   );
 
   return (
-
     <WithNavBar>
       <>
         <Table data={sprintsList} columns={columns} />
