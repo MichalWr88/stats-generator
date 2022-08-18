@@ -1,23 +1,32 @@
-import { Issue, Sprint, SprintWithStats } from '@/models/Sprint';
+import { Issue, Sprint, sprintSchemaAdd, sprintSchemaEdit } from '@/models/Sprint';
 import React from 'react';
-
-import { useSendSprint } from './api/hooks/useSendSprint';
+import useEditSprint from './api/hooks/useEditSprint';
+import { yupResolver } from '@hookform/resolvers/yup';
+import useSendSprint from './api/hooks/useSendSprint';
 import ReactFormProvider from './FormProvider';
 import InputField from './InputField';
 type Props = {
   issues?: Array<Issue>;
-  sprint?: SprintWithStats;
+  sprint?: Omit<Sprint, 'issues'>;
+  onHandleSubmit?: (isSuccess: boolean) => Sprint;
 };
 
 const SprintForm = ({ issues = [], sprint }: Props) => {
   const addSprint = useSendSprint();
+  const { mutate: mutateEditSprint } = useEditSprint();
+  const resolver = yupResolver(sprint ? sprintSchemaEdit : sprintSchemaAdd);
 
   const onSubmit = (data: Sprint) => {
-    addSprint({ ...data, issues });
+    if (sprint) {
+      mutateEditSprint({ ...data });
+    } else {
+      addSprint({ ...data, issues });
+    }
   };
   return (
     <ReactFormProvider<Sprint>
       onSubmit={onSubmit}
+      resolver={resolver}
       defaultValues={{
         ...sprint,
         start: new Date(sprint?.start || new Date()),
@@ -43,7 +52,6 @@ const SprintForm = ({ issues = [], sprint }: Props) => {
         <InputField label={'In testing'} name={'bug.inTesting'} type="number" />
         <InputField label={'Review'} name={'bug.review'} type="number" />
         <InputField label={'Closed'} name={'bug.closed'} type="number" />
-        <InputField label={'New'} name={'bug.new'} type="number" />
         <InputField label={'RFD'} name={'bug.rfd'} type="number" />
         <InputField label={'On hold'} name={'bug.onHold'} type="number" />
         <InputField label={'Accepted'} name={'bug.accepted'} type="number" />

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { downloadIssuesCSV, getAllSprints } from '@/components/api/dataProvider';
+import { downloadIssuesCSV } from '@/components/api/dataProvider';
 import Modal from '@/components/Modal';
 import SprintForm from '@/components/SprintForm';
 import Table from '@/components/table/Table';
@@ -9,15 +9,19 @@ import React, { useEffect, useState, useMemo } from 'react';
 import { Column } from 'react-table';
 import { parseLocalDate } from 'utils';
 import { setStatsSpritnts } from 'utils/SprintsMapper';
+import { FaFileDownload } from 'react-icons/fa';
+import useGetSprints from '@/components/api/hooks/useGetSprints';
 
 type EditSprint = {
   isOpen: boolean;
   sprint: SprintWithStats | undefined;
 };
+const cssBug = 'vertical-rl uppercase p-2 border-2 border-zinc-900   bg-red-300';
+const cssRequest = ' uppercase vertical-rl p-2 border-2 border-zinc-900 bg-indigo-300';
 
 const SprintListPage = () => {
-  const [data, setData] = useState<Array<SprintWithStats>>([]);
-
+  const { data } = useGetSprints();
+  const [sprintsList, setSprintsList] = useState<Array<SprintWithStats>>([]);
   const [editSprint, setEditSprint] = useState<EditSprint>({ isOpen: false, sprint: undefined });
 
   const getIssueCSV = (sprint: SprintWithStats) => {
@@ -40,15 +44,18 @@ const SprintListPage = () => {
   };
 
   useEffect(() => {
-    getAllSprints().then((resp) => {
-      const arr = resp.data.reverse();
-      setData(() => {
-        return setStatsSpritnts(arr).reverse();
-      });
-    });
-  }, []);
+    if (!data) return;
+    const list = data.data.reverse();
 
-  // @ts-ignore
+    setSprintsList(() => {
+      return setStatsSpritnts(list).splice(2).reverse();
+    });
+    setEditSprint({ isOpen: false, sprint: undefined });
+    return () => {
+      setSprintsList([]);
+    };
+  }, [data]);
+
   const columns: Array<Column<SprintWithStats>> = useMemo(
     () => [
       {
@@ -110,37 +117,37 @@ const SprintListPage = () => {
           {
             Header: 'Closed',
             accessor: 'bug.closed',
-            className: 'vertical-rl p-2 border-2  border-zinc-900 bg-red-300',
+            className: cssBug,
           },
           {
             Header: 'review',
             accessor: 'bug.review',
-            className: 'vertical-rl p-2 border-2 border-zinc-900 bg-red-300',
+            className: cssBug,
           },
           {
             Header: 'accepted',
             accessor: 'bug.accepted',
-            className: 'vertical-rl p-2 border-2 border-zinc-900  bg-red-300',
+            className: cssBug,
           },
           {
-            Header: 'inProgress',
+            Header: 'in Progress',
             accessor: 'bug.inProgress',
-            className: 'vertical-rl p-2 border-2 border-zinc-900 bg-red-300',
+            className: cssBug,
           },
           {
             Header: 'inTesting',
             accessor: 'bug.inTesting',
-            className: 'vertical-rl p-2 border-2  border-zinc-900 bg-red-300',
+            className: cssBug,
           },
           {
             Header: 'rfd',
             accessor: 'bug.rfd',
-            className: 'vertical-rl p-2 border-2 border-zinc-900  bg-red-300',
+            className: cssBug,
           },
           {
             Header: 'onHold',
             accessor: 'bug.onHold',
-            className: 'vertical-rl p-2 border-2 border-zinc-900   bg-red-300',
+            className: cssBug,
           },
         ],
       },
@@ -151,63 +158,57 @@ const SprintListPage = () => {
           {
             Header: 'new',
             accessor: 'request.new',
-            className: 'vertical-rl p-2 border-1 border-zinc-900 bg-indigo-300',
+            className: cssRequest,
           },
           {
             Header: 'review',
             accessor: 'request.review',
-            className: 'vertical-rl p-2 border-2 border-zinc-900 bg-indigo-300',
+            className: cssRequest,
           },
 
           {
             Header: 'in Progress',
             accessor: 'request.inProgress',
-            className: 'vertical-rl p-2 border-2 border-zinc-900 bg-indigo-300',
+            className: cssRequest,
           },
           {
             Header: 'in Testing',
             accessor: 'request.inTesting',
-            className: 'vertical-rl p-2 border-2 border-zinc-900 bg-indigo-300',
+            className: cssRequest,
           },
           {
             Header: 'rfd',
             accessor: 'request.rfd',
-            className: 'vertical-rl p-2 border-2 border-zinc-900 bg-indigo-300',
+            className: cssRequest,
           },
           {
             Header: 'done',
             accessor: 'request.done',
-            className: 'vertical-rl p-2 border-2 border-zinc-900 bg-indigo-300',
+            className: cssRequest,
           },
         ],
       },
       {
         Header: 'Actions',
         Cell: (cell: { row: { original: SprintWithStats } }) => (
-          <div>
+          <div className="flex items-center justify-center">
             <button
               onClick={() => getIssueCSV(cell.row.original)}
-              className="inline-block px-6 py-2 border-2 border-blue-600 text-blue-600 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
+              className="flex items-center h-8  px-3 py-2 border-2 border-blue-600 text-blue-600 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
             >
-              csv
+              <FaFileDownload className="text-xl" /> Issues
             </button>
-            {/* <button
-              onClick={() => getIssueCSV(cell.row.original)}
-              className="inline-block px-6 py-2 border-2 border-blue-600 text-blue-600 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
-            >
-              edit
-            </button> */}
-            {/* <button
+            <button
               onClick={() => {
                 setEditSprint({ isOpen: true, sprint: cell.row.original });
               }}
               type="button"
-              className="px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+              className="h-8 px-3 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
               data-bs-toggle="modal"
               data-bs-target="#exampleModal"
             >
               edit
-            </button> */}
+            </button>
           </div>
         ),
       },
@@ -216,27 +217,31 @@ const SprintListPage = () => {
   );
 
   return (
-    // apply the table props
 
     <WithNavBar>
       <>
-        <Table data={data} columns={columns} />
-        {/* {activeSprint && (
-          <div className="grid grid-cols-4 relative grid-rows-4 max-h-96 grid-flow-row">
-            <h5 className="col-span-2 self-end font-bold	place-self-center p-2 border-2 border-pink-700">
-              Sprint: #{activeSprint.nr} {new Date(activeSprint.start).toLocaleDateString('pl-PL')}-
-              {new Date(activeSprint.end).toLocaleDateString('pl-PL')}
-            </h5>
-            <div className="row-span-2 row-start-2">
-              <ChartSprintCircle sprint={activeSprint} type="bug" />
-            </div>
-            <div className="row-span-2 row-start-2">
-              <ChartSprintCircle sprint={activeSprint} type="request" />
-            </div>
-          </div>
-        )} */}
-        <Modal opened={editSprint.isOpen} onCloseHandle={() => setEditSprint({ isOpen: false, sprint: undefined })}>
-          <SprintForm issues={[]} sprint={editSprint.sprint} />
+        <Table data={sprintsList} columns={columns} />
+        <Modal
+          title="Edycja sprintu"
+          opened={editSprint.isOpen}
+          onCloseHandle={() => setEditSprint({ isOpen: false, sprint: undefined })}
+        >
+          {!editSprint.sprint ? (
+            <>not selected sprint</>
+          ) : (
+            <SprintForm
+              issues={[]}
+              sprint={{
+                nr: editSprint.sprint.nr,
+                start: editSprint.sprint.start,
+                end: editSprint.sprint.end,
+                plan: editSprint.sprint.plan,
+                delivered: editSprint.sprint.delivered,
+                request: editSprint.sprint.request,
+                bug: editSprint.sprint.bug,
+              }}
+            />
+          )}
         </Modal>
       </>
     </WithNavBar>

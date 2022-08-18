@@ -13,6 +13,10 @@ export const sendSprintData = async (data: Sprint): Promise<Sprint> => {
   const resp = await axiosInstance.put<Sprint>('./api/mongo/sprint', data);
   return resp.data;
 };
+export const editSprintData = async (data: Sprint): Promise<Sprint> => {
+  const resp = await axiosInstance.put<Sprint>('./api/mongo/sprint-edit', data);
+  return resp.data;
+};
 export const getAllSprints = async (
   pagination?: PaginationRequest | null
 ): Promise<PaginationResponseAggregate<ResponsSprint>> => {
