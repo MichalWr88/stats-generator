@@ -8,6 +8,7 @@ import {
   SprintCollection,
   SprintCollectName,
 } from '@/models/Sprint';
+
 import Mongodb from './mongoClass';
 import { paginationResponse, queryPagination } from './queryHelpers';
 class MonogSprint extends Mongodb<SprintCollection> {
@@ -41,6 +42,9 @@ class MonogSprint extends Mongodb<SprintCollection> {
   public async addOne(sender: Sprint): Promise<Sprint> {
     const sprint = new this.model(sender);
     return await sprint.save();
+  }
+  public async editOne(sender: Sprint): Promise<ResponsSprint | null> {
+    return this.model.findOneAndUpdate<ResponsSprint>({ nr: sender.nr }, { $set: sender }, { returnDocument: 'after' });
   }
   public async updateOne(sender: Sprint): Promise<Sprint> {
     const sprint = new this.model(sender);

@@ -51,7 +51,15 @@ export const sprintSchemaAdd: yup.ObjectSchema<Sprint> = yup.object().shape({
     })
     .defined(),
 });
-
+export const sprintSchemaEdit: yup.ObjectSchema<Omit<Sprint, 'issues'>> = yup.object().shape({
+  nr: yup.number().min(0).defined().required(),
+  start: yup.date().required(),
+  end: yup.date().required(),
+  plan: yup.number().min(1).required(),
+  delivered: yup.number().min(0).required(),
+  request: RequestSchemaAdd.required(),
+  bug: BugSchemaAdd.required(),
+});
 // type SprintForm = yup.InferType<typeof IssueSchemaAdd>;
 
 export type TypeofworkList = 'Organization' | 'Innovation' | 'Bugs' | 'Maintenance';
