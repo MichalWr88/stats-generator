@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import { version } from '../package.json';
+import config from '../package.json';
 const Footer = () => {
   return (
     <div className="bg-gray-500 self-stretch flex justify-around text-white p-2">
@@ -14,7 +14,7 @@ const Footer = () => {
           <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
         </span>
       </a>
-      <div className="flex justify-end items-end w-1/2">v{version}</div>
+      <div className="flex justify-end items-end w-1/2">v{config.version}</div>
     </div>
   );
 };

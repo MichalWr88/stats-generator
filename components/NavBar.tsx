@@ -6,7 +6,7 @@ import NavLink from './NavLink';
 const NavBar = () => {
   return (
     <header
-      className="bg-gray-800 flex items-center p-2 self-stretch 
+      className="bg-gray-800 flex items-center p-2 self-stretch sticky top-0
     shadow-lg
   navbar navbar-expand-lg 
     "

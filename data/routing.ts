@@ -1,4 +1,4 @@
-import { ImHome } from 'react-icons/im';
+import { ImHome, ImBooks } from 'react-icons/im';
 import { AiOutlineAreaChart } from 'react-icons/ai';
 import { HiOutlinePresentationChartBar } from 'react-icons/hi';
 import { MdOutlineBackupTable, MdLibraryAdd } from 'react-icons/md';
@@ -40,7 +40,13 @@ export const navBarData: Array<NavLinkData> = [
   {
     label: 'config',
     id: 6,
-    path: '/works',
+    path: '/config',
     icon: GoSettings,
+  },
+  {
+    label: 'instrukcja',
+    id: 7,
+    path: '/instruction',
+    icon: ImBooks,
   },
 ];
