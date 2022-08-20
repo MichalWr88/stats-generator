@@ -123,7 +123,7 @@ class Mapper {
   public groupEpicMappedIssue(): Mapper {
     this.configEpicArr.forEach((config) => {
       if (
-        [...config.texts, ...config.epics].some(
+        config.epics.some(
           (text) =>
             this.issue.Issuesummary.toLocaleLowerCase().includes(text.toLocaleLowerCase()) ||
             this.issue.EpicLink?.toLocaleLowerCase().includes(text.toLocaleLowerCase()) ||
@@ -131,6 +131,18 @@ class Mapper {
         )
       ) {
         this.issue.EpicGroup = config.name;
+        return;
+      } else if (
+        config.texts.some(
+          (text) =>
+            this.issue.Issuesummary.toLocaleLowerCase().includes(text.toLocaleLowerCase()) ||
+            this.issue.EpicLink?.toLocaleLowerCase().includes(text.toLocaleLowerCase()) ||
+            this.issue.WorkDescription.toLocaleLowerCase().includes(text.toLocaleLowerCase())
+        )
+      ) {
+
+        this.issue.EpicGroup = this.issue.EpicGroup || config.name;
+        return;
       }
     });
 

@@ -15,7 +15,7 @@ const useConfigEpicGroups = () => {
       {
         name: 'CIC',
         epics: ['CSS-1169', 'CSS-3062', 'CSS-2849', 'CSS-2542', 'CSS-2118'],
-        texts: ['cic', 'ssi'],
+        texts: ['cic', 'ssi', 'survey'],
         color: colors.indigo[200],
       },
       {
@@ -27,13 +27,13 @@ const useConfigEpicGroups = () => {
       {
         name: 'Company Monitor',
         epics: ['CSS-2198'],
-        texts: ['Monitor', 'CM'],
+        texts: ['Monitor', 'CM', 'KREPTD'],
         color: colors.stone[100],
       },
       {
         name: 'Company Verification',
-        epics: ['CSS-1739', 'CSS-2665'],
-        texts: ['Verification', 'CV'],
+        epics: ['CSS-1739', 'CSS-2665', 'CSS-2671 '],
+        texts: ['Verification', 'CV', 'AAA', 'White', 'sarajewo'],
         color: colors.orange[200],
       },
       {
