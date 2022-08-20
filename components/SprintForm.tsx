@@ -1,10 +1,11 @@
-import { Issue, Sprint, sprintSchemaAdd, sprintSchemaEdit } from '@/models/Sprint';
+import { Issue, Sprint, sprintSchemaEdit } from '@/models/Sprint';
 import React from 'react';
 import useEditSprint from './api/hooks/useEditSprint';
 import { yupResolver } from '@hookform/resolvers/yup';
 import useSendSprint from './api/hooks/useSendSprint';
 import ReactFormProvider from './FormProvider';
 import InputField from './InputField';
+
 type Props = {
   issues?: Array<Issue>;
   sprint?: Omit<Sprint, 'issues'>;
@@ -14,7 +15,7 @@ type Props = {
 const SprintForm = ({ issues = [], sprint }: Props) => {
   const addSprint = useSendSprint();
   const { mutate: mutateEditSprint } = useEditSprint();
-  const resolver = yupResolver(sprint ? sprintSchemaEdit : sprintSchemaAdd);
+  const resolver = yupResolver(sprintSchemaEdit);
 
   const onSubmit = (data: Sprint) => {
     if (sprint) {

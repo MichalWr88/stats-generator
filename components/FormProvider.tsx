@@ -10,7 +10,6 @@ interface Props<T> {
 
 const ReactFormProvider = <T extends FieldValues>({ children, onSubmit, defaultValues, resolver }: Props<T>) => {
   const methods = useForm<T>({ defaultValues, resolver, reValidateMode: 'onBlur' });
-
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit((data) => onSubmit(data))}>{children}</form>
