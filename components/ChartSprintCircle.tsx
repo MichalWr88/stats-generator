@@ -1,3 +1,4 @@
+import { statusConfigArr } from '@/data/statusConfig';
 import { Sprint } from '@/models/Sprint';
 import {
   ChartData,
@@ -77,14 +78,7 @@ const ChartSprintCircle = ({ sprint, type }: Props) => {
         {
           label: 'My First Dataset',
           data: [],
-          backgroundColor: [
-            colors.green[400],
-            colors.indigo[400],
-            colors.orange[400],
-            colors.red[400],
-            colors.cyan[400],
-            colors.amber[400],
-          ],
+          backgroundColor: [],
           hoverOffset: 4,
         },
       ],
@@ -94,12 +88,17 @@ const ChartSprintCircle = ({ sprint, type }: Props) => {
       if (key === '_id') return;
       chartData.labels?.push(key.toUpperCase());
       chartData.datasets[0].data.push(value);
+      const statusConfig = statusConfigArr.find((cfg) => cfg.label.toUpperCase() === key.toUpperCase());
+      if (statusConfig) {
+        const backgroundColor = chartData.datasets[0].backgroundColor as Array<string>;
+        chartData.datasets[0].backgroundColor = [...backgroundColor, colors[statusConfig.color][statusConfig.num]];
+      }
 
       return;
     });
 
     setData(chartData);
-  }, [type, sprint, colors.green, colors.indigo, colors.orange, colors.red, colors.cyan, colors.amber]);
+  }, [type, sprint, colors]);
 
   if (!data) return <div>Loading data ...</div>;
   return (
