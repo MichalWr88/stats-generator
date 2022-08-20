@@ -8,11 +8,14 @@ import { IoIosReturnLeft } from 'react-icons/io';
 import Link from 'next/link';
 import ImoSprintsStats from '@/components/charts/ImoSprintsStats';
 import EpicSprintsStats from '@/components/charts/EpicSprintsStats';
+
+const classActive = 'bg-indigo-500 w-5 h-5 rounded-full shadow-2xl cursor-pointer m-2 ';
+const classNonActive = 'w-3 h-3  bg-gray-300 rounded-full shadow-2xl cursor-pointer m-2 hover:scale-150 transition-all';
 const ChartsPage = () => {
   const [currentPage, setCurrentPage] = useState(0);
 
   const handlePageChange = (nr: number) => {
-    setCurrentPage(nr);
+    setCurrentPage(() => nr);
   };
 
   // const handleBeforePageChange = (nr: number) => {};
@@ -25,19 +28,19 @@ const ChartsPage = () => {
           // onBeforePageScroll={handleBeforePageChange}
           customPageNumber={currentPage}
         >
-          <div className=" min-h-full">
+          <div className=" min-h-full pr-10">
             <PredictabilitySprintsStats />
           </div>
-          <div className="min-h-full">
+          <div className="min-h-full pr-10">
             <SpeedSprintsStats />
           </div>
-          <div className=" min-h-full">
+          <div className=" min-h-full pr-10">
             <ImoSprintsStats />
           </div>
-          <div className=" min-h-full">
+          <div className=" min-h-full pr-10">
             <EpicSprintsStats />
           </div>
-          <div className="min-h-full">
+          <div className="min-h-full ">
             <RequestAndBugSprintCharts />
           </div>
         </ReactPageScroller>
@@ -51,6 +54,33 @@ const ChartsPage = () => {
           <IoIosReturnLeft className="text-3xl" />
         </a>
       </Link>
+      <div className="absolute top-1/2 right-2 flex flex-col justify-center align-middle items-center">
+        <div
+          className={`${currentPage === 0 ? classActive : classNonActive}`}
+          onClick={() => handlePageChange(0)}
+          title="PRZEWIDYWALNOŚĆ ZESPOŁU"
+        ></div>
+        <div
+          className={`${currentPage === 1 ? classActive : classNonActive}`}
+          onClick={() => handlePageChange(1)}
+          title="PRĘDKOŚĆ ZESPOŁU"
+        ></div>
+        <div
+          className={`${currentPage === 2 ? classActive : classNonActive}`}
+          onClick={() => handlePageChange(2)}
+          title="INNOVATION VS. MAINTENANCE"
+        ></div>
+        <div
+          className={`${currentPage === 3 ? classActive : classNonActive}`}
+          onClick={() => handlePageChange(3)}
+          title="epics"
+        ></div>
+        <div
+          className={`${currentPage === 4 ? classActive : classNonActive}`}
+          onClick={() => handlePageChange(4)}
+          title="bug & request"
+        ></div>
+      </div>
     </>
   );
 };

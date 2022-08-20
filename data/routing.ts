@@ -19,12 +19,12 @@ export const navBarData: Array<NavLinkData> = [
     path: '/charts',
     icon: AiOutlineAreaChart,
   },
-  {
-    label: 'Najnowszy sprint',
-    id: 3,
-    path: '/current-sprint',
-    icon: HiOutlinePresentationChartBar,
-  },
+  // {
+  //   label: 'Najnowszy sprint',
+  //   id: 3,
+  //   path: '/current-sprint',
+  //   icon: HiOutlinePresentationChartBar,
+  // },
   {
     label: 'Lista sprintów',
     id: 4,
