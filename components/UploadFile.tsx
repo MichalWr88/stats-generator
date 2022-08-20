@@ -82,6 +82,9 @@ const parseHTML = (csv: string, configEpicArr: Array<ConfigMapperGroup>): Array<
       if (h === 'EpicLink' && obj[h]) {
         return (obj[h] = `${line[i]} - ${obj[h]}`);
       }
+      if (h === 'Hours' && line[i].includes(',')) {
+        return (obj[h] = line[i].split(',').join('.'));
+      }
       // @ts-ignore for obj[h]
       if (!checkIsCorrectHeader(h)) return;
 
@@ -140,7 +143,6 @@ class Mapper {
             this.issue.WorkDescription.toLocaleLowerCase().includes(text.toLocaleLowerCase())
         )
       ) {
-
         this.issue.EpicGroup = this.issue.EpicGroup || config.name;
         return;
       }
