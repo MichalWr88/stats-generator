@@ -8,6 +8,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { createRouter } from 'next-connect';
 import { ValidationError } from 'yup';
 import { MongoServerError } from 'mongodb';
+import { defualtErrorHandler } from '@/helpers/apiErrorHandler';
 const router = createRouter<NextApiRequest, NextApiResponse>();
 
 const paginationGuard = (query: PaginationRequest): query is PaginationRequest => {
@@ -63,15 +64,4 @@ router.put(async (req, res: NextApiResponse<unknown>) => {
   }
 });
 
-router.all((req, res) => {
-  res.status(405).json({
-    error: 'Method not allowed',
-  });
-});
-export default router.handler({
-  onError(err, req, res) {
-    res.status(500).json({
-      error: (err as Error).message,
-    });
-  },
-});
+export default defualtErrorHandler(router);
