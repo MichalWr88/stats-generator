@@ -1,13 +1,6 @@
 import { PaginationRequest, PaginationResponseAggregate } from '@/models/mongo/Mongo';
-import { LegacyIssue, SprintScheme } from '@/models/mongo/SprintSchema';
-import {
-  Issue,
-  ResponsSprint,
-  ResponsSprintForCSV,
-  Sprint,
-  SprintCollection,
-  SprintCollectName,
-} from '@/models/Sprint';
+import { SprintCollectName, SprintCollection, SprintScheme } from '@/models/mongo/SprintScheme';
+import { Issue, ResponsSprint, ResponsSprintForCSV, Sprint, LegacyIssue } from '@/models/Sprint';
 
 import Mongodb from './mongoClass';
 import { paginationResponse, queryPagination } from './queryHelpers';
