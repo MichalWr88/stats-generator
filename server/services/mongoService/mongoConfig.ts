@@ -1,4 +1,4 @@
-import { AppConfig, AppConfigResponse, configType } from '@/models/AppConfig';
+import { AppConfig, AppConfigResponse, configType, RequestGetConfigType } from '@/models/AppConfig';
 import { ConfigCollection, ConfigScheme, ConfigCollectName } from '@/models/mongo/ConfigScheme';
 import { type } from 'os';
 import Mongodb from './mongoClass';
@@ -17,8 +17,9 @@ class MonogConfig extends Mongodb<ConfigCollection> {
   public async removeConfig(id: string) {
     return await this.model.findByIdAndDelete(id);
   }
-  public async getAllConfigByType(type: typeof configType) {
-    return await this.model.find({ type });
+  public async getAllConfigByType(type: RequestGetConfigType) {
+    const body = type === 'null' ? {} : { type };
+    return await this.model.find(body);
   }
   public async getAllConfigGroupedByType() {
     return await this.model.aggregate([
