@@ -1,3 +1,4 @@
+import { AppConfigResponse, RequestGetConfigType } from '@/models/AppConfig';
 import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE, PaginationRequest, PaginationResponseAggregate } from '@/models/mongo/Mongo';
 import { ResponsSprint, Sprint } from '@/models/Sprint';
 import axios, { AxiosRequestConfig } from 'axios';
@@ -34,4 +35,10 @@ export const downloadIssuesCSV = async (id: number) => {
     responseType: 'blob',
   });
   return resp.data;
+};
+export const getAppConfig = async (type: RequestGetConfigType): Promise<Array<AppConfigResponse>> => {
+  const resp = await axiosInstance.get<Array<AppConfigResponse>>('./api/mongo/config/get', {
+    params: { type },
+  });
+  return resp.data.sort((a, b) => a.type.localeCompare(b.type));
 };

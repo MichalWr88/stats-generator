@@ -119,10 +119,4 @@ export interface SprintWithStats extends Sprint {
 
 export interface ResponsSprint extends Sprint, ResponsMongo {}
 export type ResponsSprintForCSV = Pick<Sprint, 'nr' | 'end' | 'start' | 'issues'>;
-
-export const SprintCollectName = 'sprints';
-
-export interface SprintCollection {
-  name: typeof SprintCollectName;
-  model: Sprint;
-}
+export type LegacyIssue = Issue & { NR: number };

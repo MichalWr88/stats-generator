@@ -1,6 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
-import { LegacyIssue } from '@/models/mongo/SprintSchema';
+import { LegacyIssue } from '@/models/Sprint';
 
 import { mongoSprint } from '@/server/services/mongoService';
 

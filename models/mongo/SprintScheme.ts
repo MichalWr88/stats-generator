@@ -111,5 +111,9 @@ export const SprintScheme = new Schema<Sprint>(
     timestamps: true,
   }
 );
+export const SprintCollectName = 'sprints';
 
-export type LegacyIssue = Issue & { NR: number };
+export interface SprintCollection {
+  name: typeof SprintCollectName;
+  model: Sprint;
+}

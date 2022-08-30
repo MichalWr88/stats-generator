@@ -1,7 +1,8 @@
-import { SprintCollection } from '@/models/Sprint';
+import { ConfigCollection } from '@/models/mongo/ConfigScheme';
+import { SprintCollection } from '@/models/mongo/SprintScheme';
 import { Model, Schema, model, models } from 'mongoose';
 
-type Collections = SprintCollection;
+type Collections = SprintCollection | ConfigCollection;
 
 class Mongodb<T extends Collections> {
   protected model: Model<T['model']>;

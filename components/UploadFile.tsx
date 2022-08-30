@@ -5,45 +5,10 @@ import useConfigEpicGroups from './api/hooks/useConfigEpicGroups';
 interface Props {
   onLoad?: (file: Array<Issue>) => void;
 }
-// enum ReaderType {
-//   URL = 'url',
-//   BUFFER = 'buffer',
-//   TEXT = 'text',
-// }
+
 type AcceptType = '.txt' | '.csv' | '.xls' | '.xlsx' | '.html';
 
 const accept: Array<AcceptType> = ['.html'];
-
-// const parseCsv = (csv: string): Array<Issue> => {
-//   let lines = csv.split('\n');
-//   // @ts-ignore for shift()
-//   const header = lines
-//     .shift()
-//     .split(',')
-//     .map((head) => {
-//       const regexp = /\W/g;
-
-//       return head.split(regexp).join('');
-//     });
-
-//   lines.shift(); // get rid of definitions
-
-//   const issueList = lines.map((line) => {
-//     const bits = line.split('\t');
-
-//     const obj = {};
-//     header.forEach((h, i) => {
-//       // @ts-ignore for obj[h]
-//       if (!checkIsCorrectHeader(h)) return;
-
-//       // @ts-ignore for obj[h] ? bits[i].slice(1, -1) :
-//       return (obj[h] = bits[i] ?? null);
-//     }); // or use reduce here
-//     return obj;
-//   });
-
-//   return issueList as Array<Issue>;
-// };
 
 const parseHTML = (csv: string, configEpicArr: Array<ConfigMapperGroup>): Array<Issue> => {
   const html = document.createElement('html');
@@ -96,17 +61,7 @@ const parseHTML = (csv: string, configEpicArr: Array<ConfigMapperGroup>): Array<
 
   return issueList as Array<Issue>;
 };
-// const imoMappedIssue = (obj: Issue): Issue => {
-//   const mappedIssue = { ...obj };
-//   const ORGTasks = ['CSS-1812', 'CSS-1811'];
-//   if (ORGTasks.includes(obj.IssueKey)) {
-//     mappedIssue.Typeofwork = 'Organization';
-//   }
-//   if (obj.IssueType === 'Bug') {
-//     mappedIssue.Typeofwork = 'Bugs';
-//   }
-//   return mappedIssue;
-// };
+
 class Mapper {
   constructor(public issue: Issue, public configEpicArr: Array<ConfigMapperGroup>) {
     this.issue = issue;

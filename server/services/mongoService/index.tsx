@@ -1,5 +1,6 @@
 import { checkMongoConnected } from '@/helpers/mongoHelpers';
 import { connect, connection } from 'mongoose';
+import MonogConfig from './mongoConfig';
 import MonogSprint from './MongoSprint';
 
 // import MongoUser from "./MongoUser";
@@ -31,10 +32,6 @@ export const initConnectMongo = (): Promise<boolean> => {
         reject(error);
         if (!checkMongoConnected()) {
           console.log(`❌ Error on DB Connection:${error.message}`);
-          // connect(
-          //   `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_CLUSTER}/trans?retryWrites=true&w=majority`,
-          //   mongodbOptions
-          // );
         }
       });
     });
@@ -44,3 +41,4 @@ export const initConnectMongo = (): Promise<boolean> => {
 };
 initConnectMongo();
 export const mongoSprint = new MonogSprint();
+export const monogConfig = new MonogConfig();
