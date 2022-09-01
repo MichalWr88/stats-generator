@@ -55,6 +55,7 @@ const InputField = ({ label, type = 'text', name, className, step = '1' }: Props
         return {};
     }
   }, [type, step]);
+
   return (
     <div className={`relative ${className}`}>
       <label className="text-gray-700">
