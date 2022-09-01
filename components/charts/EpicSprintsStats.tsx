@@ -1,10 +1,13 @@
-import { ConfigMapperGroup, EpicGroups, SprintWithStats } from '@/models/Sprint';
+import { SprintWithStats } from '@/models/Sprint';
 import React, { useEffect, useState } from 'react';
 import { useSprintsContext } from '../store/ChartSprintsContext';
 
 import dynamic from 'next/dynamic';
-import { allEpicGroups } from '@/data/epicGroups';
-import useConfigEpicGroups from '../api/hooks/useConfigEpicGroups';
+
+import { AppConfigResponse, EpicConfigResponse } from '@/models/AppConfig';
+import useColors from '../api/hooks/useColors';
+import { DefaultColors } from 'tailwindcss/types/generated/colors';
+import useGetAppConfig from '../api/hooks/useGetAppConfig';
 
 const StackedSprintsBar = dynamic(() => import('./StackedSprintsBar'), {
   ssr: false,
@@ -13,16 +16,17 @@ const StackedSprintsBar = dynamic(() => import('./StackedSprintsBar'), {
 type Group = { labels: Array<string>; datasets: Array<Dataset> };
 
 type Dataset = {
-  label: EpicGroups;
+  label: string;
   data: Array<number>;
   backgroundColor: string;
 };
-const setGr = (data: SprintWithStats[], configArr: Array<ConfigMapperGroup>): Group => {
+const setGr = (data: SprintWithStats[], epicList: Array<AppConfigResponse>, colors: DefaultColors): Group => {
+  const epicepicList = epicList.filter((cfg) => cfg.type === 'epic') as Array<EpicConfigResponse>;
   const labels: Array<string> = [];
-  const datasets: Array<Dataset> = configArr.map((group) => {
+  const datasets: Array<Dataset> = epicepicList.map((group) => {
     return {
       label: group.name,
-      backgroundColor: group.color,
+      backgroundColor: colors[group.colorPalette][group.numPalette],
       data: [],
     };
   });
@@ -47,6 +51,13 @@ const setGr = (data: SprintWithStats[], configArr: Array<ConfigMapperGroup>): Gr
 
       return r;
     }, Object.create(null));
+
+    const allEpicGroups = Object.fromEntries(
+      epicepicList.map((cfg) => {
+        return [cfg.name, 0];
+      })
+    );
+
     const mappedresult = { ...allEpicGroups, ...result };
 
     Object.entries(mappedresult).forEach(([key, value]) => {
@@ -64,14 +75,15 @@ const setGr = (data: SprintWithStats[], configArr: Array<ConfigMapperGroup>): Gr
 };
 
 const EpicSprintsStats = () => {
-  const configArr = useConfigEpicGroups();
+  const colors = useColors();
+  const { data: epicList = [] } = useGetAppConfig('epic');
   const { data } = useSprintsContext();
 
   const [grupped, setGrupped] = useState<Group | null>(null);
 
   useEffect(() => {
-    setGrupped(setGr(data, configArr));
-  }, [configArr, data]);
+    setGrupped(setGr(data, epicList, colors));
+  }, [epicList, data, colors]);
   if (!grupped) return <div> Loading data....</div>;
   return (
     <div className="h-screen flex flex-col justify-center">
