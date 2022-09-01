@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { ResponsMongo } from './mongo/Mongo';
 import * as yup from 'yup';
-import { epicGroups } from '@/data/epicGroups';
 
 export const RequestSchemaAdd: yup.ObjectSchema<RequestStatSprint> = yup.object().shape({
   new: yup.number().min(0).required(),
@@ -31,7 +30,7 @@ export const IssueSchemaAdd: yup.ObjectSchema<Issue> = yup.object().shape({
   WorkDescription: yup.string().required(),
   ParentKey: yup.string().nullable(),
   Typeofwork: yup.string<TypeofworkList>().required().default(null),
-  EpicGroup: yup.string<EpicGroups>().nullable(),
+  EpicGroup: yup.string().nullable(),
 });
 // @ts-ignore
 export const sprintSchemaAdd: yup.ObjectSchema<Sprint> = yup.object().shape({
@@ -60,16 +59,8 @@ export const sprintSchemaEdit: yup.ObjectSchema<Omit<Sprint, 'issues'>> = yup.ob
   request: RequestSchemaAdd.required(),
   bug: BugSchemaAdd.required(),
 });
-// type SprintForm = yup.InferType<typeof IssueSchemaAdd>;
 
 export type TypeofworkList = 'Organization' | 'Innovation' | 'Bugs' | 'Maintenance';
-export type EpicGroups = typeof epicGroups[number];
-export interface ConfigMapperGroup {
-  name: EpicGroups;
-  epics: Array<string>;
-  texts: Array<string>;
-  color: string;
-}
 
 export interface Issue {
   IssueKey: string;
@@ -81,7 +72,7 @@ export interface Issue {
   WorkDescription: string;
   ParentKey: string | null | undefined;
   Typeofwork: TypeofworkList | null | undefined;
-  EpicGroup: EpicGroups | null | undefined;
+  EpicGroup: string | null | undefined;
 }
 export interface BugStatSprint {
   closed: number;

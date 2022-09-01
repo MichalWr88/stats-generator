@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { ConfigMapperGroup, Issue } from '@/models/Sprint';
-import useConfigEpicGroups from './api/hooks/useConfigEpicGroups';
+import { AppConfigResponse } from '@/models/AppConfig';
+import { Issue } from '@/models/Sprint';
+import useGetAppConfig from './api/hooks/useGetAppConfig';
 
 interface Props {
   onLoad?: (file: Array<Issue>) => void;
@@ -10,7 +11,7 @@ type AcceptType = '.txt' | '.csv' | '.xls' | '.xlsx' | '.html';
 
 const accept: Array<AcceptType> = ['.html'];
 
-const parseHTML = (csv: string, configEpicArr: Array<ConfigMapperGroup>): Array<Issue> => {
+const parseHTML = (csv: string, epicList: Array<AppConfigResponse>): Array<Issue> => {
   const html = document.createElement('html');
   html.innerHTML = csv;
   const body = html.getElementsByTagName('tbody');
@@ -56,16 +57,21 @@ const parseHTML = (csv: string, configEpicArr: Array<ConfigMapperGroup>): Array<
       // @ts-ignore for obj[h] ? bits[i].slice(1, -1) :
       return (obj[h] = line[i] ?? null);
     }); // or use reduce here
-    return mappedValidateIsuue(obj, configEpicArr);
+    return mappedValidateIsuue(obj, epicList);
   });
 
-  return issueList as Array<Issue>;
+  return issueList.sort((a, b) => {
+    if (a.Typeofwork && b.Typeofwork) {
+      return a.Typeofwork.localeCompare(b.Typeofwork);
+    }
+    return -1;
+  }) as Array<Issue>;
 };
 
 class Mapper {
-  constructor(public issue: Issue, public configEpicArr: Array<ConfigMapperGroup>) {
+  constructor(public issue: Issue, public epicList: Array<AppConfigResponse>) {
     this.issue = issue;
-    this.configEpicArr = configEpicArr;
+    this.epicList = epicList;
   }
 
   public imoMappedIssue(): Mapper {
@@ -79,9 +85,13 @@ class Mapper {
     return this;
   }
   public groupEpicMappedIssue(): Mapper {
-    this.configEpicArr.forEach((config) => {
+    this.epicList.forEach((config) => {
+      if (config.type === 'global') {
+        throw new Error('config is not typeof EpicConfigResponse');
+      }
+
       if (
-        config.epics.some(
+        config.epicsSearch.some(
           (text) =>
             this.issue.Issuesummary.toLocaleLowerCase().includes(text.toLocaleLowerCase()) ||
             this.issue.EpicLink?.toLocaleLowerCase().includes(text.toLocaleLowerCase()) ||
@@ -91,7 +101,7 @@ class Mapper {
         this.issue.EpicGroup = config.name;
         return;
       } else if (
-        config.texts.some(
+        config.textSearch.some(
           (text) =>
             this.issue.Issuesummary.toLocaleLowerCase().includes(text.toLocaleLowerCase()) ||
             this.issue.EpicLink?.toLocaleLowerCase().includes(text.toLocaleLowerCase()) ||
@@ -107,9 +117,9 @@ class Mapper {
   }
 }
 
-const mappedValidateIsuue = (obj: Issue, configEpicArr: Array<ConfigMapperGroup>): Issue => {
+const mappedValidateIsuue = (obj: Issue, epicList: Array<AppConfigResponse>): Issue => {
   const mappedIssue = { ...obj };
-  const mapper = new Mapper(mappedIssue, configEpicArr);
+  const mapper = new Mapper(mappedIssue, epicList);
   return mapper.imoMappedIssue().groupEpicMappedIssue().issue;
 };
 
@@ -129,7 +139,8 @@ const checkIsCorrectHeader = (header: keyof Issue) => {
 };
 
 const UploadFile = ({ onLoad }: Props) => {
-  const configEpicArr = useConfigEpicGroups();
+  const { data: epicList = [] } = useGetAppConfig('epic');
+
   // const fileInput = useRef(null);
   const isAcceptType = (name: string, accept: Array<AcceptType>) => {
     const reg = /\.[0-9a-z]+$/;
@@ -155,7 +166,7 @@ const UploadFile = ({ onLoad }: Props) => {
 
       reader.addEventListener('load', () => {
         if (typeof reader.result === 'string') {
-          const res = parseHTML(reader.result, configEpicArr);
+          const res = parseHTML(reader.result, epicList);
 
           if (onLoad) {
             onLoad(res);
@@ -171,7 +182,7 @@ const UploadFile = ({ onLoad }: Props) => {
     <div className="flex justify-center items-center w-full">
       <label
         htmlFor="dropzone-file"
-        className="flex flex-col justify-center items-center w-full h-64 bg-gray-50 rounded-lg border-2 border-gray-300 border-dashed cursor-pointer dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+        className="flex flex-col justify-center items-center w-full h-28 bg-gray-50 rounded-lg border-2 border-gray-300 border-dashed cursor-pointer dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
       >
         <div className="flex flex-col justify-center items-center pt-5 pb-6">
           <svg

@@ -1,7 +1,7 @@
 import { ResponsMongo } from './mongo/Mongo';
 import * as yup from 'yup';
 export const configType = ['epic', 'global'] as const;
-export type RequestGetConfigType = typeof configType | 'null';
+export type RequestGetConfigType = typeof configType[number] | 'null';
 export const colorSelect = [
   'slate',
   'gray',
@@ -28,17 +28,13 @@ export const colorSelect = [
 ] as const;
 const numColorSelect = ['50', '100', '200', '300', '400', '500', '600', '700', '800', '900'] as const;
 type NumColorSelect = typeof numColorSelect[number];
-// export interface AppConfig {
-//   epicConfig: Array<EpicConfig>;
-//   globalConfig: Array<GlobalConfig>;
-// }
 
 export interface EpicConfig {
   type: 'epic';
   name: string;
   epicsSearch: Array<string>;
   textSearch: Array<string>;
-  colorPalette: typeof colorSelect;
+  colorPalette: typeof colorSelect[number];
   numPalette: NumColorSelect;
   value?: never;
 }
@@ -82,3 +78,4 @@ export const ConfigGetValidation = yup.object().shape({
 
 export type AppConfig = EpicConfig | GlobalConfig;
 export type AppConfigResponse = AppConfig & ResponsMongo;
+export type EpicConfigResponse = EpicConfig & ResponsMongo;
