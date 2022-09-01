@@ -1,11 +1,12 @@
 import { Issue, Sprint, sprintSchemaEdit } from '@/models/Sprint';
-import React from 'react';
+import React, { useEffect } from 'react';
 import useEditSprint from './api/hooks/useEditSprint';
 import { yupResolver } from '@hookform/resolvers/yup';
 import useSendSprint from './api/hooks/useSendSprint';
 import ReactFormProvider from './FormProvider';
 import InputField from './InputField';
 
+import { useRouter } from 'next/router';
 type Props = {
   issues?: Array<Issue>;
   sprint?: Omit<Sprint, 'issues'>;
@@ -13,15 +14,23 @@ type Props = {
 };
 
 const SprintForm = ({ issues = [], sprint }: Props) => {
-  const addSprint = useSendSprint();
+  const router = useRouter();
+  const { mutate: mutateAddSprint, isSuccess: addSpritnSuccess } = useSendSprint();
   const { mutate: mutateEditSprint } = useEditSprint();
+
   const resolver = yupResolver(sprintSchemaEdit);
+
+  useEffect(() => {
+    if (!addSpritnSuccess) return;
+    console.log('addSpritnSuccess', addSpritnSuccess);
+    router.push('/charts');
+  }, [addSpritnSuccess, router, sprint]);
 
   const onSubmit = (data: Sprint) => {
     if (sprint) {
       mutateEditSprint({ ...data });
     } else {
-      addSprint({ ...data, issues });
+      mutateAddSprint({ ...data, issues });
     }
   };
   return (
