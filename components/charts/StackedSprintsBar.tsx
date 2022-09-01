@@ -1,4 +1,4 @@
-import { EpicGroups, TypeofworkList } from '@/models/Sprint';
+import { TypeofworkList } from '@/models/Sprint';
 import {
   ChartData,
   Chart as ChartJS,
@@ -37,7 +37,7 @@ import ChartjsPluginStacked100 from 'chartjs-plugin-stacked100';
 type Group = { labels: Array<string>; datasets: Array<Dataset> };
 
 type Dataset = {
-  label: TypeofworkList | EpicGroups;
+  label: TypeofworkList | string;
   data: Array<number>;
 };
 type Props = {
