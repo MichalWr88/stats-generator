@@ -81,8 +81,9 @@ const ChartSprintsBar = ({ sprints, type = null }: Props) => {
           label: isPredictability(type) ? 'Przewid. ost 3 sprinty' : type === 'speed' ? 'Prędkość zespołu' : undefined,
           type: 'line' as const,
           data: [],
-
-          borderColor: 'red',
+          backgroundColor: 'transparent',
+          borderColor: colors.red[600],
+          pointBackgroundColor: colors.red[600],
           datalabels: {
             formatter: (value: string) => {
               return `${value} ${isPredictability(type) ? '%' : ''}`;
@@ -93,7 +94,10 @@ const ChartSprintsBar = ({ sprints, type = null }: Props) => {
             anchor: 'end',
             align: 'top',
             backgroundColor: colors.white,
+            color: colors.red[600],
             borderRadius: 10,
+            borderColor: colors.red[600],
+            borderWidth: 1,
           },
         },
         {
@@ -134,7 +138,7 @@ const ChartSprintsBar = ({ sprints, type = null }: Props) => {
     );
 
     setData(chartData);
-  }, [sprints, type, colors.indigo, colors.white]);
+  }, [sprints, type, colors.indigo, colors.white, colors.red]);
   if (!data) return <div>Loading data ...</div>;
   return (
     <Chart
