@@ -1,9 +1,9 @@
 {
-    "window.commandCenter": true,
-    "files.autoSave": "afterDelay",
-    "prettier.jsxBracketSameLine": true,
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "[typescriptreact]": {
-      "editor.defaultFormatter": "esbenp.prettier-vscode"
-    }
+  "window.commandCenter": true,
+  "files.autoSave": "afterDelay",
+  "prettier.bracketSameLine": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
 }

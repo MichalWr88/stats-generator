@@ -10,7 +10,8 @@
     "plugin:prettier/recommended",
     "plugin:import/errors",
     "plugin:import/warnings",
-    "plugin:import/typescript"
+    "plugin:import/typescript",
+    "plugin:testing-library/react"
   ],
   "settings": {
     "import/parsers": {
@@ -21,12 +22,12 @@
       "typescript": {}
     }
   },
-  "parser": "@typescript-eslint/parser",
+  "parser": "@typescript-eslint/parser", // ext/core-web-vitals
   "parserOptions": {
     "project": "./tsconfig.json",
     "tsconfigRootDir": "./"
   },
-  "plugins": ["@typescript-eslint", "import"],
+  "plugins": ["@typescript-eslint", "import", "testing-library"],
   "overrides": [
     // Only uses Testing Library lint rules in test files
     {
