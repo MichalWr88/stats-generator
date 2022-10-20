@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import ChartSprintCircle from '../ChartSprintCircle';
+import ChartSprintCircle from './ChartSprintCircle';
 import { useSprintsContext } from '../store/ChartSprintsContext';
 
 const RequestAndBugSprintCharts = () => {

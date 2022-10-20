@@ -12,10 +12,10 @@ const NavLink = ({ link }: Props) => {
   return (
     <Link href={link.path}>
       <a
+        data-testid="navLink"
         className={`${
           pathname == link.path ? 'border-b-2 border-yellow-400' : ''
-        } hover:bg-gray-100 hover:text-gray-700 p-2 text-white rounded-2xl flex items-center
-        });`}
+        } hover:bg-gray-100 hover:text-gray-700 p-2 text-white rounded-2xl flex items-center });`}
       >
         <link.icon className="mr-2 -translate-y-px" />
         {link.label}

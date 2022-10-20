@@ -1,5 +1,5 @@
 import React from 'react';
-import ChartSprintsBar from '../ChartSprintsBar';
+import ChartSprintsBar from './ChartSprintsBar';
 import { useSprintsContext } from '../store/ChartSprintsContext';
 
 const SpeedSprintsStats = () => {

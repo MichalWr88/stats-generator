@@ -30,7 +30,7 @@ import {
 } from 'chart.js';
 import { Chart } from 'react-chartjs-2';
 import { SprintWithStats } from '@/models/Sprint';
-import useColors from './api/hooks/useColors';
+import useColors from '../api/hooks/useColors';
 
 type ChartType = keyof Pick<SprintWithStats, 'predictability'> | 'speed' | null;
 type Props = {
