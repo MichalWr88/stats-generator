@@ -104,8 +104,10 @@ export interface Sprint {
 }
 export interface SprintWithStats extends Sprint {
   speedThree: string;
+  speedSix: string;
   predictability: string;
   predictabilityThree: string;
+  delta: string;
 }
 
 export interface ResponsSprint extends Sprint, ResponsMongo {}

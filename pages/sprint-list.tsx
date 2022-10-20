@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-import { downloadIssuesCSV } from '@/components/api/dataProvider';
 import Modal from '@/components/Modal';
 import SprintForm from '@/components/SprintForm';
 import Table from '@/components/table/Table';
@@ -7,16 +5,17 @@ import { SprintWithStats } from '@/models/Sprint';
 import WithNavBar from 'layouts/WithNavBar';
 import React, { useEffect, useState, useMemo } from 'react';
 import { Column } from 'react-table';
-import { parseLocalDate } from 'utils';
+
 import { setStatsSpritnts } from 'utils/SprintsMapper';
 import { FaFileDownload } from 'react-icons/fa';
 import useGetSprints from '@/components/api/hooks/useGetSprints';
+import { getIssueCSV } from '@/helpers/reportsUtils';
 
 type EditSprint = {
   isOpen: boolean;
   sprint: SprintWithStats | undefined;
 };
-const cssBug = 'vertical-rl uppercase p-2 border-2 border-zinc-900   bg-red-300';
+const cssBug = 'vertical-rl uppercase p-2 border-2 border-zinc-900 bg-red-300';
 const cssRequest = ' uppercase vertical-rl p-2 border-2 border-zinc-900 bg-indigo-300';
 
 const SprintListPage = () => {
@@ -24,29 +23,11 @@ const SprintListPage = () => {
   const [sprintsList, setSprintsList] = useState<Array<SprintWithStats>>([]);
   const [editSprint, setEditSprint] = useState<EditSprint>({ isOpen: false, sprint: undefined });
 
-  const getIssueCSV = (sprint: SprintWithStats) => {
-    downloadIssuesCSV(Number(sprint.nr)).then((data) => {
-      const url = window.URL.createObjectURL(new Blob([data]));
-      const link = document.createElement('a');
-      link.href = url;
-      link.setAttribute(
-        'download',
-        sprint.nr +
-          ' ' +
-          parseLocalDate(new Date(sprint.start || new Date())) +
-          '-' +
-          parseLocalDate(new Date(sprint.end || new Date()))
-      );
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    });
-  };
-
   useEffect(() => {
     if (!data) return;
-    const list = data.data.reverse();
-
+    const list = data.data.sort((a, b) => {
+      return a.nr > b.nr ? 1 : -1;
+    });
     setSprintsList(() => {
       return setStatsSpritnts(list).splice(2).reverse();
     });
@@ -98,8 +79,17 @@ const SprintListPage = () => {
             accessor: 'speedThree',
           },
           {
+            Header: 'Pręd ost 6',
+            accessor: 'speedSix',
+          },
+          {
             Header: 'Przewid.',
             accessor: 'predictability',
+            className: 'vertical-rl p-2 border-2 border-zinc-900 bg-slate-500 text-white',
+          },
+          {
+            Header: 'Delta.',
+            accessor: 'delta',
             className: 'vertical-rl p-2 border-2 border-zinc-900 bg-slate-500 text-white',
           },
           {
