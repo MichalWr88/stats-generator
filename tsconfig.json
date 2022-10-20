@@ -24,8 +24,9 @@
       "@/models/*": ["models/*"],
       "@/helpers/*": ["helpers/*"],
       "@/server/*": ["server/*"]
-    }
+    },
+    "noEmit": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "__tests__/__mocks__/__server.__"],
   "exclude": ["node_modules"]
 }
