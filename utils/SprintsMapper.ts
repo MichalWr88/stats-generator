@@ -1,4 +1,28 @@
-import { ResponsSprint, SprintWithStats } from '@/models/Sprint';
+import { ExcelSprint, Issue, IssueExcel, ResponsSprint, SprintWithStats } from '@/models/Sprint';
+import { parseLocalDate } from 'utils';
+
+export const formatNumberForExcel = (value: string | number) => {
+  return value.toString().split('.').join(',');
+};
+
+export const issuesToExcelHours = (issues: Array<Issue>): IssueExcel => {
+  const issueSummary: IssueExcel = {
+    Innovation: 0,
+    Organization: 0,
+    Bugs: 0,
+    Maintenance: 0,
+  };
+  issues.forEach((issue) => {
+    if (!issue.Typeofwork) return;
+    issueSummary[issue.Typeofwork] = Number(issueSummary[issue.Typeofwork]) + Number(issue.Hours);
+  });
+  return {
+    Innovation: formatNumberForExcel(issueSummary.Innovation),
+    Organization: formatNumberForExcel(issueSummary.Organization),
+    Bugs: formatNumberForExcel(issueSummary.Bugs),
+    Maintenance: formatNumberForExcel(issueSummary.Maintenance),
+  };
+};
 
 export const setStatsSpritnts = (arr: Array<ResponsSprint>): Array<SprintWithStats> => {
   const sprints: Array<SprintWithStats> = [];
@@ -59,4 +83,58 @@ export const setStatsSpritnts = (arr: Array<ResponsSprint>): Array<SprintWithSta
   });
 
   return sprints;
+};
+
+export const sprintToExcelStat = (sprint: SprintWithStats): ExcelSprint => {
+  const {
+    issues,
+    speedThree,
+    speedSix,
+    predictability,
+    predictabilityThree,
+    delta,
+    nr,
+    plan,
+    delivered,
+    start,
+    end,
+    request: { new: Rnew, review: Rreview, inProgress: RinProgress, inTesting: RinTesting, rfd: Rrfd, done: Rdone },
+    bug: {
+      closed: Bclosed,
+      review: Breview,
+      accepted: Baccepted,
+      inProgress: BinProgress,
+      inTesting: BinTesting,
+      rfd: Brfd,
+      onHold: BonHold,
+    },
+  } = sprint;
+  return {
+    nr: `#${nr} ${parseLocalDate(new Date(start))}-${parseLocalDate(new Date(end))}`,
+    plan: formatNumberForExcel(plan),
+    delivered: formatNumberForExcel(delivered),
+    speedThree: formatNumberForExcel(speedThree),
+    speedSix: formatNumberForExcel(speedSix),
+    predictability: formatNumberForExcel(predictability),
+    predictabilityThree: formatNumberForExcel(predictabilityThree),
+    delta: formatNumberForExcel(delta),
+    Rnew,
+    Rreview,
+    RinProgress,
+    RinTesting,
+    Rrfd,
+    Rdone,
+    Bclosed,
+    Breview,
+    Baccepted,
+    BinProgress,
+    BinTesting,
+    Brfd,
+    BonHold,
+    ...issuesToExcelHours(issues),
+  };
+};
+export const sprintsToExcelStats = (sprints: Array<ResponsSprint>): Array<ExcelSprint> => {
+  const mapedSprint = setStatsSpritnts(sprints);
+  return mapedSprint.map((sprint) => sprintToExcelStat(sprint));
 };

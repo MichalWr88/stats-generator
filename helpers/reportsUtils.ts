@@ -1,5 +1,5 @@
 import { SprintWithStats } from '@/models/Sprint';
-import { downloadIssuesCSV } from '@/components/api/dataProvider';
+import { downloadAllSprintsCSV, downloadIssuesCSV } from '@/components/api/dataProvider';
 import { parseLocalDate } from 'utils';
 
 export const getIssueCSV = (sprint: SprintWithStats) => {
@@ -15,6 +15,17 @@ export const getIssueCSV = (sprint: SprintWithStats) => {
         '-' +
         parseLocalDate(new Date(sprint.end || new Date()))
     );
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  });
+};
+export const getAllSprintsCSV = () => {
+  downloadAllSprintsCSV().then((data) => {
+    const url = window.URL.createObjectURL(new Blob([data]));
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', `rangersSprints ${parseLocalDate(new Date())}.csv`);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);

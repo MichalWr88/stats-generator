@@ -9,7 +9,7 @@ import { Column } from 'react-table';
 import { setStatsSpritnts } from 'utils/SprintsMapper';
 import { FaFileDownload } from 'react-icons/fa';
 import useGetSprints from '@/components/api/hooks/useGetSprints';
-import { getIssueCSV } from '@/helpers/reportsUtils';
+import { getIssueCSV, getAllSprintsCSV } from '@/helpers/reportsUtils';
 
 type EditSprint = {
   isOpen: boolean;
@@ -209,6 +209,17 @@ const SprintListPage = () => {
   return (
     <WithNavBar>
       <>
+        <button
+          onClick={() => {
+            getAllSprintsCSV();
+          }}
+          type="button"
+          className="h-8 w-full my-3 p-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+          data-bs-toggle="modal"
+          data-bs-target="#exampleModal"
+        >
+          download all sprints
+        </button>
         <Table data={sprintsList} columns={columns} />
         <Modal
           title="Edycja sprintu"

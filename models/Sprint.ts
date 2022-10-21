@@ -111,5 +111,32 @@ export interface SprintWithStats extends Sprint {
 }
 
 export interface ResponsSprint extends Sprint, ResponsMongo {}
+export type ResponsSprintWithoutIssues = Omit<ResponsSprint, 'issues' | '_id' | 'createdAt' | 'updatedAt'>;
 export type ResponsSprintForCSV = Pick<Sprint, 'nr' | 'end' | 'start' | 'issues'>;
 export type LegacyIssue = Issue & { NR: number };
+
+export type IssueExcel = { [key in TypeofworkList]: number | string };
+
+export interface ExcelSprint extends IssueExcel {
+  speedThree: string;
+  speedSix: string;
+  predictability: string;
+  predictabilityThree: string;
+  delta: string;
+  nr: string;
+  plan: string;
+  delivered: string;
+  Rnew: number;
+  Rreview: number;
+  RinProgress: number;
+  RinTesting: number;
+  Rrfd: number;
+  Rdone: number;
+  Bclosed: number;
+  Breview: number;
+  Baccepted: number;
+  BinProgress: number;
+  BinTesting: number;
+  Brfd: number;
+  BonHold: number;
+}

@@ -36,6 +36,12 @@ export const downloadIssuesCSV = async (id: number) => {
   });
   return resp.data;
 };
+export const downloadAllSprintsCSV = async (): Promise<string> => {
+  const resp = await axiosInstance.get('./api/mongo/report-all', {
+    responseType: 'blob',
+  });
+  return resp.data;
+};
 export const getAppConfig = async (type: RequestGetConfigType): Promise<Array<AppConfigResponse>> => {
   const resp = await axiosInstance.get<Array<AppConfigResponse>>('./api/mongo/config/get', {
     params: { type },
