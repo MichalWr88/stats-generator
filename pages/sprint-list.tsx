@@ -10,6 +10,7 @@ import { setStatsSpritnts } from 'utils/SprintsMapper';
 import { FaFileDownload } from 'react-icons/fa';
 import useGetSprints from '@/components/api/hooks/useGetSprints';
 import { getIssueCSV, getAllSprintsCSV } from '@/helpers/reportsUtils';
+import Button from '@/components/shared/Button/Button';
 
 type EditSprint = {
   isOpen: boolean;
@@ -182,23 +183,16 @@ const SprintListPage = () => {
         Header: 'Actions',
         Cell: (cell: { row: { original: SprintWithStats } }) => (
           <div className="flex items-center justify-center">
-            <button
-              onClick={() => getIssueCSV(cell.row.original)}
-              className="flex items-center h-8  px-3 py-2 border-2 border-blue-600 text-blue-600 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
-            >
+            <Button type="outline" clickHandle={() => getIssueCSV(cell.row.original)} className="flex items-center ">
               <FaFileDownload className="text-xl" /> Issues
-            </button>
-            <button
-              onClick={() => {
+            </Button>
+            <Button
+              clickHandle={() => {
                 setEditSprint({ isOpen: true, sprint: cell.row.original });
               }}
-              type="button"
-              className="h-8 px-3 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
-              data-bs-toggle="modal"
-              data-bs-target="#exampleModal"
             >
               edit
-            </button>
+            </Button>
           </div>
         ),
       },
@@ -209,17 +203,13 @@ const SprintListPage = () => {
   return (
     <WithNavBar>
       <>
-        <button
-          onClick={() => {
+        <Button
+          clickHandle={() => {
             getAllSprintsCSV();
           }}
-          type="button"
-          className="h-8 w-full my-3 p-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
-          data-bs-toggle="modal"
-          data-bs-target="#exampleModal"
         >
           download all sprints
-        </button>
+        </Button>
         <Table data={sprintsList} columns={columns} />
         <Modal
           title="Edycja sprintu"
