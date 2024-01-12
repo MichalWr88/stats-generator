@@ -8,7 +8,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { createRouter } from 'next-connect';
 import { ValidationError } from 'yup';
 import { MongoServerError } from 'mongodb';
-import { defualtErrorHandler } from '@/helpers/apiErrorHandler';
+import { defaultErrorHandler } from '@/helpers/apiErrorHandler';
 const router = createRouter<NextApiRequest, NextApiResponse>();
 
 const paginationGuard = (query: PaginationRequest): query is PaginationRequest => {
@@ -64,4 +64,4 @@ router.put(async (req, res: NextApiResponse<unknown>) => {
   }
 });
 
-export default defualtErrorHandler(router);
+export default defaultErrorHandler(router);

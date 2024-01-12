@@ -1,7 +1,9 @@
 import { checkMongoConnected } from '@/helpers/mongoHelpers';
 import { connect, connection } from 'mongoose';
-import MonogConfig from './mongoConfig';
-import MonogSprint from './MongoSprint';
+import MongoConfig from './mongoConfig';
+import MongoSprint from './MongoSprint';
+import MongoUser from './MongoUsers';
+import MongoEvent from './MongoEvents';
 
 // import MongoUser from "./MongoUser";
 // import MongoCompany from "./MongoWork";
@@ -40,5 +42,7 @@ export const initConnectMongo = (): Promise<boolean> => {
   }
 };
 initConnectMongo();
-export const mongoSprint = new MonogSprint();
-export const monogConfig = new MonogConfig();
+export const mongoSprint = new MongoSprint();
+export const mongoConfig = new MongoConfig();
+export const mongoUser = new MongoUser();
+export const mongoEvent = new MongoEvent();

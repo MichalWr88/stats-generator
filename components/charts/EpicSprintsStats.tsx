@@ -44,7 +44,7 @@ const setGr = (data: SprintWithStats[], epicList: Array<AppConfigResponse>, colo
     );
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     let indexx = -1;
-    const result = issues.reduce(function (r, a) {
+    const result = issues.reduce((r, a) => {
       if (!a.EpicGroup) return r;
       r[a.EpicGroup] = r[a.EpicGroup] || 0;
       r[a.EpicGroup] = r[a.EpicGroup] + Number(a.Hours);

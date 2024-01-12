@@ -3,7 +3,7 @@ import { ConfigCollection, ConfigScheme, ConfigCollectName } from '@/models/mong
 import { type } from 'os';
 import Mongodb from './mongoClass';
 
-class MonogConfig extends Mongodb<ConfigCollection> {
+class MongoConfig extends Mongodb<ConfigCollection> {
   public constructor() {
     super(ConfigScheme, ConfigCollectName);
   }
@@ -32,4 +32,4 @@ class MonogConfig extends Mongodb<ConfigCollection> {
   }
 }
 
-export default MonogConfig;
+export default MongoConfig;

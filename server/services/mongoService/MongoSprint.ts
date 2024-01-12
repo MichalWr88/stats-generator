@@ -4,7 +4,7 @@ import { Issue, ResponsSprint, ResponsSprintForCSV, Sprint, LegacyIssue } from '
 
 import Mongodb from './mongoClass';
 import { paginationResponse, queryPagination } from './queryHelpers';
-class MonogSprint extends Mongodb<SprintCollection> {
+class MongoSprint extends Mongodb<SprintCollection> {
   public constructor() {
     super(SprintScheme, SprintCollectName);
   }
@@ -51,4 +51,4 @@ class MonogSprint extends Mongodb<SprintCollection> {
     return await this.model.updateOne({ nr: NR }, { $push: { issues: iss } });
   }
 }
-export default MonogSprint;
+export default MongoSprint;

@@ -2,26 +2,30 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { createRouter } from 'next-connect';
 import { ValidationError } from 'yup';
 
-import { ConfigGetValidation, RequestGetConfigType } from '@/models/AppConfig';
 import { defaultErrorHandler } from '@/helpers/apiErrorHandler';
-import { mongoConfig } from '@/server/services/mongoService';
+import { mongoEvent } from '@/server/services/mongoService';
+import { Event } from '@/models/Events';
 
 const router = createRouter<NextApiRequest, NextApiResponse>();
 
-router.get(async (req, res: NextApiResponse<unknown>) => {
-  const query = req.query as unknown as { type: RequestGetConfigType };
+router.post(async (req, res: NextApiResponse<unknown>) => {
   try {
-    await ConfigGetValidation.validate(query);
+    const body: Event = typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
 
-    await mongoConfig.getAllConfigByType(query.type).then((resp) => {
+    if (!body) {
+      res.status(400).send('Please set correct type');
+      return;
+    }
+    await mongoEvent.addOne(body).then((resp) => {
       res.status(200).json(resp);
     });
   } catch (error) {
+    console.log(error);
     if (error instanceof ValidationError) {
       res.status(400).json(error.errors.join('\n'));
-    } else {
-      res.status(500).json(error);
+      return;
     }
+    res.status(500).send({ type: 'unexpected error ', error });
   }
 });
 

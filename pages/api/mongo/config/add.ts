@@ -3,8 +3,8 @@ import { createRouter } from 'next-connect';
 import { ValidationError } from 'yup';
 
 import { AppConfig, AppEpicConfigAdd, AppGlobalConfigAdd } from '@/models/AppConfig';
-import { defualtErrorHandler } from '@/helpers/apiErrorHandler';
-import { monogConfig } from '@/server/services/mongoService';
+import { defaultErrorHandler } from '@/helpers/apiErrorHandler';
+import { mongoConfig } from '@/server/services/mongoService';
 
 const router = createRouter<NextApiRequest, NextApiResponse>();
 
@@ -20,7 +20,7 @@ router.post(async (req, res: NextApiResponse<unknown>) => {
       return;
     }
 
-    await monogConfig.addConfig(body).then((resp) => {
+    await mongoConfig.addConfig(body).then((resp) => {
       res.status(200).json(resp);
     });
   } catch (error) {
@@ -32,4 +32,4 @@ router.post(async (req, res: NextApiResponse<unknown>) => {
   }
 });
 
-export default defualtErrorHandler(router);
+export default defaultErrorHandler(router);
