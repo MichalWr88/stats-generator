@@ -1,6 +1,6 @@
 import { SprintWithStats } from '@/models/Sprint';
 import React, { ReactNode, useContext, useEffect, useState, createContext } from 'react';
-import { setStatsSpritnts } from 'utils/SprintsMapper';
+import { setStatsSprints } from 'utils/SprintsMapper';
 import useGetSprints from '../api/hooks/useGetSprints';
 
 export interface ContextData {
@@ -22,7 +22,7 @@ const ChartSprintsContext = ({ children }: Props) => {
     const list = data.data.reverse();
 
     setSprintsList(() => {
-      return setStatsSpritnts(list).splice(2);
+      return setStatsSprints(list).splice(2);
     });
 
     return () => {

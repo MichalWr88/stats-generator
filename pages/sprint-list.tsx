@@ -6,7 +6,7 @@ import WithNavBar from 'layouts/WithNavBar';
 import React, { useEffect, useState, useMemo } from 'react';
 import { Column } from 'react-table';
 
-import { setStatsSpritnts } from 'utils/SprintsMapper';
+import { setStatsSprints } from 'utils/SprintsMapper';
 import { FaFileDownload } from 'react-icons/fa';
 import useGetSprints from '@/components/api/hooks/useGetSprints';
 import { getIssueCSV, getAllSprintsCSV } from '@/helpers/reportsUtils';
@@ -30,7 +30,7 @@ const SprintListPage = () => {
       return a.nr > b.nr ? 1 : -1;
     });
     setSprintsList(() => {
-      return setStatsSpritnts(list).splice(2).reverse();
+      return setStatsSprints(list).splice(2).reverse();
     });
     setEditSprint({ isOpen: false, sprint: undefined });
     return () => {

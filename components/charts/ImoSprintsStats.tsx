@@ -82,16 +82,16 @@ const ImoSprintsStats = () => {
   const colors = useColors();
   const { data } = useSprintsContext();
 
-  const [grupped, setGrupped] = useState<Group | null>(null);
+  const [grouped, setGrouped] = useState<Group | null>(null);
 
   useEffect(() => {
-    setGrupped(setGr(data, colors));
+    setGrouped(setGr(data, colors));
   }, [data, colors]);
-  if (!grupped) return <div> Loading data....</div>;
+  if (!grouped) return <div> Loading data....</div>;
   return (
-    <div className="h-screen flex flex-col justify-center">
-      <h5 className="uppercase text-indigo-800 font-bold text-2xl text-center">Innovation vs. Maintenance</h5>
-      <StackedSprintsBar group={grupped} />;
+    <div className="flex flex-col justify-center h-screen">
+      <h5 className="text-2xl font-bold text-center text-indigo-800 uppercase">Innovation vs. Maintenance</h5>
+      <StackedSprintsBar group={grouped} />;
     </div>
   );
 };

@@ -21,9 +21,9 @@ type Dataset = {
   backgroundColor: string;
 };
 const setGr = (data: SprintWithStats[], epicList: Array<AppConfigResponse>, colors: DefaultColors): Group => {
-  const epicepicList = epicList.filter((cfg) => cfg.type === 'epic') as Array<EpicConfigResponse>;
+  const filteredEpicList = epicList.filter((cfg) => cfg.type === 'epic') as Array<EpicConfigResponse>;
   const labels: Array<string> = [];
-  const datasets: Array<Dataset> = epicepicList.map((group) => {
+  const datasets: Array<Dataset> = filteredEpicList.map((group) => {
     return {
       label: group.name,
       backgroundColor: colors[group.colorPalette][group.numPalette],
@@ -53,7 +53,7 @@ const setGr = (data: SprintWithStats[], epicList: Array<AppConfigResponse>, colo
     }, Object.create(null));
 
     const allEpicGroups = Object.fromEntries(
-      epicepicList.map((cfg) => {
+      filteredEpicList.map((cfg) => {
         return [cfg.name, 0];
       })
     );
@@ -79,16 +79,16 @@ const EpicSprintsStats = () => {
   const { data: epicList = [] } = useGetAppConfig('epic');
   const { data } = useSprintsContext();
 
-  const [grupped, setGrupped] = useState<Group | null>(null);
+  const [grouped, setGrouped] = useState<Group | null>(null);
 
   useEffect(() => {
-    setGrupped(setGr(data, epicList, colors));
+    setGrouped(setGr(data, epicList, colors));
   }, [epicList, data, colors]);
-  if (!grupped) return <div> Loading data....</div>;
+  if (!grouped) return <div> Loading data....</div>;
   return (
-    <div className="h-screen flex flex-col justify-center">
-      <h5 className="uppercase text-indigo-800 font-bold text-2xl text-center">Epics</h5>
-      <StackedSprintsBar group={grupped} />;
+    <div className="flex flex-col justify-center h-screen">
+      <h5 className="text-2xl font-bold text-center text-indigo-800 uppercase">Epics</h5>
+      <StackedSprintsBar group={grouped} />;
     </div>
   );
 };

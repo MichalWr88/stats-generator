@@ -24,7 +24,7 @@ export const issuesToExcelHours = (issues: Array<Issue>): IssueExcel => {
   };
 };
 
-export const setStatsSpritnts = (arr: Array<ResponsSprint>): Array<SprintWithStats> => {
+export const setStatsSprints = (arr: Array<ResponsSprint>): Array<SprintWithStats> => {
   const sprints: Array<SprintWithStats> = [];
 
   arr.forEach((sprint, index, array) => {
@@ -135,6 +135,6 @@ export const sprintToExcelStat = (sprint: SprintWithStats): ExcelSprint => {
   };
 };
 export const sprintsToExcelStats = (sprints: Array<ResponsSprint>): Array<ExcelSprint> => {
-  const mapedSprint = setStatsSpritnts(sprints);
-  return mapedSprint.map((sprint) => sprintToExcelStat(sprint));
+  const mappedSprint = setStatsSprints(sprints);
+  return mappedSprint.map((sprint) => sprintToExcelStat(sprint));
 };

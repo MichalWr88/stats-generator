@@ -5,5 +5,21 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "[typescriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
+  },
+  "cSpell.words": [
+    "Baccepted",
+    "Bclosed",
+    "Breview",
+    "Brfd",
+    "daygrid",
+    "fullcalendar",
+    "indexx",
+    "mappedresult",
+    "multimonth",
+    "Rdone",
+    "Rnew",
+    "Rreview",
+    "Rrfd",
+    "Typeofwork"
+  ]
 }

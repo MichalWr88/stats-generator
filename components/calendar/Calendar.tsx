@@ -12,7 +12,7 @@ const getWeekNumber = (current: string | Date) => {
   return Math.ceil(days / 7);
 };
 
-const cuurentWeek = getWeekNumber(new Date());
+const currentWeek = getWeekNumber(new Date());
 
 const lastWeek = getWeekNumber(new Date(new Date().getFullYear(), 11, 31));
 
