@@ -1,16 +1,14 @@
-
+import RequestAndBugSprintCharts from '@/components/charts/RequestAndBugSprintCharts';
+import SpeedSprintsStats from '@/components/charts/SpeedSprintsStats';
+import PredictabilitySprintsStats from '@/components/charts/PredictabilitySprintsStats';
+import ChartSprintsContext from '@/components/store/ChartSprintsContext';
 import React, { useState } from 'react';
 import ReactPageScroller from 'react-page-scroller';
 import { IoIosReturnLeft } from 'react-icons/io';
 import Link from 'next/link';
-import EpicSprintsStats from '@/components/charts/EpicSprintsStats';
 import ImoSprintsStats from '@/components/charts/ImoSprintsStats';
-import PredictabilitySprintsStats from '@/components/charts/PredictabilitySprintsStats';
-import RequestAndBugSprintCharts from '@/components/charts/RequestAndBugSprintCharts';
-import SpeedSprintsStats from '@/components/charts/SpeedSprintsStats';
-import ChartSprintsContext from '@/components/store/ChartSprintsContext';
-import useGetAppConfig from '@/hooks/useGetAppConfig';
-
+import EpicSprintsStats from '@/components/charts/EpicSprintsStats';
+import useGetAppConfig from '@/components/api/hooks/useGetAppConfig';
 
 const classActive = 'bg-indigo-500 w-5 h-5 rounded-full shadow-2xl cursor-pointer m-2 ';
 const classNonActive = 'w-3 h-3  bg-gray-300 rounded-full shadow-2xl cursor-pointer m-2 hover:scale-150 transition-all';
@@ -22,6 +20,7 @@ const ChartsPage = () => {
     setCurrentPage(() => nr);
   };
 
+  // const handleBeforePageChange = (nr: number) => {};
 
   return (
     <>
