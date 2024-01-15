@@ -1,7 +1,8 @@
-import { AppConfig, AppConfigResponse, configType, RequestGetConfigType } from 'src/models/AppConfig';
-import { ConfigCollection, ConfigScheme, ConfigCollectName } from 'src/models/mongo/ConfigScheme';
+
 import { type } from 'os';
 import Mongodb from './mongoClass';
+import { AppConfig, AppConfigResponse, RequestGetConfigType } from '@/models/AppConfig';
+import { ConfigCollection, ConfigScheme, ConfigCollectName } from '@/models/mongo/ConfigScheme';
 
 class MongoConfig extends Mongodb<ConfigCollection> {
   public constructor() {
@@ -18,8 +19,8 @@ class MongoConfig extends Mongodb<ConfigCollection> {
     return await this.model.findByIdAndDelete(id);
   }
   public async getAllConfigByType(type: RequestGetConfigType) {
-    const body = type === 'null' ? {} : { type };
-    return await this.model.find(body);
+    // const body = type ? {} : { type };
+    return await this.model.find(type);
   }
   public async getAllConfigGroupedByType() {
     return await this.model.aggregate([

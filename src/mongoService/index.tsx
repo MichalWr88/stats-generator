@@ -1,9 +1,10 @@
-import { checkMongoConnected } from '@/helpers/mongoHelpers';
+
 import { connect, connection } from 'mongoose';
 import MongoConfig from './mongoConfig';
 import MongoSprint from './MongoSprint';
 import MongoUser from './MongoUsers';
 import MongoEvent from './MongoEvents';
+import { checkMongoConnected } from '@/utils/mongoHelpers';
 
 // import MongoUser from "./MongoUser";
 // import MongoCompany from "./MongoWork";
