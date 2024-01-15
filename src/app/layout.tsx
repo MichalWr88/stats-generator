@@ -26,7 +26,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en" className={clsx(interRoboto.className)}>
       <body className="flex flex-col items-center content-center w-screen h-screen overflow-hidden text-brand-font-color">
         <NavBar />
-        <main className="container flex flex-col flex-grow mx-auto bg-gray-300">
+        <main className="container flex flex-col flex-grow mx-auto overflow-auto bg-gray-300">
           <GlobalWrapper>{children}</GlobalWrapper>
         </main>
         <Footer />
