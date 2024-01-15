@@ -1,6 +1,7 @@
-import { AppConfigResponse, RequestGetConfigType } from 'src/models/AppConfig';
-import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE, PaginationRequest, PaginationResponseAggregate } from 'src/models/mongo/Mongo';
-import { ResponsSprint, Sprint } from 'src/models/Sprint';
+
+import { RequestGetConfigType, AppConfigResponse } from '@/models/AppConfig';
+import { Sprint, ResponsSprint } from '@/models/Sprint';
+import { PaginationRequest, PaginationResponseAggregate, DEFAULT_PAGE, DEFAULT_PAGE_SIZE } from '@/models/mongo/Mongo';
 import axios, { AxiosRequestConfig } from 'axios';
 
 const config: AxiosRequestConfig = {
