@@ -3,8 +3,9 @@ import { createRouter } from 'next-connect';
 import { ValidationError } from 'yup';
 
 import { ConfigGetValidation, RequestGetConfigType } from '@/models/AppConfig';
-import { defaultErrorHandler } from '@/helpers/apiErrorHandler';
-import { mongoConfig } from '@/server/services/mongoService';
+import { mongoConfig } from '@/mongoService';
+import { defaultErrorHandler } from '@/utils/apiErrorHandler';
+
 
 const router = createRouter<NextApiRequest, NextApiResponse>();
 
