@@ -1,9 +1,10 @@
-import { RequestGetConfigType } from 'src/models/AppConfig';
+'use client';
+import { getAppConfig } from '@/api/dataProvider';
+import { RequestGetConfigType } from '@/models/AppConfig';
 import { useQuery } from '@tanstack/react-query';
 import { useCallback, useState } from 'react';
-import { getAppConfig } from '../dataProvider';
 
-const useGetAppConfig = (initType: RequestGetConfigType = 'null') => {
+const useGetAppConfig = (initType: RequestGetConfigType = null) => {
   const [type, setType] = useState<RequestGetConfigType>(initType);
 
   const updateType = useCallback((type: RequestGetConfigType) => {

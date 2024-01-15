@@ -1,9 +1,11 @@
+"use client";
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
 import multiMonthPlugin from '@fullcalendar/multimonth';
 import interactionPlugin from '@fullcalendar/interaction';
 import { useEffect, useState } from 'react';
-import { EventResponse } from 'src/models/Events';
+import { EventResponse } from '@/models/Events';
+
 
 const getWeekNumber = (current: string | Date) => {
   const currentDate = new Date(current);

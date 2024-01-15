@@ -1,7 +1,7 @@
 import { ResponsMongo } from './mongo/Mongo';
 import * as yup from 'yup';
-export const configType = ['epic', 'global'] as const;
-export type RequestGetConfigType = typeof configType[number] | 'null';
+export const configType = ['epic', 'global'];
+export type RequestGetConfigType = typeof configType[number] | null;
 export const colorSelect = [
   'slate',
   'gray',
@@ -64,17 +64,10 @@ export const AppEpicConfigAdd = yup.object().shape({
   colorPalette: yup.mixed<typeof colorSelect[number]>().oneOf(colorSelect).required(),
   numPalette: yup.mixed<typeof numColorSelect[number]>().oneOf(numColorSelect).required(),
 });
-export const ConfigGetValidation = yup.object().shape({
-  type: yup
-    .string()
-    .test(
-      'type',
-      'Must be exactly configType or null',
-      (val) => configType.some((type) => type === val) || val === 'null'
-    )
-    .required()
-    .defined(),
-});
+export const ConfigGetValidation = yup
+  .string()
+  .nullable()
+  .test('type', 'Must be exactly configType or null', (val) => val === null || configType.some((type) => type === val));
 
 export type AppConfig = EpicConfig | GlobalConfig;
 export type AppConfigResponse = AppConfig & ResponsMongo;

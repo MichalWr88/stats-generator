@@ -1,7 +1,9 @@
-import { SprintWithStats } from 'src/models/Sprint';
+"use client";
+import useGetSprints from '@/hooks/useGetSprints';
+import { SprintWithStats } from '@/models/Sprint';
+import { setStatsSprints } from '@/utils/SprintsMapper';
 import React, { ReactNode, useContext, useEffect, useState, createContext } from 'react';
-import { setStatsSprints } from 'src/utils/SprintsMapper';
-import useGetSprints from '../../api/hooks/useGetSprints';
+
 
 export interface ContextData {
   data: Array<SprintWithStats>;

@@ -1,6 +1,8 @@
-import { Sprint } from 'src/models/Sprint';
+"use client";
+import { editSprintData } from '@/api/dataProvider';
+import { Sprint } from '@/models/Sprint';
 import { useMutation, UseMutateFunction, useQueryClient } from '@tanstack/react-query';
-import { editSprintData } from '../dataProvider';
+
 // import { queryClient } from '../queryClient';
 
 const useEditSprint = (): {

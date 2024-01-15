@@ -1,10 +1,13 @@
-import Toast from '@/components/Toast';
-import { queryClient } from '@/components/api/queryClient';
+"use client";
 import { QueryClientProvider } from '@tanstack/react-query';
 import { ReactNode } from 'react';
-import { ErrorBoundary } from 'src/utils/ReactBoundry';
-import Loader from 'src/components/shared/Loader';
+
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { queryClient } from '@/api/queryClient';
+
+import Loader from './shared/Loader';
+import { ErrorBoundary } from '@/utils/ReactBoundry';
+import Toast from './shared/Toast';
 
 type Props = {
   children: ReactNode;
