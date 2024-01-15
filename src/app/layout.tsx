@@ -1,9 +1,9 @@
 import { clsx } from 'clsx';
 import { Archivo_Narrow, Pacifico } from 'next/font/google';
-
 import './globals.css';
 import NavBar from '@/components/shared/NavBar';
-import Footer from 'src/components/shared/Footer';
+import GlobalWrapper from '@/components/GlobalWrapper';
+import Footer from '@/components/shared/Footer';
 
 const interRoboto = Archivo_Narrow({
   subsets: ['latin'],
@@ -26,7 +26,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en" className={clsx(interRoboto.className)}>
       <body className="flex flex-col items-center content-center w-screen h-screen overflow-hidden text-brand-font-color">
         <NavBar />
-        <main className="container flex flex-col flex-grow mx-auto bg-gray-300">{children}</main>
+        <main className="container flex flex-col flex-grow mx-auto bg-gray-300">
+          <GlobalWrapper>{children}</GlobalWrapper>
+        </main>
         <Footer />
       </body>
     </html>
