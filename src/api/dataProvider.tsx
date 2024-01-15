@@ -21,7 +21,7 @@ export const editSprintData = async (data: Sprint): Promise<Sprint> => {
 export const getAllSprints = async (
   pagination?: PaginationRequest | null
 ): Promise<PaginationResponseAggregate<ResponsSprint>> => {
-  const resp = await axiosInstance.get<PaginationResponseAggregate<ResponsSprint>>('./api/mongo/sprint', {
+  const resp = await axiosInstance.get<PaginationResponseAggregate<ResponsSprint>>('/api/mongo/sprint', {
     params: pagination || {
       page: DEFAULT_PAGE,
       pageSize: DEFAULT_PAGE_SIZE,
@@ -30,20 +30,20 @@ export const getAllSprints = async (
   return resp.data;
 };
 export const downloadIssuesCSV = async (id: number) => {
-  const resp = await axiosInstance.get('./api/mongo/report', {
+  const resp = await axiosInstance.get('/api/mongo/report', {
     params: { id },
     responseType: 'blob',
   });
   return resp.data;
 };
 export const downloadAllSprintsCSV = async (): Promise<string> => {
-  const resp = await axiosInstance.get('./api/mongo/report-all', {
+  const resp = await axiosInstance.get('/api/mongo/report-all', {
     responseType: 'blob',
   });
   return resp.data;
 };
 export const getAppConfig = async (type: RequestGetConfigType): Promise<Array<AppConfigResponse>> => {
-  const resp = await axiosInstance.get<Array<AppConfigResponse>>('./api/mongo/config/get', {
+  const resp = await axiosInstance.get<Array<AppConfigResponse>>('/api/mongo/config', {
     params: { type },
   });
   return resp.data.sort((a, b) => a.type.localeCompare(b.type));
