@@ -1,4 +1,3 @@
-
 import { type } from 'os';
 import Mongodb from './mongoClass';
 import { AppConfig, AppConfigResponse, RequestGetConfigType } from '@/models/AppConfig';
@@ -19,8 +18,8 @@ class MongoConfig extends Mongodb<ConfigCollection> {
     return await this.model.findByIdAndDelete(id);
   }
   public async getAllConfigByType(type: RequestGetConfigType) {
-    // const body = type ? {} : { type };
-    return await this.model.find(type);
+    const body = type ? { type } : {};
+    return await this.model.find(body);
   }
   public async getAllConfigGroupedByType() {
     return await this.model.aggregate([
