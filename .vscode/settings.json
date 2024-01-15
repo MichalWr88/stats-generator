@@ -11,15 +11,18 @@
     "Bclosed",
     "Breview",
     "Brfd",
+    "clsx",
     "daygrid",
     "fullcalendar",
     "indexx",
     "mappedresult",
     "multimonth",
+    "nanum",
     "Rdone",
     "Rnew",
     "Rreview",
     "Rrfd",
+    "tanstack",
     "Typeofwork"
   ]
 }
