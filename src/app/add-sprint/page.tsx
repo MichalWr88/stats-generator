@@ -1,11 +1,11 @@
-import useGetAppConfig from '@/components/api/hooks/useGetAppConfig';
-import SelectField from '@/components/SelectField';
-import SprintForm from '@/components/SprintForm';
-import Table from 'src/components/table/Table';
-import UploadFile from '@/components/UploadFile';
-import { allImoGroups } from 'src/data/epicGroups';
-import { Issue } from 'src/models/Sprint';
-import WithNavBar from 'layouts/WithNavBar';
+"use client";
+import SelectField from '@/components/Forms/SelectField';
+import SprintForm from '@/components/Forms/SprintForm';
+import UploadFile from '@/components/shared/UploadFile';
+import Table from '@/components/table/Table';
+import { allImoGroups } from '@/data/epicGroups';
+import useGetAppConfig from '@/hooks/useGetAppConfig';
+import { Issue } from 'next/dist/build/swc';
 import React, { useState, useMemo } from 'react';
 import { Column } from 'react-table';
 
@@ -13,7 +13,7 @@ const AddSprintPage = () => {
   const { data: epicList = [] } = useGetAppConfig('epic');
 
   const [data, setData] = useState<Array<Issue>>([]);
-  const updateMyData = (value: string, rowIndex: number, columnId: string) => {
+  const updateMyData = (value: string, rowIndex: number, columnId: keyof Issue) => {
     setData((old) =>
       old.map((row, index) => {
         if (index === rowIndex) {
@@ -27,7 +27,7 @@ const AddSprintPage = () => {
     );
   };
   const columns: Array<Column<Issue>> = useMemo(
-    () => [
+    (): Array<Column<Issue>> => [
       {
         Header: 'Issues',
         columns: [
@@ -51,7 +51,7 @@ const AddSprintPage = () => {
                   <SelectField
                     options={epicList.map((epic) => epic.name)}
                     initValue={cell.row.original.EpicGroup}
-                    updateMyData={(value) => updateMyData(value, cell.row.index, cell.column.id)}
+                    updateMyData={(value) => updateMyData(value, cell.row.index, cell.column.id as unknown as keyof Issue)}
                   />
                 </div>
               );
@@ -65,7 +65,7 @@ const AddSprintPage = () => {
                 <SelectField
                   options={Object.keys(allImoGroups)}
                   initValue={cell.row.original.Typeofwork}
-                  updateMyData={(value) => updateMyData(value, cell.row.index, cell.column.id)}
+                  updateMyData={(value) => updateMyData(value, cell.row.index, cell.column.id as unknown as keyof Issue)}
                 />
               );
             },
@@ -128,13 +128,12 @@ const AddSprintPage = () => {
     setData(arr);
   };
   return (
-    <WithNavBar>
+    <>
       <SprintForm issues={data} />
       <UploadFile onLoad={addFile} />
-      <div className="">
-        <Table data={data} columns={columns} />
-      </div>
-    </WithNavBar>
+
+      <Table data={data} columns={columns} />
+    </>
   );
 };
 
