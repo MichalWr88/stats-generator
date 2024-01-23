@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { ResponsMongo } from './mongo/Mongo';
 import * as yup from 'yup';
+import { type ResponsMongo } from './mongo/Mongo';
 
 export const RequestSchemaAdd: yup.ObjectSchema<RequestStatSprint> = yup.object().shape({
   new: yup.number().min(0).required(),
@@ -67,7 +67,7 @@ export interface Issue {
   Issuesummary: string;
   Hours: string | number;
   IssueType: string;
-  EpicLink: string | null | undefined;
+  EpicLink?: string | null;
   Username: string;
   WorkDescription: string;
   ParentKey: string | null | undefined;
@@ -115,6 +115,7 @@ export type ResponsSprintWithoutIssues = Omit<ResponsSprint, 'issues' | '_id' | 
 export type ResponsSprintForCSV = Pick<Sprint, 'nr' | 'end' | 'start' | 'issues'>;
 export type LegacyIssue = Issue & { NR: number };
 
+// eslint-disable-next-line no-unused-vars
 export type IssueExcel = { [key in TypeofworkList]: number | string };
 
 export interface ExcelSprint extends IssueExcel {
