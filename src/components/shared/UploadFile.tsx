@@ -1,9 +1,9 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-import { AppConfigResponse } from 'src/models/AppConfig';
-import { Issue } from 'src/models/Sprint';
-import useGetAppConfig from '../../api/hooks/useGetAppConfig';
+import useGetAppConfig from '@/hooks/useGetAppConfig';
+import { type AppConfigResponse } from '@/models/AppConfig';
+import { type TypeofworkList, type Issue } from '@/models/Sprint';
 
 interface Props {
+  // eslint-disable-next-line no-unused-vars
   onLoad?: (file: Array<Issue>) => void;
 }
 
@@ -15,19 +15,17 @@ const parseHTML = (csv: string, epicList: Array<AppConfigResponse>): Array<Issue
   const html = document.createElement('html');
   html.innerHTML = csv;
   const body = html.getElementsByTagName('tbody');
-  const htmlLines = body[0].getElementsByTagName('tr');
+  const htmlLines = body?.[0]?.getElementsByTagName('tr');
 
-  const lines = Array.from(htmlLines).map((tr) => {
+  const lines = Array.from(htmlLines ?? []).map((tr) => {
     const arr = Array.from(tr.getElementsByTagName('td'));
     return arr.map((td) => td.innerText);
   });
 
-  // @ts-ignore for shift()
-  const header = lines.shift().map((head) => {
+  const header = lines?.shift()?.map((head) => {
     const regexp = /\W/g;
-
     return head.split(regexp).join('');
-  });
+  }) as (keyof Issue)[] | undefined;
 
   lines.shift(); // get rid of definitions
 
@@ -44,28 +42,29 @@ const parseHTML = (csv: string, epicList: Array<AppConfigResponse>): Array<Issue
       Typeofwork: null,
       EpicGroup: null,
     };
-    header.forEach((h, i) => {
-      if (h === 'EpicLink' && obj[h]) {
-        return (obj[h] = `${line[i]} - ${obj[h]}`);
-      }
-      if (h === 'Hours' && line[i].includes(',')) {
-        return (obj[h] = line[i].split(',').join('.'));
-      }
-      // @ts-ignore for obj[h]
-      if (!checkIsCorrectHeader(h)) return;
 
-      // @ts-ignore for obj[h] ? bits[i].slice(1, -1) :
-      return (obj[h] = line[i] ?? null);
+    header?.forEach((h, i) => {
+      if (h === 'EpicLink' && obj[h]) {
+        const value = `${line[i] ?? ''} - ${obj[h] ?? ''}`;
+        return (obj[h] = value);
+      }
+      if (h === 'Hours' && line?.[i]?.includes(',')) {
+        return (obj.Hours = line?.[i]?.split(',').join('.') ?? '');
+      }
+
+      if (!checkIsCorrectHeader(h as unknown as keyof Issue)) return;
+
+      obj[h] = line?.[i] as unknown as TypeofworkList;
     }); // or use reduce here
     return mappedValidateIsuue(obj, epicList);
   });
-
-  return issueList.sort((a, b) => {
+  console.log(issueList);
+  return [...issueList].sort((a, b) => {
     if (a.Typeofwork && b.Typeofwork) {
       return a.Typeofwork.localeCompare(b.Typeofwork);
     }
     return -1;
-  }) as Array<Issue>;
+  });
 };
 
 class Mapper {
@@ -74,7 +73,7 @@ class Mapper {
     this.epicList = epicList;
   }
 
-  public imoMappedIssue(): Mapper {
+  public imoMappedIssue() {
     const ORGTasks = ['CSS-1812', 'CSS-1811'];
     if (ORGTasks.includes(this.issue.IssueKey)) {
       this.issue.Typeofwork = 'Organization';
@@ -84,32 +83,31 @@ class Mapper {
     }
     return this;
   }
-  public groupEpicMappedIssue(): Mapper {
+  public groupEpicMappedIssue() {
     this.epicList.forEach((config) => {
       if (config.type === 'global') {
         throw new Error('config is not typeof EpicConfigResponse');
       }
 
       if (
+        config.type === 'epic' &&
         config.epicsSearch.some(
           (text) =>
-            this.issue.Issuesummary.toLocaleLowerCase().includes(text.toLocaleLowerCase()) ||
-            this.issue.EpicLink?.toLocaleLowerCase().includes(text.toLocaleLowerCase()) ||
+            this.issue.Issuesummary.toLocaleLowerCase().includes(text.toLocaleLowerCase()) ??
+            this.issue.EpicLink?.toLocaleLowerCase().includes(text.toLocaleLowerCase()) ??
             this.issue.WorkDescription.toLocaleLowerCase().includes(text.toLocaleLowerCase())
         )
       ) {
         this.issue.EpicGroup = config.name;
-        return;
       } else if (
         config.textSearch.some(
           (text) =>
-            this.issue.Issuesummary.toLocaleLowerCase().includes(text.toLocaleLowerCase()) ||
-            this.issue.EpicLink?.toLocaleLowerCase().includes(text.toLocaleLowerCase()) ||
+            this.issue.Issuesummary.toLocaleLowerCase().includes(text.toLocaleLowerCase()) ??
+            this.issue.EpicLink?.toLocaleLowerCase().includes(text.toLocaleLowerCase()) ??
             this.issue.WorkDescription.toLocaleLowerCase().includes(text.toLocaleLowerCase())
         )
       ) {
-        this.issue.EpicGroup = this.issue.EpicGroup || config.name;
-        return;
+        this.issue.EpicGroup = this.issue.EpicGroup ?? config.name;
       }
     });
 
@@ -141,7 +139,6 @@ const checkIsCorrectHeader = (header: keyof Issue) => {
 const UploadFile = ({ onLoad }: Props) => {
   const { data: epicList = [] } = useGetAppConfig('epic');
 
-  // const fileInput = useRef(null);
   const isAcceptType = (name: string, accept: Array<AcceptType>) => {
     const reg = /\.[0-9a-z]+$/;
     const type = name.match(reg);
@@ -152,7 +149,7 @@ const UploadFile = ({ onLoad }: Props) => {
     return kb / 1024 / 1024 > 10;
   };
   const handleChange = (fileInput: React.ChangeEvent<HTMLInputElement>) => {
-    if (fileInput.target.files && fileInput.target.files[0]) {
+    if (fileInput?.target?.files?.[0]) {
       if (!isAcceptType(fileInput.target.files[0].name, accept)) {
         console.log('niepoprawny format pliku');
       }
@@ -179,15 +176,15 @@ const UploadFile = ({ onLoad }: Props) => {
   };
 
   return (
-    <div className="flex justify-center items-center w-full">
+    <div className="flex items-center justify-center w-full">
       <label
         htmlFor="dropzone-file"
-        className="flex flex-col justify-center items-center w-full h-28 bg-gray-50 rounded-lg border-2 border-gray-300 border-dashed cursor-pointer dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+        className="flex flex-col items-center justify-center w-full border-2 border-gray-300 border-dashed rounded-lg cursor-pointer h-28 bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
       >
-        <div className="flex flex-col justify-center items-center pt-5 pb-6">
+        <div className="flex flex-col items-center justify-center pt-5 pb-6">
           <svg
             aria-hidden="true"
-            className="mb-3 w-10 h-10 text-gray-400"
+            className="w-10 h-10 mb-3 text-gray-400"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"

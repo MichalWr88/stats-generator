@@ -1,4 +1,4 @@
-import React, { useEffect, useState, ChangeEvent } from 'react';
+import { useEffect, useState, ChangeEvent } from 'react';
 
 interface Props {
   options: Array<string>;
@@ -7,14 +7,14 @@ interface Props {
 }
 
 const SelectField = ({ initValue, updateMyData, options }: Props) => {
-  const [value, setValue] = useState(initValue || '');
+  const [value, setValue] = useState(initValue ?? '');
 
   const onChange = (e: ChangeEvent<HTMLSelectElement>) => {
     setValue(() => e.target.value);
-    updateMyData && updateMyData(e.target.value);
+    updateMyData?.(e.target.value);
   };
   useEffect(() => {
-    setValue(initValue || '');
+    setValue(initValue ?? '');
   }, [initValue]);
 
   return (
@@ -42,7 +42,7 @@ const SelectField = ({ initValue, updateMyData, options }: Props) => {
         >
           {options.map((value) => {
             return (
-              <option selected value={value} key={value}>
+              <option  value={value} key={value}>
                 {value}
               </option>
             );
