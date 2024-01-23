@@ -1,29 +1,30 @@
-"use client";
+'use client';
+import React, { useState, useMemo } from 'react';
+import { type Column } from 'react-table';
 import SelectField from '@/components/Forms/SelectField';
 import SprintForm from '@/components/Forms/SprintForm';
 import UploadFile from '@/components/shared/UploadFile';
 import Table from '@/components/table/Table';
 import { allImoGroups } from '@/data/epicGroups';
 import useGetAppConfig from '@/hooks/useGetAppConfig';
-import { Issue } from 'next/dist/build/swc';
-import React, { useState, useMemo } from 'react';
-import { Column } from 'react-table';
+import { type Issue } from '@/models/Sprint';
 
 const AddSprintPage = () => {
   const { data: epicList = [] } = useGetAppConfig('epic');
 
   const [data, setData] = useState<Array<Issue>>([]);
   const updateMyData = (value: string, rowIndex: number, columnId: keyof Issue) => {
-    setData((old) =>
-      old.map((row, index) => {
-        if (index === rowIndex) {
-          return {
-            ...old[rowIndex],
-            [columnId]: value,
-          };
-        }
-        return row;
-      })
+    setData(
+      (old) =>
+        old.map((row, index) => {
+          if (index === rowIndex) {
+            return {
+              ...old[rowIndex],
+              [columnId]: value,
+            };
+          }
+          return row;
+        }) as Issue[]
     );
   };
   const columns: Array<Column<Issue>> = useMemo(
@@ -51,7 +52,9 @@ const AddSprintPage = () => {
                   <SelectField
                     options={epicList.map((epic) => epic.name)}
                     initValue={cell.row.original.EpicGroup}
-                    updateMyData={(value) => updateMyData(value, cell.row.index, cell.column.id as unknown as keyof Issue)}
+                    updateMyData={(value) =>
+                      updateMyData(value, cell.row.index, cell.column.id as unknown as keyof Issue)
+                    }
                   />
                 </div>
               );
@@ -65,7 +68,9 @@ const AddSprintPage = () => {
                 <SelectField
                   options={Object.keys(allImoGroups)}
                   initValue={cell.row.original.Typeofwork}
-                  updateMyData={(value) => updateMyData(value, cell.row.index, cell.column.id as unknown as keyof Issue)}
+                  updateMyData={(value) =>
+                    updateMyData(value, cell.row.index, cell.column.id as unknown as keyof Issue)
+                  }
                 />
               );
             },
