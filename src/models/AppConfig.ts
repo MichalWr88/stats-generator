@@ -1,5 +1,5 @@
-import { ResponsMongo } from './mongo/Mongo';
 import * as yup from 'yup';
+import { type ResponsMongo } from './mongo/Mongo';
 export const configType = ['epic', 'global'];
 export type RequestGetConfigType = typeof configType[number] | null;
 export const colorSelect = [
@@ -39,7 +39,7 @@ export interface EpicConfig {
   value?: never;
 }
 export interface GlobalConfig {
-  type: typeof configType[1];
+  type: 'global';
   name: string;
   value: string;
 }
