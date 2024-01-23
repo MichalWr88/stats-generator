@@ -24,7 +24,7 @@ const Table = <T,>({ data, selectSprint, columns }: Props<T>) => {
                 headerGroup.headers.map((column, idd) => (
                   // Apply the header cell props
                   <th
-                    className="p-2 text-white border-2 border-zinc-900 bg-slate-500"
+                    className="p-2 text-white bg-slate-500 sticky top-0 border-2 border-zinc-900"
                     {...column.getHeaderProps([
                       {
                         // @ts-ignore
@@ -74,7 +74,7 @@ const Table = <T,>({ data, selectSprint, columns }: Props<T>) => {
                 // ${row.original.Typeofwork === "Innovation" ? "bg-blue-400" : ""}
 
                 // hover:bg-slate-400 transition-colors cursor-pointer`}
-                onClick={() => selectSprint && selectSprint(row.original)}
+                onClick={() => selectSprint?.(row.original)}
               >
                 {
                   // Loop over the rows cells
