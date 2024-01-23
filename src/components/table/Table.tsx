@@ -1,7 +1,6 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-
-import { Column, useTable } from 'react-table';
+import { type Column, useTable } from 'react-table';
 interface Props<T> {
+  // eslint-disable-next-line no-unused-vars
   selectSprint?: (sprint: T) => void;
   readonly data: Array<T & object>;
   readonly columns: Array<Column<T & object>>;
@@ -18,7 +17,7 @@ const Table = <T,>({ data, selectSprint, columns }: Props<T>) => {
           // Loop over the header rows
           headerGroups.map((headerGroup, id) => (
             // Apply the header row props
-            <tr {...headerGroup.getHeaderGroupProps()} key={id}>
+            <tr {...headerGroup.getHeaderGroupProps()} key={`${headerGroup.id}_${id}`}>
               {
                 // Loop over the headers in each row
                 headerGroup.headers.map((column, idd) => (
@@ -27,15 +26,17 @@ const Table = <T,>({ data, selectSprint, columns }: Props<T>) => {
                     className="p-2 text-white bg-slate-500 sticky top-0 border-2 border-zinc-900"
                     {...column.getHeaderProps([
                       {
+                        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                         // @ts-ignore
-                        className: column.className,
+                        className: column.className as string,
+                        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                         // @ts-ignore
-                        style: column.style,
+                        style: column.style as string,
                       },
                       //   getColumnProps(column),
                       //   getHeaderProps(column),
                     ])}
-                    key={idd}
+                    key={`${column.id}_${idd}`}
                   >
                     {
                       // Render the header
@@ -59,7 +60,7 @@ const Table = <T,>({ data, selectSprint, columns }: Props<T>) => {
               // Apply the row props
               <tr
                 {...row.getRowProps()}
-                key={id2d}
+                key={`${row.id}_${id2d}`}
                 // className={`${
                 //   row.original.Typeofwork === "Organization"
                 //     ? "bg-green-600"
@@ -82,7 +83,11 @@ const Table = <T,>({ data, selectSprint, columns }: Props<T>) => {
                     // Apply the cell props
 
                     return (
-                      <td {...cell.getCellProps()} key={id2d} className="p-2 border-2 border-zinc-900">
+                      <td
+                        {...cell.getCellProps()}
+                        key={`${cell.row.id}_${id2d}`}
+                        className="p-2 border-2 border-zinc-900"
+                      >
                         {
                           // Render the cell contents
                           cell.render('Cell')
