@@ -1,7 +1,12 @@
-import { PaginationRequest, PaginationResponseAggregate } from 'src/models/mongo/Mongo';
-import { SprintCollectName, SprintCollection, SprintScheme } from 'src/models/mongo/SprintScheme';
-import { Issue, ResponsSprint, ResponsSprintForCSV, Sprint, LegacyIssue } from 'src/models/Sprint';
-
+import {
+  type ResponsSprint,
+  type ResponsSprintForCSV,
+  type Sprint,
+  type LegacyIssue,
+  type Issue,
+} from '@/models/Sprint';
+import { type PaginationRequest, type PaginationResponseAggregate } from '@/models/mongo/Mongo';
+import { type SprintCollection, SprintScheme, SprintCollectName } from '@/models/mongo/SprintScheme';
 import Mongodb from './mongoClass';
 import { paginationResponse, queryPagination } from './queryHelpers';
 class MongoSprint extends Mongodb<SprintCollection> {
@@ -10,10 +15,10 @@ class MongoSprint extends Mongodb<SprintCollection> {
   }
 
   public async getAll(): Promise<ResponsSprint[]> {
-    return await this.model.find({}, {}, { sort: { start: -1 } });
+    return this.model.find({}, {}, { sort: { start: -1 } });
   }
   public async getAllWithoutMongoObj(): Promise<ResponsSprint[]> {
-    return await this.model.find({}, { _id: 0, createdAt: 0, updatedAt: 0 }, { sort: { start: 1 } });
+    return this.model.find({}, { _id: 0, createdAt: 0, updatedAt: 0 }, { sort: { start: 1 }, lean: true });
   }
 
   public async getAllPagination(pagination: PaginationRequest) {
@@ -24,31 +29,31 @@ class MongoSprint extends Mongodb<SprintCollection> {
     return paginationResponse<ResponsSprint>(resp, pagination.page, pagination.pageSize);
   }
   public async getLastOne(): Promise<ResponsSprint | null> {
-    return await this.model.findOne({}, {}, { sort: { nr: -1 } });
+    return this.model.findOne({}, {}, { sort: { nr: -1 } });
   }
   public async geByNrSprint(nr: number): Promise<ResponsSprint | null> {
-    return await this.model.findOne({ nr });
+    return this.model.findOne({ nr });
   }
   public async geIssuesByNrSprint(nr: number): Promise<ResponsSprintForCSV | null> {
-    return await this.model.findOne({ nr }, { 'issues._id': 0 });
+    return this.model.findOne({ nr }, { 'issues._id': 0 });
   }
   public async getLastByLimit(): Promise<ResponsSprint | null> {
-    return await this.model.findOne({});
+    return this.model.findOne({});
   }
   public async addOne(sender: Sprint): Promise<Sprint> {
     const sprint = new this.model(sender);
-    return await sprint.save();
+    return sprint.save();
   }
   public async editOne(sender: Sprint): Promise<ResponsSprint | null> {
     return this.model.findOneAndUpdate<ResponsSprint>({ nr: sender.nr }, { $set: sender }, { returnDocument: 'after' });
   }
   public async updateOne(sender: Sprint): Promise<Sprint> {
     const sprint = new this.model(sender);
-    return await sprint.save();
+    return sprint.save();
   }
   public async updateLegacySprintsIssueArr(obj: Issue) {
     const { NR, ...iss } = obj as LegacyIssue;
-    return await this.model.updateOne({ nr: NR }, { $push: { issues: iss } });
+    return this.model.updateOne({ nr: NR }, { $push: { issues: iss } });
   }
 }
 export default MongoSprint;
