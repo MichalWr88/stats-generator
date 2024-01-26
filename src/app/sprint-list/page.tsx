@@ -1,32 +1,31 @@
-import Modal from 'src/components/shared/Button/Modal';
-import SprintForm from '@/components/SprintForm';
-import Table from 'src/components/table/Table';
-import { SprintWithStats } from 'src/models/Sprint';
-import WithNavBar from 'layouts/WithNavBar';
+'use client';
 import React, { useEffect, useState, useMemo } from 'react';
-import { Column } from 'react-table';
-
-import { setStatsSprints } from 'src/utils/SprintsMapper';
 import { FaFileDownload } from 'react-icons/fa';
-import useGetSprints from '@/components/api/hooks/useGetSprints';
-import { getIssueCSV, getAllSprintsCSV } from 'src/utils/reportsUtils';
-import Button from 'src/components/shared/Button/Button';
+import { type Column } from 'react-table';
+import SprintForm from '@/components/Forms/SprintForm';
+import Button from '@/components/shared/Button/Button';
+import Modal from '@/components/shared/Button/Modal';
+import Table from '@/components/table/Table';
+import useGetSprints from '@/hooks/useGetSprints';
+import { type SprintWithStats } from '@/models/Sprint';
+import { setStatsSprints } from '@/utils/SprintsMapper';
+import { getIssueCSV, getAllSprintsCSV } from '@/utils/reportsUtils';
 
 type EditSprint = {
   isOpen: boolean;
   sprint: SprintWithStats | undefined;
 };
-const cssBug = 'vertical-rl uppercase p-2 border-2 border-zinc-900 bg-red-300';
-const cssRequest = ' uppercase vertical-rl p-2 border-2 border-zinc-900 bg-indigo-300';
+const cssBug = 'sticky top-7 vertical-rl uppercase p-2 border-2 border-zinc-900 bg-red-300';
+const cssRequest = 'sticky top-7 uppercase vertical-rl p-2 border-2 border-zinc-900 bg-indigo-300';
 
 const SprintListPage = () => {
   const { data } = useGetSprints();
   const [sprintsList, setSprintsList] = useState<Array<SprintWithStats>>([]);
   const [editSprint, setEditSprint] = useState<EditSprint>({ isOpen: false, sprint: undefined });
-
+  console.log(editSprint);
   useEffect(() => {
     if (!data) return;
-    const list = data.data.sort((a, b) => {
+    const list = [...data.data].sort((a, b) => {
       return a.nr > b.nr ? 1 : -1;
     });
     setSprintsList(() => {
@@ -42,68 +41,74 @@ const SprintListPage = () => {
     () => [
       {
         Header: 'Sprint',
+        className: 'sticky top-0 p-2 border-2 border-zinc-900 bg-slate-500 text-white',
         columns: [
           {
             Header: 'NR',
             accessor: 'nr',
-            className: 'p-2 border-2 border-zinc-900 bg-slate-500 text-white',
+            className: 'sticky top-7 vertical-rl p-2 border-2 border-zinc-900 bg-slate-500 text-white',
           },
           {
             Header: 'Start',
             accessor: 'start',
+            className: 'sticky top-7 p-2 border-2 border-zinc-900 bg-slate-500 text-white',
             Cell: ({ value }: { value: Date }) => new Date(value).toLocaleDateString('pl-PL'),
           },
           {
             Header: 'Koniec',
             accessor: 'end',
-
+            className: 'sticky top-7 p-2 border-2 border-zinc-900 bg-slate-500 text-white',
             Cell: ({ value }: { value: Date }) => new Date(value).toLocaleDateString('pl-PL'),
           },
           {
             Header: 'Zaplanowane',
             accessor: 'plan',
-            className: 'vertical-rl p-2 border-2 border-zinc-900 bg-slate-500 text-white',
+            className: 'sticky top-7 vertical-rl p-2 border-2 border-zinc-900 bg-slate-500 text-white',
           },
           {
             Header: 'Dowiezione',
             accessor: 'delivered',
-            className: 'vertical-rl p-2 border-2 border-zinc-900 bg-slate-500 text-white',
+            className: 'sticky top-7 vertical-rl p-2 border-2 border-zinc-900 bg-slate-500 text-white',
           },
         ],
       },
 
       {
         Header: 'Statystyki',
+        className: 'sticky top-0 p-2 border-2 border-zinc-900 bg-slate-500 text-white',
         columns: [
           {
             Header: 'Pręd ost 3',
+            className: 'sticky top-7 vertical-rl p-2 border-2 border-zinc-900 bg-slate-500 text-white',
             accessor: 'speedThree',
           },
           {
             Header: 'Pręd ost 6',
             accessor: 'speedSix',
+            className: 'sticky top-7 vertical-rl p-2 border-2 border-zinc-900 bg-slate-500 text-white',
           },
           {
             Header: 'Przewid.',
             accessor: 'predictability',
-            className: 'vertical-rl p-2 border-2 border-zinc-900 bg-slate-500 text-white',
+
+            className: 'sticky top-7 vertical-rl p-2 border-2 border-zinc-900 bg-slate-500 text-white',
           },
           {
             Header: 'Delta.',
             accessor: 'delta',
-            className: 'vertical-rl p-2 border-2 border-zinc-900 bg-slate-500 text-white',
+            className: 'sticky top-7 vertical-rl p-2 border-2 border-zinc-900 bg-slate-500 text-white',
           },
           {
             Header: 'Przewid. ost 3',
             accessor: 'predictabilityThree',
-            className: 'vertical-rl p-2 border-2 border-zinc-900 bg-slate-500 text-white',
+            className: 'sticky top-7 vertical-rl p-2 border-2 border-zinc-900 bg-slate-500 text-white',
           },
         ],
       },
 
       {
-        Header: 'Bug',
-        className: ' p-2 border-2 border-zinc-900 bg-red-300',
+        Header: 'Bugs',
+        className: 'sticky top-0 p-2  border-2 border-zinc-900 bg-red-300',
         columns: [
           {
             Header: 'Closed',
@@ -143,8 +148,8 @@ const SprintListPage = () => {
         ],
       },
       {
-        Header: 'Request',
-        className: ' p-2 border-2 border-zinc-900 bg-indigo-300',
+        Header: 'Requests',
+        className: 'sticky top-0 p-2 border-2 border-zinc-900 bg-indigo-300',
         columns: [
           {
             Header: 'new',
@@ -181,9 +186,18 @@ const SprintListPage = () => {
       },
       {
         Header: 'Actions',
+        className: 'sticky top-7 p-2 border-2 border-zinc-900 bg-slate-500 text-white',
+
         Cell: (cell: { row: { original: SprintWithStats } }) => (
           <div className="flex items-center justify-center">
-            <Button type="outline" clickHandle={() => getIssueCSV(cell.row.original)} className="flex items-center ">
+            <Button
+              type="outline"
+              clickHandle={() => {
+                // eslint-disable-next-line @typescript-eslint/no-floating-promises
+                getIssueCSV(cell.row.original);
+              }}
+              className="flex items-center "
+            >
               <FaFileDownload className="text-xl" /> Issues
             </Button>
             <Button
@@ -201,16 +215,17 @@ const SprintListPage = () => {
   );
 
   return (
-    <WithNavBar>
-      <>
-        <Button
-          clickHandle={() => {
-            getAllSprintsCSV();
-          }}
-        >
-          download all sprints
-        </Button>
-        <Table data={sprintsList} columns={columns} />
+    <>
+      <Button
+        clickHandle={() => {
+          // eslint-disable-next-line @typescript-eslint/no-floating-promises
+          getAllSprintsCSV();
+        }}
+      >
+        download all sprints
+      </Button>
+      <Table data={sprintsList} columns={columns} />
+      {editSprint.isOpen && (
         <Modal
           title="Edycja sprintu"
           opened={editSprint.isOpen}
@@ -233,8 +248,8 @@ const SprintListPage = () => {
             />
           )}
         </Modal>
-      </>
-    </WithNavBar>
+      )}
+    </>
   );
 };
 
