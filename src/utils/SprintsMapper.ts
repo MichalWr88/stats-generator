@@ -1,5 +1,6 @@
-import { ExcelSprint, Issue, IssueExcel, ResponsSprint, SprintWithStats } from 'src/models/Sprint';
-import { parseLocalDate } from 'src/utils';
+
+import { type IssueExcel, type ResponsSprint, type SprintWithStats, type ExcelSprint, type Issue } from '@/models/Sprint';
+import { parseLocalDate } from '.';
 
 export const formatNumberForExcel = (value: string | number) => {
   return value.toString().split('.').join(',');
@@ -43,24 +44,24 @@ export const setStatsSprints = (arr: Array<ResponsSprint>): Array<SprintWithStat
     }
     if (index === 1) {
       sprintWithStats.speedThree = (
-        [sprint.delivered, array[index - 1].delivered].reduce((a, b) => a + b, 0) / 2
+        [sprint.delivered ?? 0, array[index - 1]?.delivered ?? 0].reduce((a, b) => a + b, 0) / 2
       ).toFixed(2);
       sprintWithStats.speedSix = (
-        [sprint.delivered, array[index - 1].delivered].reduce((a, b) => a + b, 0) / 2
+        [sprint.delivered ?? 0, array[index - 1]?.delivered ?? 0].reduce((a, b) => a + b, 0) / 2
       ).toFixed(2);
     }
     if (index > 1) {
       sprintWithStats.speedThree = (
-        [sprint.delivered, array[index - 1].delivered, array[index - 2].delivered].reduce((a, b) => a + b, 0) / 3
+        [sprint.delivered ?? 0, array[index - 1]?.delivered ?? 0, array[index - 2]?.delivered ?? 0].reduce((a, b) => a + b, 0) / 3
       ).toFixed(2);
       if (index > 6) {
         const prevArr = new Array(6).fill('').map((_, id) => {
-          return array[index - id].delivered;
+          return array[index - id]?.delivered ?? 0;
         });
         sprintWithStats.speedSix = (prevArr.reduce((a, b) => a + b, 0) / 6).toFixed(2);
       } else {
         const prevArr = new Array(index - 1).fill('').map((elem, id) => {
-          return array[index - id].delivered;
+          return array[index - id]?.delivered ?? 0;
         });
         // todo fix speedSix for old sprints
         sprintWithStats.speedSix = (
@@ -72,8 +73,8 @@ export const setStatsSprints = (arr: Array<ResponsSprint>): Array<SprintWithStat
       sprintWithStats.predictabilityThree = (
         [
           Number(sprintWithStats.predictability),
-          Number(sprints[index - 1].predictability),
-          Number(sprints[index - 2].predictability),
+          Number(sprints[index - 1]?.predictability),
+          Number(sprints[index - 2]?.predictability),
         ].reduce((a, b) => a + b, 0) / 3
       ).toFixed(1);
       sprintWithStats.delta = Math.abs(100 - Number(sprintWithStats.predictability)).toFixed(1);
@@ -86,6 +87,7 @@ export const setStatsSprints = (arr: Array<ResponsSprint>): Array<SprintWithStat
 };
 
 export const sprintToExcelStat = (sprint: SprintWithStats): ExcelSprint => {
+  console.log(sprint.nr, sprint.issues);
   const {
     issues,
     speedThree,
@@ -131,10 +133,11 @@ export const sprintToExcelStat = (sprint: SprintWithStats): ExcelSprint => {
     BinTesting,
     Brfd,
     BonHold,
-    ...issuesToExcelHours(issues),
+    ...issuesToExcelHours(issues ?? []),
   };
 };
 export const sprintsToExcelStats = (sprints: Array<ResponsSprint>): Array<ExcelSprint> => {
   const mappedSprint = setStatsSprints(sprints);
+
   return mappedSprint.map((sprint) => sprintToExcelStat(sprint));
 };
