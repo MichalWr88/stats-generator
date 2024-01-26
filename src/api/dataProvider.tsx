@@ -1,8 +1,12 @@
-
-import { RequestGetConfigType, AppConfigResponse } from '@/models/AppConfig';
-import { Sprint, ResponsSprint } from '@/models/Sprint';
-import { PaginationRequest, PaginationResponseAggregate, DEFAULT_PAGE, DEFAULT_PAGE_SIZE } from '@/models/mongo/Mongo';
-import axios, { AxiosRequestConfig } from 'axios';
+import axios, { type AxiosRequestConfig } from 'axios';
+import { type RequestGetConfigType, type AppConfigResponse } from '@/models/AppConfig';
+import { type Sprint, type ResponsSprint } from '@/models/Sprint';
+import {
+  type PaginationRequest,
+  type PaginationResponseAggregate,
+  DEFAULT_PAGE,
+  DEFAULT_PAGE_SIZE,
+} from '@/models/mongo/Mongo';
 
 const config: AxiosRequestConfig = {
   baseURL: './',
@@ -16,14 +20,14 @@ export const sendSprintData = async (data: Sprint): Promise<Sprint> => {
   return resp.data;
 };
 export const editSprintData = async (data: Sprint): Promise<Sprint> => {
-  const resp = await axiosInstance.put<Sprint>('./api/mongo/sprint-edit', data);
+  const resp = await axiosInstance.put<Sprint>('./api/mongo/sprint', data);
   return resp.data;
 };
 export const getAllSprints = async (
   pagination?: PaginationRequest | null
 ): Promise<PaginationResponseAggregate<ResponsSprint>> => {
-  const resp = await axiosInstance.get<PaginationResponseAggregate<ResponsSprint>>('/api/mongo/sprint', {
-    params: pagination || {
+  const resp = await axiosInstance.get<PaginationResponseAggregate<ResponsSprint>>('/api/mongo/sprints', {
+    params: pagination ?? {
       page: DEFAULT_PAGE,
       pageSize: DEFAULT_PAGE_SIZE,
     },
@@ -31,14 +35,14 @@ export const getAllSprints = async (
   return resp.data;
 };
 export const downloadIssuesCSV = async (id: number) => {
-  const resp = await axiosInstance.get('/api/mongo/report', {
+  const resp = await axiosInstance.get<BlobPart>('/api/mongo/report', {
     params: { id },
     responseType: 'blob',
   });
   return resp.data;
 };
-export const downloadAllSprintsCSV = async (): Promise<string> => {
-  const resp = await axiosInstance.get('/api/mongo/report-all', {
+export const downloadAllSprintsCSV = async () => {
+  const resp = await axiosInstance.get<BlobPart>('/api/mongo/report', {
     responseType: 'blob',
   });
   return resp.data;
