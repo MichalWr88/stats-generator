@@ -1,5 +1,6 @@
-import { Model, Schema } from 'mongoose';
-import { BugStatSprint, Issue, RequestStatSprint, Sprint } from '../Sprint';
+import { Schema, type Model } from "mongoose";
+import { type Issue, type BugStatSprint, type RequestStatSprint, type Sprint } from "../Sprint";
+
 export const IssueStatScheme = new Schema<Issue, Model<Issue>>({
   IssueKey: {
     type: String,
