@@ -1,13 +1,12 @@
-import { SprintWithStats } from 'src/models/Sprint';
-import React, { useEffect, useState } from 'react';
+import dynamic from 'next/dynamic';
+import { useState, useEffect } from 'react';
+import { type DefaultColors } from 'tailwindcss/types/generated/colors';
+import useColors from '@/hooks/useColors';
+import useGetAppConfig from '@/hooks/useGetAppConfig';
+import { type AppConfigResponse, type EpicConfigResponse } from '@/models/AppConfig';
+import { type SprintWithStats } from '@/models/Sprint';
 import { useSprintsContext } from '../store/ChartSprintsContext';
 
-import dynamic from 'next/dynamic';
-
-import { AppConfigResponse, EpicConfigResponse } from 'src/models/AppConfig';
-import useColors from '../api/hooks/useColors';
-import { DefaultColors } from 'tailwindcss/types/generated/colors';
-import useGetAppConfig from '../api/hooks/useGetAppConfig';
 
 const StackedSprintsBar = dynamic(() => import('./StackedSprintsBar'), {
   ssr: false,
