@@ -10,7 +10,7 @@
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "prepare": "husky install",
-    "bump-tag-patch": "bump patch --tag --commit --push",
+    "bump-tag-patch": "bump patch --tag  --commit --push",
     "bump-tag-minor": "bump minor --tag --commit --push",
     "bump-tag-major": "bump major --tag --commit --push"
   },
@@ -51,6 +51,7 @@
     "react-icons": "^4.4.0",
     "react-page-scroller": "^3.0.1",
     "react-table": "^7.8.0",
+    "usehooks-ts": "^2.10.0",
     "yup": "^1.0.0-beta.4"
   },
   "devDependencies": {
