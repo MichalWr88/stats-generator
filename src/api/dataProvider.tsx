@@ -16,7 +16,7 @@ const config: AxiosRequestConfig = {
 const axiosInstance = axios.create(config);
 
 export const sendSprintData = async (data: Sprint): Promise<Sprint> => {
-  const resp = await axiosInstance.put<Sprint>('./api/mongo/sprint', data);
+  const resp = await axiosInstance.post<Sprint>('./api/mongo/sprint', data);
   return resp.data;
 };
 export const editSprintData = async (data: Sprint): Promise<Sprint> => {
@@ -35,8 +35,7 @@ export const getAllSprints = async (
   return resp.data;
 };
 export const downloadIssuesCSV = async (id: number) => {
-  const resp = await axiosInstance.get<BlobPart>('/api/mongo/report', {
-    params: { id },
+  const resp = await axiosInstance.get<BlobPart>(`/api/mongo/report/${id}`, {
     responseType: 'blob',
   });
   return resp.data;
