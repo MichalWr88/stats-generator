@@ -3,7 +3,7 @@
 // import { HiOutlinePresentationChartBar } from 'react-icons/hi';
 // import { MdOutlineBackupTable, MdLibraryAdd } from 'react-icons/md';
 // import { GoSettings } from 'react-icons/go';
-import { NavLinkData } from '@/models/Routing';
+import { type NavLinkData } from '@/models/Routing';
 
 
 
