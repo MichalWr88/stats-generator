@@ -1,6 +1,6 @@
 import React, { useMemo, useEffect, useState } from 'react';
-import { Controller, DeepRequired, FieldError, FieldErrorsImpl, Merge, useFormContext } from 'react-hook-form';
 import DatePicker from 'react-datepicker';
+import { Controller, type DeepRequired, type FieldError, type FieldErrorsImpl, type Merge, useFormContext } from 'react-hook-form';
 import 'react-datepicker/dist/react-datepicker.css';
 import { toast } from 'react-hot-toast';
 type InputType = 'text' | 'number' | 'date';

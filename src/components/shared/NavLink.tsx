@@ -1,8 +1,9 @@
 'use client';
-import { NavLinkData } from 'src/models/Routing';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React from 'react';
+import { type NavLinkData } from '@/models/Routing';
+
 
 type Props = {
   link: NavLinkData;

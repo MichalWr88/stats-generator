@@ -32,6 +32,7 @@ type NumColorSelect = typeof numColorSelect[number];
 export interface EpicConfig {
   type: 'epic';
   name: string;
+  epics?: Array<string>;
   epicsSearch: Array<string>;
   textSearch: Array<string>;
   colorPalette: typeof colorSelect[number];

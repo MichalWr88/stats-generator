@@ -1,8 +1,9 @@
-import React, { ReactNode } from 'react';
-import { useForm, FormProvider, FieldValues, DeepPartial, Resolver } from 'react-hook-form';
-
-interface Props<T> {
+//@ts-ignore
+import React, { type ReactNode } from 'react';
+import { useForm, FormProvider, type FieldValues, type DeepPartial, type Resolver } from 'react-hook-form';
+interface Props<T extends FieldValues> {
   children: ReactNode;
+  // eslint-disable-next-line no-unused-vars
   onSubmit: (data: T) => void;
   defaultValues?: DeepPartial<T>;
   resolver: Resolver<T, object> | undefined;

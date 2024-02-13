@@ -58,7 +58,6 @@ const parseHTML = (csv: string, epicList: Array<AppConfigResponse>): Array<Issue
     }); // or use reduce here
     return mappedValidateIsuue(obj, epicList);
   });
-  console.log(issueList);
   return [...issueList].sort((a, b) => {
     if (a.Typeofwork && b.Typeofwork) {
       return a.Typeofwork.localeCompare(b.Typeofwork);
@@ -93,17 +92,28 @@ class Mapper {
         config.type === 'epic' &&
         config.epicsSearch.some(
           (text) =>
-            this.issue.Issuesummary.toLocaleLowerCase().includes(text.toLocaleLowerCase()) ??
-            this.issue.EpicLink?.toLocaleLowerCase().includes(text.toLocaleLowerCase()) ??
+            this.issue.Issuesummary.toLocaleLowerCase().includes(text.toLocaleLowerCase()) ||
+            this.issue.EpicLink?.toLocaleLowerCase().includes(text.toLocaleLowerCase()) ||
             this.issue.WorkDescription.toLocaleLowerCase().includes(text.toLocaleLowerCase())
         )
       ) {
+        console.log(config.name, this.issue.EpicLink, config.textSearch);
         this.issue.EpicGroup = config.name;
       } else if (
         config.textSearch.some(
           (text) =>
-            this.issue.Issuesummary.toLocaleLowerCase().includes(text.toLocaleLowerCase()) ??
-            this.issue.EpicLink?.toLocaleLowerCase().includes(text.toLocaleLowerCase()) ??
+            this.issue.Issuesummary.toLocaleLowerCase().includes(text.toLocaleLowerCase()) ||
+            this.issue.EpicLink?.toLocaleLowerCase().includes(text.toLocaleLowerCase()) ||
+            this.issue.WorkDescription.toLocaleLowerCase().includes(text.toLocaleLowerCase())
+        )
+      ) {
+        console.log(config.name, this.issue.EpicLink, config.textSearch);
+        this.issue.EpicGroup = this.issue.EpicGroup ?? config.name;
+      } else if (
+        config.epics?.some(
+          (text) =>
+            this.issue.Issuesummary.toLocaleLowerCase().includes(text.toLocaleLowerCase()) ||
+            this.issue.EpicLink?.toLocaleLowerCase().includes(text.toLocaleLowerCase()) ||
             this.issue.WorkDescription.toLocaleLowerCase().includes(text.toLocaleLowerCase())
         )
       ) {
@@ -111,6 +121,7 @@ class Mapper {
       }
     });
 
+  
     return this;
   }
 }

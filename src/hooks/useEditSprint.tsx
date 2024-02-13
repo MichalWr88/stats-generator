@@ -1,9 +1,8 @@
-"use client";
-import { editSprintData } from '@/api/dataProvider';
-import { Sprint } from '@/models/Sprint';
-import { useMutation, UseMutateFunction, useQueryClient } from '@tanstack/react-query';
+'use client';
 
-// import { queryClient } from '../queryClient';
+import { type UseMutateFunction, useQueryClient, useMutation } from '@tanstack/react-query';
+import { editSprintData } from '@/api/dataProvider';
+import { type Sprint } from '@/models/Sprint';
 
 const useEditSprint = (): {
   mutate: UseMutateFunction<Sprint, unknown, Sprint, unknown>;
@@ -11,9 +10,9 @@ const useEditSprint = (): {
 } => {
   const queryClient = useQueryClient();
   const { mutate, isSuccess } = useMutation((data: Sprint) => editSprintData(data), {
-    onSuccess: () => {
+    onSuccess: async () => {
+      await queryClient.invalidateQueries([0, 15]);
       console.log('success');
-      queryClient.invalidateQueries([0, 15]);
     },
   });
 
