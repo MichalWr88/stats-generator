@@ -14,7 +14,7 @@ export async function GET() {
       status: 200,
       headers: {
         'Content-Type': 'text/csv',
-        'Content-Disposition': `attachment; 'filename=rangersSprints_${parseLocalDate(new Date())}.csv'`,
+        'Content-Disposition': `attachment; 'filename=sasSprints_${parseLocalDate(new Date())}.csv'`,
       },
     });
   } catch (error) {

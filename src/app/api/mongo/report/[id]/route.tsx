@@ -10,14 +10,15 @@ export async function GET() {
     const resp = await mongoSprint.getAllWithoutMongoObj();
     const json2csvParser = new Parser();
     const csv = json2csvParser.parse(sprintsToExcelStats(resp) || []);
-    NextResponse.json(csv, {
+    return new Response(csv, {
       status: 200,
       headers: {
         'Content-Type': 'text/csv',
-        'Content-Disposition': `attachment; 'filename=rangersSprints_${parseLocalDate(new Date())}.csv'`,
+        'Content-Disposition': `attachment; 'filename=sasSprints_${parseLocalDate(new Date())}.csv'`,
       },
     });
   } catch (error) {
+    console.log('error', error);
     if (error instanceof MongoServerError) {
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
