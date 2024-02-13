@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { ResponsMongo } from './mongo/Mongo';
+
+import { type ResponsMongo } from "./mongo/Mongo";
+
 
 export interface User {
   name: string;

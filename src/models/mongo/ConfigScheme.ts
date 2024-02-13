@@ -1,5 +1,6 @@
 import { Schema } from 'mongoose';
-import { AppConfig } from '../AppConfig';
+import { type AppConfig } from '../AppConfig';
+
 
 export const ConfigScheme = new Schema<AppConfig>(
   {
