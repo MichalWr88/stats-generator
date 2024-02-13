@@ -1,7 +1,8 @@
 "use client";
-import useColors from '@/hooks/useColors';
+
 import React from 'react';
 import { Toaster } from 'react-hot-toast';
+import useColors from '@/hooks/useColors';
 
 
 const Toast = () => {
