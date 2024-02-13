@@ -1,6 +1,6 @@
 import React from 'react';
-import NavLink from './NavLink';
 import { navBarData } from '@/data/routing';
+import NavLink from './NavLink';
 
 const NavBar = () => {
   return (

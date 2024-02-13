@@ -1,6 +1,6 @@
 /* eslint-disable import/namespace */
-import { navBarData } from '../../data/routing';
 import { screen, render } from '@testing-library/react';
+import { navBarData } from '../../data/routing';
 import NavBar from './NavBar';
 
 const mockData = navBarData.find((data) => data.id === 7);
