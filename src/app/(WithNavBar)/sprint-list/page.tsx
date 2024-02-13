@@ -22,7 +22,7 @@ const SprintListPage = () => {
   const { data } = useGetSprints();
   const [sprintsList, setSprintsList] = useState<Array<SprintWithStats>>([]);
   const [editSprint, setEditSprint] = useState<EditSprint>({ isOpen: false, sprint: undefined });
-  console.log(editSprint);
+
   useEffect(() => {
     if (!data) return;
     const list = [...data.data].sort((a, b) => {
