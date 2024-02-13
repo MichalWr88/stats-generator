@@ -87,7 +87,7 @@ export const setStatsSprints = (arr: Array<ResponsSprint>): Array<SprintWithStat
 };
 
 export const sprintToExcelStat = (sprint: SprintWithStats): ExcelSprint => {
-  console.log(sprint.nr, sprint.issues);
+
   const {
     issues,
     speedThree,
