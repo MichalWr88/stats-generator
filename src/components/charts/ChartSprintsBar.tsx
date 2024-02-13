@@ -1,7 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import ChartDataLabels from 'chartjs-plugin-datalabels';
 import {
-  ChartData,
   Chart as ChartJS,
   ArcElement,
   LineElement,
@@ -27,9 +24,13 @@ import {
   Title,
   Tooltip,
   SubTitle,
+  type ChartData,
 } from 'chart.js';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
+import { useState, useEffect } from 'react';
 import { Chart } from 'react-chartjs-2';
-import { SprintWithStats } from '@/models/Sprint';
+import useColors from '@/hooks/useColors';
+import { type SprintWithStats } from '@/models/Sprint';
 
 type ChartType = keyof Pick<SprintWithStats, 'predictability'> | 'speed' | null;
 type Props = {
@@ -63,6 +64,7 @@ ChartJS.register(
   Tooltip,
   SubTitle
 );
+
 const isPredictability = (type: ChartType) => {
   return type === 'predictability';
 };
@@ -129,12 +131,16 @@ const ChartSprintsBar = ({ sprints, type = null }: Props) => {
           month: '2-digit',
         })}`
     );
-    chartData.datasets[1].data = sprints.map((spr: SprintWithStats) =>
-      isPredictability(type) ? Number(spr.predictability) : spr.delivered
-    );
-    chartData.datasets[0].data = sprints.map((spr: SprintWithStats) =>
-      isPredictability(type) ? Number(spr.predictabilityThree) : Number(spr.speedThree)
-    );
+    if (chartData.datasets[1]) {
+      chartData.datasets[1].data = sprints.map((spr: SprintWithStats) =>
+        isPredictability(type) ? Number(spr.predictability) : spr.delivered
+      );
+    }
+    if (chartData.datasets[0]) {
+      chartData.datasets[0].data = sprints.map((spr: SprintWithStats) =>
+        isPredictability(type) ? Number(spr.predictabilityThree) : Number(spr.speedThree)
+      );
+    }
 
     setData(chartData);
   }, [sprints, type, colors.indigo, colors.white, colors.red]);
@@ -152,8 +158,8 @@ const ChartSprintsBar = ({ sprints, type = null }: Props) => {
           tooltip: {
             callbacks: {
               label: function (context) {
-                const label = context.dataset.label || '';
-                return `${label} ${context.raw} ${isPredictability(type) ? '%' : ''}`;
+                const label = context.dataset.label ?? '';
+                return `${label} ${String(context.raw)} ${isPredictability(type) ? '%' : ''}`;
               },
             },
           },

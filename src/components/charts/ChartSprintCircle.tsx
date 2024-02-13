@@ -1,7 +1,5 @@
-import { statusConfigArr } from 'src/data/statusConfig';
-import { Sprint } from 'src/models/Sprint';
 import {
-  ChartData,
+  type ChartData,
   Chart as ChartJS,
   ArcElement,
   LineElement,
@@ -29,10 +27,12 @@ import {
   SubTitle,
 } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
-
 import React, { useEffect, useState } from 'react';
 import { Pie } from 'react-chartjs-2';
-import useColors from '../api/hooks/useColors';
+import { statusConfigArr } from '@/data/statusConfig';
+import useColors from '@/hooks/useColors';
+import { type Sprint } from '@/models/Sprint';
+
 ChartJS.register(
   ArcElement,
   ChartDataLabels,
@@ -94,7 +94,7 @@ const ChartSprintCircle = ({ sprint, type }: Props) => {
         chartData.datasets[0].backgroundColor = [...backgroundColor, colors[statusConfig.color][statusConfig.num]];
       }
 
-      return;
+      
     });
 
     setData(chartData);
