@@ -1,7 +1,5 @@
-import { statusConfigArr } from 'src/data/statusConfig';
-import { Sprint } from 'src/models/Sprint';
 import {
-  ChartData,
+  type ChartData,
   Chart as ChartJS,
   ArcElement,
   LineElement,
@@ -29,10 +27,12 @@ import {
   SubTitle,
 } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
-
 import React, { useEffect, useState } from 'react';
 import { Pie } from 'react-chartjs-2';
-import useColors from '../api/hooks/useColors';
+import { statusConfigArr } from '@/data/statusConfig';
+import useColors from '@/hooks/useColors';
+import { type Sprint } from '@/models/Sprint';
+
 ChartJS.register(
   ArcElement,
   ChartDataLabels,
@@ -87,14 +87,12 @@ const ChartSprintCircle = ({ sprint, type }: Props) => {
     Object.entries(arrType).forEach(([key, value]) => {
       if (key === '_id') return;
       chartData.labels?.push(key.toUpperCase());
-      chartData.datasets[0].data.push(value);
+      chartData.datasets[0].data.push(value as number);
       const statusConfig = statusConfigArr.find((cfg) => cfg.label.toUpperCase() === key.toUpperCase());
       if (statusConfig) {
         const backgroundColor = chartData.datasets[0].backgroundColor as Array<string>;
         chartData.datasets[0].backgroundColor = [...backgroundColor, colors[statusConfig.color][statusConfig.num]];
       }
-
-      return;
     });
 
     setData(chartData);
@@ -119,7 +117,7 @@ const ChartSprintCircle = ({ sprint, type }: Props) => {
             legend: { display: true, position: 'bottom', fullSize: true },
 
             datalabels: {
-              formatter: (val) => {
+              formatter: (val: number) => {
                 if (val === 0) return '';
                 return ` ${val}`;
               },

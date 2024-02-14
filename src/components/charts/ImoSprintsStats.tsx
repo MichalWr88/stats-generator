@@ -1,11 +1,10 @@
-import { SprintWithStats, TypeofworkList } from 'src/models/Sprint';
-import React, { useEffect, useState } from 'react';
-import { useSprintsContext } from '../store/ChartSprintsContext';
-
-import useColors from '../../components/api/hooks/useColors';
-import { DefaultColors } from 'tailwindcss/types/generated/colors';
 import dynamic from 'next/dynamic';
-import { allImoGroups } from 'src/data/epicGroups';
+import { useState, useEffect } from 'react';
+import { type DefaultColors } from 'tailwindcss/types/generated/colors';
+import { allImoGroups } from '@/data/epicGroups';
+import useColors from '@/hooks/useColors';
+import { type TypeofworkList, type SprintWithStats } from '@/models/Sprint';
+import { useSprintsContext } from '../store/ChartSprintsContext';
 
 const StackedSprintsBar = dynamic(() => import('./StackedSprintsBar'), {
   ssr: false,
@@ -55,26 +54,29 @@ const setGr = (data: SprintWithStats[], colors: DefaultColors): Group => {
     );
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    let index = -1;
 
-    const result = issues.reduce(function (r, a) {
-      if (!a.Typeofwork) return;
-      r[a.Typeofwork] = r[a.Typeofwork] || 0;
-      r[a.Typeofwork] = r[a.Typeofwork] + Number(a.Hours);
+    const result = issues.reduce(
+      (r, a) => {
+        if (!a.Typeofwork) return;
+        r[a.Typeofwork] = r[a.Typeofwork] || 0;
+        r[a.Typeofwork] = r[a.Typeofwork] + Number(a.Hours);
 
-      return r;
-    }, Object.create(null));
+        return r;
+      },
+      {
+        Organization: 0,
+        Bugs: 0,
+        Innovation: 0,
+        Maintenance: 0,
+      }
+    );
     const mappedresult = { ...allImoGroups, ...result };
     Object.entries(mappedresult).forEach(([key, value]) => {
       const index = datasets.findIndex((data) => data.label === key);
       datasets[index].data.push(Number(Number(value).toFixed(2)));
     });
-
-    issues.forEach((issue) => {
-      index = datasets.findIndex((data) => data.label === issue.Typeofwork);
-    });
   });
-  console.log({ labels, datasets });
+
   return { labels, datasets };
 };
 

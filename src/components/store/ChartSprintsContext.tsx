@@ -1,8 +1,8 @@
 "use client";
+import React, { type ReactNode, useContext, useEffect, useState, createContext } from 'react';
 import useGetSprints from '@/hooks/useGetSprints';
-import { SprintWithStats } from '@/models/Sprint';
+import { type SprintWithStats } from '@/models/Sprint';
 import { setStatsSprints } from '@/utils/SprintsMapper';
-import React, { ReactNode, useContext, useEffect, useState, createContext } from 'react';
 
 
 export interface ContextData {

@@ -1,8 +1,9 @@
-import { useEffect, useState, ChangeEvent } from 'react';
+import { useEffect, useState, type ChangeEvent } from 'react';
 
 interface Props {
   options: Array<string>;
   initValue: string | null | undefined;
+  // eslint-disable-next-line no-unused-vars
   updateMyData: (value: string) => void;
 }
 

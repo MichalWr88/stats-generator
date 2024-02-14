@@ -24,7 +24,7 @@ const AddSprintPage = () => {
             };
           }
           return row;
-        }) as Issue[]
+        }) 
     );
   };
   const columns: Array<Column<Issue>> = useMemo(
@@ -35,6 +35,16 @@ const AddSprintPage = () => {
           {
             Header: 'IssueKey',
             accessor: 'IssueKey',
+            Cell: (cell) => {
+              return (
+                <a
+                  href={`https://jira.trans.eu/${cell.row.original.IssueKey}`}
+                  className="text-blue-500 hover:text-blue-800"
+                >
+                  {cell.row.original.IssueKey}
+                </a>
+              );
+            },
           },
           {
             Header: 'EpicGroup',
@@ -102,6 +112,18 @@ const AddSprintPage = () => {
           {
             Header: 'ParentKey',
             accessor: 'ParentKey',
+            Cell: (cell) => {
+              return (
+                cell.row.original.ParentKey && (
+                  <a
+                    href={`https://jira.trans.eu/${cell.row.original.ParentKey}`}
+                    className="text-blue-500 hover:text-blue-800"
+                  >
+                    {cell.row.original.ParentKey}
+                  </a>
+                )
+              );
+            },
           },
         ],
       },

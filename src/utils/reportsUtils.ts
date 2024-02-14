@@ -9,12 +9,11 @@ export const getIssueCSV = async (sprint: SprintWithStats) => {
     link.href = url;
     link.setAttribute(
       'download',
-      sprint.nr.toString() +
-        ' ' +
-        parseLocalDate(new Date(sprint.start || new Date())).toString() +
-        '-' +
-        parseLocalDate(new Date(sprint.end || new Date())).toString()
+      `sasSprint-${sprint.nr.toString()} ${parseLocalDate(
+        new Date(sprint.start || new Date())
+      ).toString()}-${parseLocalDate(new Date(sprint.end || new Date())).toString()}.csv`
     );
+
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -25,7 +24,7 @@ export const getAllSprintsCSV = async () => {
     const url = window.URL.createObjectURL(new Blob([data]));
     const link = document.createElement('a');
     link.href = url;
-    link.setAttribute('download', `rangersSprints ${parseLocalDate(new Date())}.csv`);
+    link.setAttribute('download', `sasSprints ${parseLocalDate(new Date())}.csv`);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);

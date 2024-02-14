@@ -1,6 +1,6 @@
+import { type UseMutateFunction, useMutation } from '@tanstack/react-query';
 import { sendSprintData } from '@/api/dataProvider';
-import { Sprint } from '@/models/Sprint';
-import { useMutation, UseMutateFunction } from '@tanstack/react-query';
+import { type Sprint } from '@/models/Sprint';
 
 interface MutationProps {
   mutate: UseMutateFunction<Sprint, unknown, Sprint, unknown>;

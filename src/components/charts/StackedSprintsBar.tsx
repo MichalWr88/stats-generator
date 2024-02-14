@@ -1,6 +1,5 @@
-import { TypeofworkList } from 'src/models/Sprint';
 import {
-  ChartData,
+  type ChartData,
   Chart as ChartJS,
   ArcElement,
   LineElement,
@@ -26,14 +25,15 @@ import {
   Title,
   Tooltip,
   SubTitle,
-  ChartTypeRegistry,
-  ScatterDataPoint,
-  BubbleDataPoint,
+  type ChartTypeRegistry,
+  type ScatterDataPoint,
+  type BubbleDataPoint,
 } from 'chart.js';
+import ChartjsPluginStacked100 from 'chartjs-plugin-stacked100';
 import React, { useEffect, useState } from 'react';
 import { Chart } from 'react-chartjs-2';
+import { type TypeofworkList } from '@/models/Sprint';
 
-import ChartjsPluginStacked100 from 'chartjs-plugin-stacked100';
 type Group = { labels: Array<string>; datasets: Array<Dataset> };
 
 type Dataset = {

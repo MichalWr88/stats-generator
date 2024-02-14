@@ -1,7 +1,5 @@
-import  { useEffect, useState } from 'react';
-
 import {
-  ChartData,
+  type ChartData,
   Chart as ChartJS,
   ArcElement,
   LineElement,
@@ -28,8 +26,11 @@ import {
   Tooltip,
   SubTitle,
 } from 'chart.js';
+import  { useEffect, useState } from 'react';
+
 import { Chart } from 'react-chartjs-2';
-import { SprintWithStats } from 'src/models/Sprint';
+import { type SprintWithStats } from '@/models/Sprint';
+
 type Props = {
   sprints: Array<SprintWithStats>;
 };

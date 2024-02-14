@@ -1,7 +1,7 @@
+import { NextResponse } from 'next/server';
+import { ValidationError } from 'yup';
 import {  ConfigGetValidation, configType } from '@/models/AppConfig';
 import { mongoConfig } from '@/mongoService';
-import { ValidationError } from 'yup';
-import { NextResponse } from 'next/server';
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
@@ -18,8 +18,8 @@ export async function GET(request: Request) {
   } catch (error) {
     if (error instanceof ValidationError) {
       return NextResponse.json({ error: error.message }, { status: 400 });
-    } else {
+    } 
       return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
-    }
+    
   }
 }

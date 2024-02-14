@@ -7,8 +7,8 @@ import { sprintsToExcelStats } from '@/utils/SprintsMapper';
 
 export async function GET() {
   try {
-    const json2csvParser = new Parser();
     const resp = await mongoSprint.getAllWithoutMongoObj();
+    const json2csvParser = new Parser();
     const csv = json2csvParser.parse(sprintsToExcelStats(resp) || []);
     return new Response(csv, {
       status: 200,
@@ -22,6 +22,6 @@ export async function GET() {
     if (error instanceof MongoServerError) {
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
-    return NextResponse.json({ error: error as Error}, { status: 500 });
+    return NextResponse.json({ error: error as Error }, { status: 500 });
   }
 }

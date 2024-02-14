@@ -1,7 +1,8 @@
-import { getAllSprints } from '@/api/dataProvider';
-import { PaginationRequest } from '@/models/mongo/Mongo';
 import { useQuery } from '@tanstack/react-query';
-import { useCallback, useState } from 'react';
+import { useState, useCallback } from 'react';
+import { getAllSprints } from '@/api/dataProvider';
+import { type PaginationRequest } from '@/models/mongo/Mongo';
+
 
 const useGetSprints = () => {
   const [pagination, setPagination] = useState<PaginationRequest>({ page: 0, pageSize: 15 });

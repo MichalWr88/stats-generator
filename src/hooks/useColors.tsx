@@ -1,5 +1,5 @@
 import resolveConfig from 'tailwindcss/resolveConfig';
-import { DefaultColors } from 'tailwindcss/types/generated/colors.js';
+import { type DefaultColors } from 'tailwindcss/types/generated/colors.js';
 import tailwindConfig from '../../tailwind.config.js';
 
 const fullConfig = resolveConfig(tailwindConfig);

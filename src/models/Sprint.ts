@@ -50,7 +50,7 @@ export const sprintSchemaAdd: yup.ObjectSchema<Sprint> = yup.object().shape({
     })
     .defined(),
 });
-export const sprintSchemaEdit: yup.ObjectSchema<Omit<Sprint, 'issues'>> = yup.object().shape({
+export const sprintSchemaEdit = yup.object().shape({
   nr: yup.number().min(0).defined().required(),
   start: yup.date().required(),
   end: yup.date().required(),
@@ -58,6 +58,7 @@ export const sprintSchemaEdit: yup.ObjectSchema<Omit<Sprint, 'issues'>> = yup.ob
   delivered: yup.number().min(0).required(),
   request: RequestSchemaAdd.required(),
   bug: BugSchemaAdd.required(),
+
 });
 
 export type TypeofworkList = 'Organization' | 'Innovation' | 'Bugs' | 'Maintenance';

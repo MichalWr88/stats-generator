@@ -1,7 +1,7 @@
-import { Model, Schema } from 'mongoose';
-import { EventCalendar } from '../Events';
-import { UserCollectName, UserScheme } from './UserScheme';
-import { ObjectId } from 'mongodb';
+import { Schema, type Model } from "mongoose";
+import { type EventCalendar } from "../Events";
+import { UserCollectName } from "./UserScheme";
+
 
 export const EventScheme = new Schema<EventCalendar, Model<EventCalendar>>(
   {

@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect, useRef, useState } from 'react';
-import useOnClickOutside from '@/hooks/useClickOutside';
+import {useOnClickOutside} from 'usehooks-ts';
 
 type Props = {
   children: React.ReactNode;

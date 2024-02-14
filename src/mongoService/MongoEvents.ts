@@ -1,9 +1,7 @@
-import { EventCollectName, EventCollection, EventScheme } from 'src/models/mongo/EventSchema';
-import { EventCalendar, EventResponse } from 'src/models/Events';
+import { type EventResponse, type EventCalendar } from "@/models/Events";
+import { type EventCollection, EventScheme, EventCollectName } from "@/models/mongo/EventSchema";
+import Mongodb from "./mongoClass";
 
-import Mongodb from './mongoClass';
-import { ObjectId } from 'mongodb';
-import { UserCollectName } from 'src/models/mongo/UserScheme';
 
 class MongoEvent extends Mongodb<EventCollection> {
   public constructor() {
@@ -11,24 +9,24 @@ class MongoEvent extends Mongodb<EventCollection> {
   }
 
   public async getAll(): Promise<EventResponse[]> {
-    return await this.model.find({}, {}, {}).populate('user');
+    return this.model.find({}, {}, {}).populate('user');
   }
   public async getAllByUser(id: string): Promise<EventCalendar[]> {
-    return await this.model.find({ user: id });
+    return this.model.find({ user: id });
   }
   public async addOne(event: EventCalendar): Promise<EventCalendar> {
     const eventS = new this.model(event);
-    return await eventS.save();
+    return eventS.save();
   }
   public async addMany(events: Array<EventCalendar>): Promise<Array<EventCalendar>> {
-    return await this.model.insertMany(events);
+    return this.model.insertMany(events);
   }
   public async editOneById(id: string, event: EventCalendar): Promise<EventResponse | null> {
     return this.model.findByIdAndUpdate(id, { $set: event }, { returnDocument: 'after' });
   }
 
   public async geById(id: string): Promise<EventResponse | null> {
-    return await this.model.findById(id);
+    return this.model.findById(id);
   }
 }
 export default MongoEvent;

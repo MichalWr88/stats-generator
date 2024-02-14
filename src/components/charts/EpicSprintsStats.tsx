@@ -1,13 +1,11 @@
-import { SprintWithStats } from 'src/models/Sprint';
-import React, { useEffect, useState } from 'react';
-import { useSprintsContext } from '../store/ChartSprintsContext';
-
 import dynamic from 'next/dynamic';
-
-import { AppConfigResponse, EpicConfigResponse } from 'src/models/AppConfig';
-import useColors from '../api/hooks/useColors';
-import { DefaultColors } from 'tailwindcss/types/generated/colors';
-import useGetAppConfig from '../api/hooks/useGetAppConfig';
+import { useState, useEffect } from 'react';
+import { type DefaultColors } from 'tailwindcss/types/generated/colors';
+import useColors from '@/hooks/useColors';
+import useGetAppConfig from '@/hooks/useGetAppConfig';
+import { type AppConfigResponse, type EpicConfigResponse } from '@/models/AppConfig';
+import { type SprintWithStats } from '@/models/Sprint';
+import { useSprintsContext } from '../store/ChartSprintsContext';
 
 const StackedSprintsBar = dynamic(() => import('./StackedSprintsBar'), {
   ssr: false,
@@ -16,15 +14,18 @@ const StackedSprintsBar = dynamic(() => import('./StackedSprintsBar'), {
 type Group = { labels: Array<string>; datasets: Array<Dataset> };
 
 type Dataset = {
+  epics?: Array<string>;
   label: string;
   data: Array<number>;
   backgroundColor: string;
 };
 const setGr = (data: SprintWithStats[], epicList: Array<AppConfigResponse>, colors: DefaultColors): Group => {
+  console.log({ data, epicList });
   const filteredEpicList = epicList.filter((cfg) => cfg.type === 'epic') as Array<EpicConfigResponse>;
   const labels: Array<string> = [];
   const datasets: Array<Dataset> = filteredEpicList.map((group) => {
     return {
+      epics: group.epics,
       label: group.name,
       backgroundColor: colors[group.colorPalette][group.numPalette],
       data: [],
@@ -42,15 +43,6 @@ const setGr = (data: SprintWithStats[], epicList: Array<AppConfigResponse>, colo
         month: '2-digit',
       })}`
     );
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    let indexx = -1;
-    const result = issues.reduce((r, a) => {
-      if (!a.EpicGroup) return r;
-      r[a.EpicGroup] = r[a.EpicGroup] || 0;
-      r[a.EpicGroup] = r[a.EpicGroup] + Number(a.Hours);
-
-      return r;
-    }, Object.create(null));
 
     const allEpicGroups = Object.fromEntries(
       filteredEpicList.map((cfg) => {
@@ -58,19 +50,28 @@ const setGr = (data: SprintWithStats[], epicList: Array<AppConfigResponse>, colo
       })
     );
 
-    const mappedresult = { ...allEpicGroups, ...result };
+    issues.forEach((issue) => {
+      const epicObj = filteredEpicList.find(
+        (cfg) => cfg.epics?.includes(issue.EpicGroup ?? '') ?? cfg.name === issue.EpicGroup
+      );
+      if (epicObj) {
+        const inEpicsList = epicObj.epics?.includes(issue.EpicGroup ?? '');
+        if (inEpicsList) {
+          allEpicGroups[epicObj.name] = Number(allEpicGroups[epicObj.name]) + Number(issue.Hours);
+          return;
+        }
+        allEpicGroups[epicObj.name] = Number(allEpicGroups[epicObj.name]) + Number(issue.Hours);
+      }
+    });
+
+    const mappedresult = { ...allEpicGroups };
 
     Object.entries(mappedresult).forEach(([key, value]) => {
-      const index = datasets.findIndex((data) => data.label === key);
+      const index = datasets.findIndex((data) => (data.epics ? data.epics.includes(key ?? '') : data.label === key));
       if (index === -1) return;
-      datasets[index].data.push(Number(Number(value).toFixed(2)));
-    });
-
-    issues.forEach((issue) => {
-      indexx = datasets.findIndex((data) => data.label === issue.EpicGroup);
+      datasets?.[index]?.data.push(Number(Number(value).toFixed(2)));
     });
   });
-  console.log({ labels, datasets });
   return { labels, datasets };
 };
 

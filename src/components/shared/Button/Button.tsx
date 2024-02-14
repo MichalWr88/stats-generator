@@ -1,8 +1,9 @@
-import React, { MouseEvent, ReactNode } from 'react';
+import React, { type MouseEvent, type ReactNode } from 'react';
 
 type Props = {
   children: ReactNode;
   className?: string;
+  // eslint-disable-next-line no-unused-vars
   clickHandle: (event: MouseEvent<HTMLButtonElement>) => void;
   type?: 'outline' | 'bold';
   rest?: object;

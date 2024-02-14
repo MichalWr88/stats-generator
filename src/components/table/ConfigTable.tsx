@@ -1,10 +1,10 @@
 'use client';
 import React, { useEffect, useMemo, useState } from 'react';
-import { Column } from 'react-table';
+import { type Column } from 'react-table';
 
-import Table from './Table';
 import useGetAppConfig from '@/hooks/useGetAppConfig';
-import { AppConfigResponse, AppConfig } from '@/models/AppConfig';
+import { type AppConfigResponse, type AppConfig } from '@/models/AppConfig';
+import Table from './Table';
 
 const ConfigTable = () => {
   const { data } = useGetAppConfig();

@@ -1,9 +1,7 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-import { ObjectId } from 'mongoose';
 
-import { ResponsMongo } from './mongo/Mongo';
-import * as yup from 'yup';
-import { User } from './User';
+import { type ObjectId } from "mongoose";
+import { type User } from "./User";
+import { type ResponsMongo } from "./mongo/Mongo";
 
 // export const RequestSchemaAdd: yup.ObjectSchema<RequestStatSprint> = yup.object().shape({
 //   new: yup.number().min(0).required(),
@@ -22,6 +20,7 @@ import { User } from './User';
 //   rfd: yup.number().min(0).required(),
 //   onHold: yup.number().min(0).required(),
 // });
+
 
 // export const IssueSchemaAdd: yup.ObjectSchema<Issue> = yup.object().shape({
 //   IssueKey: yup.string().required(),

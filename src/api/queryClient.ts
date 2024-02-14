@@ -8,7 +8,7 @@ const queryErrorHandler = (error: unknown): void => {
 
   if (error instanceof AxiosError) {
     const msg = error.message || 'error connecting to server';
-    const errorData = error.response?.data;
+    const errorData = error.response?.data as unknown;
     toast.error(`${msg} ${JSON.stringify(errorData)}`, {
       position: 'bottom-center',
       className: 'text-red-700',
@@ -20,9 +20,9 @@ const queryErrorHandler = (error: unknown): void => {
       position: 'bottom-center',
       className: 'text-red-700',
     });
-    return;
+    
   } else {
-    toast.error(`${error}`, {
+    toast.error(`${error as string}`, {
       position: 'bottom-center',
       className: 'text-red-700',
     });

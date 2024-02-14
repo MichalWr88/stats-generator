@@ -1,6 +1,6 @@
 import { screen, render } from '@testing-library/react';
-import Footer from './Footer';
 import * as pJson from '../../../package.json';
+import Footer from './Footer';
 describe('Footer tests', () => {
   it('should render app version', () => {
     render(<Footer />);
