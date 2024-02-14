@@ -1,7 +1,6 @@
 import { Schema } from 'mongoose';
 import { type AppConfig } from '../AppConfig';
 
-
 export const ConfigScheme = new Schema<AppConfig>(
   {
     type: {
@@ -25,7 +24,7 @@ export const ConfigScheme = new Schema<AppConfig>(
       type: String,
     },
     value: {
-      type: String,
+      type: Schema.Types.Mixed,
     },
   },
   {

@@ -54,21 +54,27 @@ const setGr = (data: SprintWithStats[], colors: DefaultColors): Group => {
     );
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  
 
-    const result = issues.reduce(function (r, a) {
-      if (!a.Typeofwork) return;
-      r[a.Typeofwork] = r[a.Typeofwork] || 0;
-      r[a.Typeofwork] = r[a.Typeofwork] + Number(a.Hours);
+    const result = issues.reduce(
+      (r, a) => {
+        if (!a.Typeofwork) return;
+        r[a.Typeofwork] = r[a.Typeofwork] || 0;
+        r[a.Typeofwork] = r[a.Typeofwork] + Number(a.Hours);
 
-      return r;
-    }, Object.create(null));
+        return r;
+      },
+      {
+        Organization: 0,
+        Bugs: 0,
+        Innovation: 0,
+        Maintenance: 0,
+      }
+    );
     const mappedresult = { ...allImoGroups, ...result };
     Object.entries(mappedresult).forEach(([key, value]) => {
       const index = datasets.findIndex((data) => data.label === key);
       datasets[index].data.push(Number(Number(value).toFixed(2)));
     });
-
   });
 
   return { labels, datasets };

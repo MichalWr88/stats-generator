@@ -87,14 +87,12 @@ const ChartSprintCircle = ({ sprint, type }: Props) => {
     Object.entries(arrType).forEach(([key, value]) => {
       if (key === '_id') return;
       chartData.labels?.push(key.toUpperCase());
-      chartData.datasets[0].data.push(value);
+      chartData.datasets[0].data.push(value as number);
       const statusConfig = statusConfigArr.find((cfg) => cfg.label.toUpperCase() === key.toUpperCase());
       if (statusConfig) {
         const backgroundColor = chartData.datasets[0].backgroundColor as Array<string>;
         chartData.datasets[0].backgroundColor = [...backgroundColor, colors[statusConfig.color][statusConfig.num]];
       }
-
-      
     });
 
     setData(chartData);
@@ -119,7 +117,7 @@ const ChartSprintCircle = ({ sprint, type }: Props) => {
             legend: { display: true, position: 'bottom', fullSize: true },
 
             datalabels: {
-              formatter: (val) => {
+              formatter: (val: number) => {
                 if (val === 0) return '';
                 return ` ${val}`;
               },

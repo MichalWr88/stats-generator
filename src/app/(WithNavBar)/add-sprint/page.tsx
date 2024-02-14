@@ -24,7 +24,7 @@ const AddSprintPage = () => {
             };
           }
           return row;
-        }) as Issue[]
+        }) 
     );
   };
   const columns: Array<Column<Issue>> = useMemo(

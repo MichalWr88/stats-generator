@@ -13,6 +13,6 @@ export async function GET(request: Request) {
     if (err instanceof MongoServerError) {
       return NextResponse.json({ error: err.message }, { status: 500 });
     }
-    return NextResponse.json({ error: err }, { status: 500 });
+    return NextResponse.json({ error: err as Error }, { status: 500 });
   }
 }

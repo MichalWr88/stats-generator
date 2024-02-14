@@ -1,6 +1,12 @@
 import React, { useMemo, useEffect, useState } from 'react';
 import DatePicker from 'react-datepicker';
-import { Controller, type DeepRequired, type FieldError, type FieldErrorsImpl, type Merge, useFormContext } from 'react-hook-form';
+import {
+  Controller,
+  type FieldError,
+  type FieldErrorsImpl,
+  type Merge,
+  useFormContext,
+} from 'react-hook-form';
 import 'react-datepicker/dist/react-datepicker.css';
 import { toast } from 'react-hot-toast';
 type InputType = 'text' | 'number' | 'date';
@@ -18,17 +24,15 @@ const InputField = ({ label, type = 'text', name, className, step = '1' }: Props
     control,
     formState: { errors },
   } = useFormContext();
-  const [error, setError] = useState<Merge<FieldError, FieldErrorsImpl<DeepRequired<unknown>>> | undefined>(undefined);
+  const [error, setError] = useState<FieldError | Merge<FieldError, FieldErrorsImpl<unknown>> | undefined>(undefined);
 
   useEffect(() => {
     const primaryError = errors[name.split('.')[0]];
-    const nestedError = primaryError?.[name.split('.')[1]];
+    const nestedError = primaryError?.[name.split('.')[1]] as FieldError | Merge<FieldError, FieldErrorsImpl<unknown>>;
     if (nestedError) {
       setError(() => nestedError);
-      if (!error?.message) return;
     } else if (primaryError) {
       setError(() => primaryError);
-      if (!error?.message) return;
     } else {
       setError(undefined);
     }
@@ -73,7 +77,7 @@ const InputField = ({ label, type = 'text', name, className, step = '1' }: Props
                 }
                 onChange={onChange}
                 onBlur={onBlur}
-                selected={value}
+                selected={value as Date}
                 dateFormat="dd/MM/yyyy"
               />
             )}
