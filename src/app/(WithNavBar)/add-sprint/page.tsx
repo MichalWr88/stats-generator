@@ -3,6 +3,7 @@ import React, { useState, useMemo } from 'react';
 import { type Column } from 'react-table';
 import SelectField from '@/components/Forms/SelectField';
 import SprintForm from '@/components/Forms/SprintForm';
+import GroupedByEpicGroup from '@/components/GruppedByEpicGroup';
 import UploadFile from '@/components/shared/UploadFile';
 import Table from '@/components/table/Table';
 import { allImoGroups } from '@/data/epicGroups';
@@ -14,17 +15,16 @@ const AddSprintPage = () => {
 
   const [data, setData] = useState<Array<Issue>>([]);
   const updateMyData = (value: string, rowIndex: number, columnId: keyof Issue) => {
-    setData(
-      (old) =>
-        old.map((row, index) => {
-          if (index === rowIndex) {
-            return {
-              ...old[rowIndex],
-              [columnId]: value,
-            };
-          }
-          return row;
-        }) 
+    setData((old) =>
+      old.map((row, index) => {
+        if (index === rowIndex) {
+          return {
+            ...old[rowIndex],
+            [columnId]: value,
+          };
+        }
+        return row;
+      })
     );
   };
   const columns: Array<Column<Issue>> = useMemo(
@@ -158,7 +158,7 @@ const AddSprintPage = () => {
     <>
       <SprintForm issues={data} />
       <UploadFile onLoad={addFile} />
-
+      <GroupedByEpicGroup issues={data} />
       <Table data={data} columns={columns} />
     </>
   );

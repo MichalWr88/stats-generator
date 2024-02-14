@@ -1,7 +1,6 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 import useGetAppConfig from '@/hooks/useGetAppConfig';
 import { type Issue } from '@/models/Sprint';
-
 type Props = {
   issues: Array<Issue>;
 };
@@ -13,28 +12,37 @@ type Group = {
 
 const GroupedByEpicGroup = ({ issues }: Props) => {
   const { data: epicList = [] } = useGetAppConfig('epic');
-  const groupedByEpicGroup: Group[] = [];
+  const [groupedByEpicGroup, setGroupedByEpicGroup] = useState<Group[]>([]);
 
-  issues.reduce((acc, issue) => {
-    const epicObj = epicList.find(
-      (cfg) => (cfg.type === 'epic' && cfg.epics?.includes(issue.EpicGroup ?? '')) ?? cfg.name === issue.EpicGroup
-    );
+  useEffect(() => {
+    const grouped = issues.reduce((acc, issue) => {
+      const epicObj = epicList.find(
+        (cfg) => (cfg.type === 'epic' && cfg.epics?.includes(issue.EpicGroup ?? '')) ?? cfg.name === issue.EpicGroup
+      );
+      if (epicObj) {
+        const existIndex = acc.findIndex((group) => group.label === issue.EpicGroup);
+        console.log(existIndex);
 
-    if (epicObj) {
-      const existIndex = acc.findIndex((group) => group.label === issue.EpicGroup);
-
-      if (existIndex === -1) {
-        acc.push({
-          label: epicObj.name,
-          count: 1,
-        });
-      } else {
-        acc[existIndex] !== undefined && acc[existIndex].count++;
+        if (existIndex === -1) {
+          acc = [
+            ...acc,
+            {
+              label: epicObj.name,
+              count: 1,
+            },
+          ];
+        } else {
+          acc[existIndex] !== undefined && acc[existIndex].count++;
+        }
       }
-    }
-
-    return acc;
-  }, [] as Group[]);
+      console.log(acc);
+      return acc;
+    }, [] as Group[]);
+    setGroupedByEpicGroup(grouped);
+    return () => {
+      setGroupedByEpicGroup([]);
+    };
+  }, [issues]);
 
   // issues.forEach((issue) => {
   //   const epicObj = epicList.find(
@@ -58,10 +66,10 @@ const GroupedByEpicGroup = ({ issues }: Props) => {
   console.log(groupedByEpicGroup);
 
   return (
-    <div>
+    <div className="flex justify-center gap-2 m-2">
       {groupedByEpicGroup.map((group) => {
         return (
-          <div key={group.label}>
+          <div key={group.label} className='border-2 p-2 border-blue-500 border-solid'>
             {group.label} - {group.count}
           </div>
         );
