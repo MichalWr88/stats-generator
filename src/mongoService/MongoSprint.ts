@@ -20,6 +20,9 @@ class MongoSprint extends Mongodb<SprintCollection> {
   public async getAllWithoutMongoObj(): Promise<ResponsSprint[]> {
     return this.model.find({}, { _id: 0, createdAt: 0, updatedAt: 0 }, { sort: { start: 1 }, lean: true });
   }
+  public async getOneByNSprintWithoutMongoObj(nr: number): Promise<ResponsSprint> {
+    return this.model.findOne({ nr }, { _id: 0, createdAt: 0, updatedAt: 0 }, { sort: { start: 1 }, lean: true });
+  }
 
   public async getAllPagination(pagination: PaginationRequest) {
     const query = [...queryPagination(pagination.page, pagination.pageSize)];

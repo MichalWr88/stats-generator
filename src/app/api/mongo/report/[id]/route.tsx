@@ -5,11 +5,11 @@ import { mongoSprint } from '@/mongoService';
 import { parseLocalDate } from '@/utils';
 import { sprintsToExcelStats } from '@/utils/SprintsMapper';
 
-export async function GET() {
+export async function GET(request: Request, { params }: { params: { id: string } }) {
   try {
-    const resp = await mongoSprint.getAllWithoutMongoObj();
+    const resp = await mongoSprint.getOneByNSprintWithoutMongoObj(Number(params.id));
     const json2csvParser = new Parser();
-    const csv = json2csvParser.parse(sprintsToExcelStats(resp) || []);
+    const csv = json2csvParser.parse(sprintsToExcelStats([resp]) || []);
     return new Response(csv, {
       status: 200,
       headers: {
