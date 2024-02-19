@@ -1,6 +1,7 @@
-"use client";
+'use client';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { SessionProvider } from 'next-auth/react';
 import { type ReactNode } from 'react';
 import { queryClient } from '@/api/queryClient';
 import ErrorBoundary from '@/utils/ReactBoundry';
@@ -14,12 +15,14 @@ type Props = {
 const GlobalWrapper = ({ children }: Props) => {
   return (
     <ErrorBoundary>
-      <QueryClientProvider client={queryClient}>
-        <Toast />
-        <Loader />
-        {children}
-        <ReactQueryDevtools initialIsOpen={false} />
-      </QueryClientProvider>
+      <SessionProvider>
+        <QueryClientProvider client={queryClient}>
+          <Toast />
+          <Loader />
+          {children}
+          <ReactQueryDevtools initialIsOpen={false} />
+        </QueryClientProvider>
+      </SessionProvider>
     </ErrorBoundary>
   );
 };
