@@ -39,6 +39,7 @@
     "mongoose": "^6.4.4",
     "msw": "^0.47.2",
     "next": "^13.5.6",
+    "next-auth": "^4.24.6",
     "next-connect": "1.0.0-next.2",
     "next-validations": "^0.2.1",
     "prettier": "^2.7.1",
