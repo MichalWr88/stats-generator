@@ -1,5 +1,6 @@
 import React from 'react';
 import { navBarData } from '@/data/routing';
+import ProfileButton from './Auth/ProfileButton';
 import NavLink from './NavLink';
 
 const NavBar = () => {
@@ -10,6 +11,7 @@ const NavBar = () => {
           return <NavLink link={link} key={link.id} />;
         })}
       </nav>
+      <ProfileButton />
     </header>
   );
 };

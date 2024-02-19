@@ -4,5 +4,6 @@ export interface NavLinkData {
   label: string;
   id: number;
   path: Route;
+  isAuth:boolean;
   // icon: IconType;
 }
