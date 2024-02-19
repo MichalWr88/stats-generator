@@ -1,4 +1,6 @@
 'use client';
+import { redirect } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 import React, { useState, useMemo } from 'react';
 import { type Column } from 'react-table';
 import SelectField from '@/components/Forms/SelectField';
@@ -12,7 +14,10 @@ import { type Issue } from '@/models/Sprint';
 
 const AddSprintPage = () => {
   const { data: epicList = [] } = useGetAppConfig('epic');
-
+  const { data: sessions } = useSession();
+  if (!sessions) {
+    redirect('/');
+  }
   const [data, setData] = useState<Array<Issue>>([]);
   const updateMyData = (value: string, rowIndex: number, columnId: keyof Issue) => {
     setData((old) =>

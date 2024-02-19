@@ -1,4 +1,6 @@
 'use client';
+import { redirect } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 import React, { useEffect, useMemo, useState } from 'react';
 import { type Column } from 'react-table';
 
@@ -8,14 +10,16 @@ import Table from './Table';
 
 const ConfigTable = () => {
   const { data } = useGetAppConfig();
+  const { data: sessions } = useSession();
+  if (!sessions) {
+    redirect('/');
+  }
   const [appConfig, setAppConfig] = useState<Array<AppConfigResponse>>([]);
-  // const [editSprint, setEditSprint] = useState<EditSprint>({ isOpen: false, sprint: undefined });
 
   useEffect(() => {
     if (!data) return;
 
     setAppConfig(() => data);
-    // setEditSprint({ isOpen: false, sprint: undefined });
     return () => {
       setAppConfig([]);
     };

@@ -1,4 +1,5 @@
 'use client';
+import { useSession } from 'next-auth/react';
 import React, { useEffect, useState, useMemo } from 'react';
 import { FaFileDownload } from 'react-icons/fa';
 import { type Column } from 'react-table';
@@ -22,7 +23,7 @@ const SprintListPage = () => {
   const { data } = useGetSprints();
   const [sprintsList, setSprintsList] = useState<Array<SprintWithStats>>([]);
   const [editSprint, setEditSprint] = useState<EditSprint>({ isOpen: false, sprint: undefined });
-
+  const { data: session } = useSession();
   useEffect(() => {
     if (!data) return;
     const list = [...data.data].sort((a, b) => {
@@ -191,6 +192,7 @@ const SprintListPage = () => {
         Cell: (cell: { row: { original: SprintWithStats } }) => (
           <div className="flex items-center justify-center">
             <Button
+              disabled={!session}
               type="outline"
               clickHandle={() => {
                 // eslint-disable-next-line @typescript-eslint/no-floating-promises
@@ -198,9 +200,10 @@ const SprintListPage = () => {
               }}
               className="flex items-center "
             >
-              <FaFileDownload className="text-xl" /> Issues
+              <FaFileDownload className="text-xl"/> <span >Issues</span>
             </Button>
             <Button
+              disabled={!session}
               clickHandle={() => {
                 setEditSprint({ isOpen: true, sprint: cell.row.original });
               }}
@@ -211,19 +214,21 @@ const SprintListPage = () => {
         ),
       },
     ],
-    []
+    [session]
   );
 
   return (
     <>
-      <Button
-        clickHandle={() => {
-          // eslint-disable-next-line @typescript-eslint/no-floating-promises
-          getAllSprintsCSV();
-        }}
-      >
-        download all sprints
-      </Button>
+      {session && (
+        <Button
+          clickHandle={() => {
+            // eslint-disable-next-line @typescript-eslint/no-floating-promises
+            getAllSprintsCSV();
+          }}
+        >
+          download all sprints
+        </Button>
+      )}
       <Table data={sprintsList} columns={columns} />
       {editSprint.isOpen && (
         <Modal
