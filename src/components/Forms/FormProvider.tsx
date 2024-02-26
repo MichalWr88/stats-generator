@@ -1,3 +1,4 @@
+'use client';
 import React, { type ReactNode } from 'react';
 import { useForm, FormProvider, type FieldValues, type Resolver, type DefaultValues } from 'react-hook-form';
 
@@ -15,10 +16,18 @@ interface Props<T extends FieldValues> {
 }
 
 const ReactFormProvider = <T extends FieldValues>({ children, onSubmit, defaultValues, resolver }: Props<T>) => {
-  const methods = useForm<T>({ defaultValues, resolver, reValidateMode: 'onBlur' });
+  const methods = useForm<T>({ defaultValues, resolver, reValidateMode: 'onBlur', mode: 'onSubmit' });
   return (
     <FormProvider {...methods}>
-      <form onSubmit={() => methods.handleSubmit((data) => onSubmit(data))}>{children}</form>
+      <form
+        // eslint-disable-next-line @typescript-eslint/no-misused-promises
+        onSubmit={async (event) => {
+          onSubmit(methods.getValues());
+          event.preventDefault();
+        }}
+      >
+        {children}
+      </form>
     </FormProvider>
   );
 };
