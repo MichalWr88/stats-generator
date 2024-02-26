@@ -14,7 +14,7 @@ const useGetAppConfig = (initType: RequestGetConfigType = null) => {
       return type;
     });
   }, []);
-  const { data } = useQuery(['config', type], () => getAppConfig(type), { staleTime: 60000 });
+  const { data } = useQuery(['config', type], () => getAppConfig(type), { staleTime: 900000 });
   return { data, updateType, type };
 };
 
