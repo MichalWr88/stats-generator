@@ -10,8 +10,8 @@ import Table from './Table';
 
 const ConfigTable = () => {
   const { data } = useGetAppConfig();
-  const { data: sessions } = useSession();
-  if (!sessions) {
+  const { status } = useSession();
+  if (status === 'unauthenticated') {
     redirect('/');
   }
   const [appConfig, setAppConfig] = useState<Array<AppConfigResponse>>([]);

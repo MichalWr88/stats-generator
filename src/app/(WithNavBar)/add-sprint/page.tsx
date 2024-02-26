@@ -14,11 +14,9 @@ import { type Issue } from '@/models/Sprint';
 
 const AddSprintPage = () => {
   const { data: epicList = [] } = useGetAppConfig('epic');
-  const { data: sessions } = useSession();
-  if (!sessions) {
-    redirect('/');
-  }
+  const { status } = useSession();
   const [data, setData] = useState<Array<Issue>>([]);
+
   const updateMyData = (value: string, rowIndex: number, columnId: keyof Issue) => {
     setData((old) =>
       old.map((row, index) => {
@@ -155,7 +153,10 @@ const AddSprintPage = () => {
     ],
     [epicList]
   );
-
+  if (status === 'unauthenticated') {
+    redirect('/');
+    return null;
+  }
   const addFile = (arr: Array<Issue>) => {
     setData(arr);
   };
