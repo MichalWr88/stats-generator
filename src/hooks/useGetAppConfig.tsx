@@ -1,10 +1,9 @@
 'use client';
 
-import { useQuery } from "@tanstack/react-query";
-import { useState, useCallback } from "react";
-import { getAppConfig } from "@/api/dataProvider";
-import { type RequestGetConfigType } from "@/models/AppConfig";
-
+import { useQuery } from '@tanstack/react-query';
+import { useState, useCallback } from 'react';
+import { getAppConfig } from '@/api/dataProvider';
+import { type RequestGetConfigType } from '@/models/AppConfig';
 
 const useGetAppConfig = (initType: RequestGetConfigType = null) => {
   const [type, setType] = useState<RequestGetConfigType>(initType);
@@ -14,7 +13,10 @@ const useGetAppConfig = (initType: RequestGetConfigType = null) => {
       return type;
     });
   }, []);
-  const { data } = useQuery(['config', type], () => getAppConfig(type), { staleTime: 900000 });
+  const { data } = useQuery(['config', type], () => getAppConfig(type), {
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+  });
   return { data, updateType, type };
 };
 
