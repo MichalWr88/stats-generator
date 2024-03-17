@@ -1,12 +1,6 @@
 import React, { useMemo, useEffect, useState } from 'react';
 import DatePicker from 'react-datepicker';
-import {
-  Controller,
-  type FieldError,
-  type FieldErrorsImpl,
-  type Merge,
-  useFormContext,
-} from 'react-hook-form';
+import { Controller, type FieldError, type FieldErrorsImpl, type Merge, useFormContext } from 'react-hook-form';
 import 'react-datepicker/dist/react-datepicker.css';
 import { toast } from 'react-hot-toast';
 type InputType = 'text' | 'number' | 'date';
@@ -16,9 +10,10 @@ type Props = {
   type?: InputType;
   className?: string;
   step?: string;
+  disabled?: boolean;
 };
 
-const InputField = ({ label, type = 'text', name, className, step = '1' }: Props) => {
+const InputField = ({ label, type = 'text', name, className, step = '1', disabled }: Props) => {
   const {
     register,
     control,
@@ -72,7 +67,7 @@ const InputField = ({ label, type = 'text', name, className, step = '1' }: Props
               <DatePicker
                 calendarStartDay={1}
                 className={
-                  'rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent' +
+                  'rounded-lg border-transparent flex-1 appearance-none border border-gray-500 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent' +
                   `${error?.message ? 'border-red-700' : ''}`
                 }
                 onChange={onChange}
@@ -85,15 +80,20 @@ const InputField = ({ label, type = 'text', name, className, step = '1' }: Props
         )}
         {type !== 'date' && (
           <input
+          disabled={disabled}
             {...register(name, {
               valueAsNumber: type === 'number',
             })}
             type={type}
             {...configInput}
-            className={
-              'rounded-lg  flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 ' +
-              `${error?.message ? 'border-b-4 border-b-red-500' : ''}`
-            }
+            className={`rounded-lg  flex-1 appearance-none border border-gray-400 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 
+              ${
+                !disabled
+                  ? ''
+                  : 'cursor-not-allowed bg-gray-400 text-gray-500  border-gray-400  transition-none ease-none'
+              }
+              ${error?.message ? 'border-b-4 border-b-red-500' : ''}
+              `}
           />
         )}
       </label>

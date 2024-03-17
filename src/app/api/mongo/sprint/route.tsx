@@ -8,6 +8,7 @@ export async function PUT(request: Request) {
   try {
     await sprintSchemaEdit.validate(body);
     const resp = await mongoSprint.editOne(body);
+  
     return NextResponse.json(resp, { status: 200 });
   } catch (error) {
     if (error instanceof MongoServerError) {

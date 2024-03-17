@@ -44,7 +44,7 @@ const SprintForm = ({ issues = [], sprint }: Props) => {
       }}
     >
       <div className="grid items-end justify-center grid-cols-10 grid-rows-3 gap-4 p-6 border-b-2 border-cyan-600">
-        <InputField label={'Numer sprintu'} name={'nr'} type="number" />
+        <InputField label={'Numer sprintu'} name={'nr'} type="number" disabled={!!sprint}/>
         <InputField label={'Zaplanowane'} name={'plan'} className={'col-span-2'} type="number" step=".5" />
         <InputField label={'Dowiezione'} name={'delivered'} className={'col-span-2'} type="number" step=".5" />
         <InputField label={'start sprintu'} name={'start'} className={'col-span-2'} type={'date'} />
