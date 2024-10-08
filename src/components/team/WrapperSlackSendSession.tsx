@@ -3,7 +3,7 @@
 import { useSession } from "next-auth/react";
 
 type Props = {
-    children: React.ReactNode;
+    children: React.JSX.Element;
 }
 
 const WrapperSlackSendSession = ({children}: Props) => {
