@@ -1,9 +1,10 @@
-export const parseLocalDate = (date: string | number | Date) => {
-  if (date instanceof Date) {
-    return date.toLocaleDateString('pl-PL', {
-      day: '2-digit',
-      month: '2-digit',
-    });
-  }
-  return date;
+
+export const getUniqueListBy = <T>(arr: Array<T>, key: keyof T): Array<T> => {
+  const map = new Map<T[keyof T], T>();
+  arr.forEach(item => {
+    if (!map.has(item[key])) {
+      map.set(item[key], item);
+    }
+  });
+  return Array.from(map.values());
 };

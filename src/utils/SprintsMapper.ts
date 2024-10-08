@@ -1,6 +1,6 @@
 
 import { type IssueExcel, type ResponsSprint, type SprintWithStats, type ExcelSprint, type Issue } from '@/models/Sprint';
-import { parseLocalDate } from '.';
+import { parseLocalDate } from '@/utils/dateHelpers';
 
 export const formatNumberForExcel = (value: string | number) => {
   return value.toString().split('.').join(',');

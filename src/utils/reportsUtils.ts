@@ -1,6 +1,6 @@
 import { downloadIssuesCSV, downloadAllSprintsCSV } from '@/api/dataProvider';
 import { type SprintWithStats } from '@/models/Sprint';
-import { parseLocalDate } from '.';
+import { parseLocalDate } from '@/utils/dateHelpers';
 
 export const getIssueCSV = async (sprint: SprintWithStats) => {
   await downloadIssuesCSV(Number(sprint.nr)).then((data) => {

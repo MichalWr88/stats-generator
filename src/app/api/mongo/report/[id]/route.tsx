@@ -2,8 +2,8 @@ import { Parser } from 'json2csv';
 import { MongoServerError } from 'mongodb';
 import { NextResponse } from 'next/server';
 import { mongoSprint } from '@/mongoService';
-import { parseLocalDate } from '@/utils';
 import { sprintsToExcelStats } from '@/utils/SprintsMapper';
+import { parseLocalDate } from '@/utils/dateHelpers';
 
 export async function GET(request: Request, { params }: { params: { id: string } }) {
   try {
