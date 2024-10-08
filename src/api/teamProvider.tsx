@@ -135,7 +135,8 @@ export const sendToSlack = async () => {
     .filter(({ weekNumber }) => weekNumber >= getCurrentWeekNumber())
     .slice(0, 4);
 
-  await fetch(process.env.SLACK_URL, {
+   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+   const resp = await fetch(process.env.SLACK_URL, {
     method: 'post',
     headers: {
       'Content-Type': 'application/json',
@@ -148,5 +149,7 @@ export const sendToSlack = async () => {
         nextPresentationPerson: presentationList[2].person.name,
       })
     ),
-  });
+  }).then((res) => res.json());
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+  return resp;
 };
