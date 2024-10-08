@@ -1,11 +1,13 @@
+"use client";
 import React, { type MouseEvent, type ReactNode } from 'react';
 
 type Props = {
   children: ReactNode;
   className?: string;
   // eslint-disable-next-line no-unused-vars
-  clickHandle: (event: MouseEvent<HTMLButtonElement>) => void;
+  clickHandle?: (event: MouseEvent<HTMLButtonElement>) => void;
   type?: 'outline' | 'bold';
+  formType?: 'submit' | 'button' | 'reset';
   rest?: object;
   disabled?: boolean;
 };
@@ -24,19 +26,19 @@ const getClassByType = (type: 'outline' | 'bold' | undefined) => {
   }
 };
 const Button = (props: Props) => {
-  const { className = '', children, clickHandle, type, rest = {} } = props;
+  const { className = '', children, clickHandle, type, rest = {},formType = "button",disabled } = props;
   return (
     <button
       className={`${primaryClassName} ${getClassByType(type)} ${className} ${
-        !props.disabled
+        !disabled
           ? ''
           : 'cursor-not-allowed bg-gray-400 text-gray-800 hover:bg-gray-400 border-gray-400 focus:bg-gray-400 focus:shadow-none focus:border-gray-400 active:bg-gray-400 active:shadow-none active:border-gray-400 transition-none ease-none'
       }`}
-      type="button"
-      onClick={(e) => (!props.disabled ? clickHandle(e) : null)}
+      type={formType}
+      onClick={(e) => (!disabled ? clickHandle?.(e) : null)}
       {...rest}
     >
-      {props.disabled}
+      {disabled}
       {children}
     </button>
   );
